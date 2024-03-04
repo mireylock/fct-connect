@@ -1,7 +1,7 @@
 package org.iesvdm.fctconnect.service;
 
 import org.iesvdm.fctconnect.domain.Solicitud;
-import org.iesvdm.fctconnect.exception.SolicitudNotFoundException;
+import org.iesvdm.fctconnect.exception.EntityNotFoundException;
 import org.iesvdm.fctconnect.repository.SolicitudRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -65,7 +65,7 @@ public class SolicitudService {
 
     public Solicitud one(Long id) {
         return this.solicitudRepository.findById(id)
-                .orElseThrow(() -> new SolicitudNotFoundException(id));
+                .orElseThrow(() -> new EntityNotFoundException(id, Solicitud.class));
     }
 
     public Solicitud replace(Long id, Solicitud solicitud) {
@@ -75,7 +75,7 @@ public class SolicitudService {
                     solicitud.setId(id); // si no se setea el id no lo guarda
                     return this.solicitudRepository.save(solicitud);
                 })
-                .orElseThrow(() -> new SolicitudNotFoundException(id));
+                .orElseThrow(() -> new EntityNotFoundException(id, Solicitud.class));
     }
 
     public void delete(Long id) {
@@ -83,7 +83,7 @@ public class SolicitudService {
                     this.solicitudRepository.delete(p);
                     return p;
                 })
-                .orElseThrow(() -> new SolicitudNotFoundException(id));
+                .orElseThrow(() -> new EntityNotFoundException(id, Solicitud.class));
     }
 }
 

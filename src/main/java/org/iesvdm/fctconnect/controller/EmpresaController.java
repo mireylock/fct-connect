@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
+
 @Slf4j
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -21,8 +23,21 @@ public class EmpresaController {
 
     @GetMapping(value = {"", "/"})
     public List<Empresa> all() {
-        log.info("Accediendo a todos los empresas");
+        log.info("Accediendo a todas las empresas");
         return this.empresaService.all();
+    }
+
+    //Para rutas: http://localhost:8080/empresas?buscar=nombre&order=desc
+//    @GetMapping(value = {"", "/"})
+//    public List<Empresa> all (Optional<String> buscar, Optional<String> order) {
+//        log.info("Accediendo a todas las categorías con filtro buscar y ordenar");
+//        return this.empresaService.all(buscar, order);
+//    }
+
+    @GetMapping(value = {"", "/"}, params = {"inglesSolicitado", "modalidadTrabajo"})
+    public List<Empresa> all (Optional<String> inglesSolicitado, Optional<String> modalidadTrabajo) {
+        log.info("Accediendo a todas las categorías con filtro buscar y ordenar");
+        return this.empresaService.all(inglesSolicitado, modalidadTrabajo);
     }
 
     @PostMapping({"", "/"})

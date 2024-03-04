@@ -37,10 +37,14 @@ class FctConnectApplicationTests {
 
         Empresa empresa1 = new Empresa();
         empresa1.setNombre("Accenture");
+        empresa1.setInglesSolicitado("importante");
+        empresa1.setModalidadTrabajo("presencial");
         this.empresaRepository.save(empresa1);
 
         Empresa empresa2 = new Empresa();
         empresa2.setNombre("Babel");
+        empresa2.setInglesSolicitado("importante");
+        empresa2.setModalidadTrabajo("hibrido");
         this.empresaRepository.save(empresa2);
 
         Alumno alumno1 = new Alumno();

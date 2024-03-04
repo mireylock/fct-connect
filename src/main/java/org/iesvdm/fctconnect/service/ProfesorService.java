@@ -1,7 +1,7 @@
 package org.iesvdm.fctconnect.service;
 
 import org.iesvdm.fctconnect.domain.Profesor;
-import org.iesvdm.fctconnect.exception.ProfesorNotFoundException;
+import org.iesvdm.fctconnect.exception.EntityNotFoundException;
 import org.iesvdm.fctconnect.repository.ProfesorRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -65,7 +65,7 @@ public class ProfesorService {
 
     public Profesor one(Long id) {
         return this.profesorRepository.findById(id)
-                .orElseThrow(() -> new ProfesorNotFoundException(id));
+                .orElseThrow(() -> new EntityNotFoundException(id, Profesor.class));
     }
 
     public Profesor replace(Long id, Profesor profesor) {
@@ -75,7 +75,7 @@ public class ProfesorService {
                     profesor.setId(id); // si no se setea el id no lo guarda
                     return this.profesorRepository.save(profesor);
                 })
-                .orElseThrow(() -> new ProfesorNotFoundException(id));
+                .orElseThrow(() -> new EntityNotFoundException(id, Profesor.class));
     }
 
     public void delete(Long id) {
@@ -83,6 +83,6 @@ public class ProfesorService {
                     this.profesorRepository.delete(p);
                     return p;
                 })
-                .orElseThrow(() -> new ProfesorNotFoundException(id));
+                .orElseThrow(() -> new EntityNotFoundException(id, Profesor.class));
     }
 }

@@ -1,7 +1,7 @@
 package org.iesvdm.fctconnect.service;
 
 import org.iesvdm.fctconnect.domain.Alumno;
-import org.iesvdm.fctconnect.exception.AlumnoNotFoundException;
+import org.iesvdm.fctconnect.exception.EntityNotFoundException;
 import org.iesvdm.fctconnect.repository.AlumnoRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @Service
 public class AlumnoService {
@@ -66,7 +65,7 @@ public class AlumnoService {
 
     public Alumno one(Long id) {
         return this.alumnoRepository.findById(id)
-                .orElseThrow(() -> new AlumnoNotFoundException(id));
+                .orElseThrow(() -> new EntityNotFoundException(id, Alumno.class));
     }
 
     public Alumno replace(Long id, Alumno alumno) {
@@ -76,7 +75,7 @@ public class AlumnoService {
                     alumno.setId(id); // si no se setea el id no lo guarda
                     return this.alumnoRepository.save(alumno);
                 })
-                .orElseThrow(() -> new AlumnoNotFoundException(id));
+                .orElseThrow(() -> new EntityNotFoundException(id, Alumno.class));
     }
 
     public void delete(Long id) {
@@ -84,7 +83,7 @@ public class AlumnoService {
                     this.alumnoRepository.delete(p);
                     return p;
                 })
-                .orElseThrow(() -> new AlumnoNotFoundException(id));
+                .orElseThrow(() -> new EntityNotFoundException(id, Alumno.class));
     }
 }
 
