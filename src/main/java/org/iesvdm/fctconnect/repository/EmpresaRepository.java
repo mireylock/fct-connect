@@ -18,10 +18,10 @@ public interface EmpresaRepository extends JpaRepository<Empresa, Long> {
 
     List<Empresa> findEmpresaByNombreContainingIgnoreCase(String buscar);
 
-    List<Empresa> findEmpresaByInglesSolicitadoAndModalidadTrabajo(String inglesSolicitado, String modalidadTrabajo);
+    List<Empresa> findEmpresaByInglesSolicitadoContainingIgnoreCaseAndModalidadTrabajoContainingIgnoreCase(String inglesSolicitado, String modalidadTrabajo);
 
-    List<Empresa> findEmpresaByInglesSolicitado(String inglesSolicitado);
+    List<Empresa> findEmpresaByInglesSolicitadoContainingIgnoreCase(String inglesSolicitado);
 
-    List<Empresa> findEmpresaByModalidadTrabajo(String modalidadTrabajo);
+    List<Empresa> findEmpresaByModalidadTrabajoContainingIgnoreCase(String modalidadTrabajo);
 
 }

@@ -21,23 +21,26 @@ public class EmpresaController {
     }
 
 
-    @GetMapping(value = {"", "/"})
+    @GetMapping(value = {"", "/"}, params = {"!inglesSolicitado", "!modalidadTrabajo", "!buscar", "!order"})
     public List<Empresa> all() {
         log.info("Accediendo a todas las empresas");
         return this.empresaService.all();
     }
 
-    //Para rutas: http://localhost:8080/empresas?buscar=nombre&order=desc
-//    @GetMapping(value = {"", "/"})
-//    public List<Empresa> all (Optional<String> buscar, Optional<String> order) {
-//        log.info("Accediendo a todas las categorías con filtro buscar y ordenar");
-//        return this.empresaService.all(buscar, order);
-//    }
+    // http://localhost:8080/empresas?buscar=nombre&order=desc
+    @GetMapping(value = {"", "/"}, params = {"!inglesSolicitado", "!modalidadTrabajo"})
+    public List<Empresa> buscarPorNombre (Optional<String> buscar, Optional<String> order) {
+        log.info("Accediendo a todas las categorías con filtro buscar por nombre y ordenar");
+        return this.empresaService.buscarPorNombre(buscar, order);
+    }
 
-    @GetMapping(value = {"", "/"}, params = {"inglesSolicitado", "modalidadTrabajo"})
-    public List<Empresa> all (Optional<String> inglesSolicitado, Optional<String> modalidadTrabajo) {
-        log.info("Accediendo a todas las categorías con filtro buscar y ordenar");
-        return this.empresaService.all(inglesSolicitado, modalidadTrabajo);
+    // http://localhost:8080/empresas?inglesSolicitado=ingles&modalidadTrabajo=modalidad
+    // http://localhost:8080/empresas?inglesSolicitado=ingles
+    // http://localhost:8080/empresas?modalidadTrabajo=modalidad
+    @GetMapping(value = {"", "/"}, params = {"!buscar", "!order"})
+    public List<Empresa> buscarPorInglesYModalidad (Optional<String> inglesSolicitado, Optional<String> modalidadTrabajo) {
+        log.info("Accediendo a todas las categorías con filtro por inglés solicitado y modalidad de trabajo");
+        return this.empresaService.buscarPorInglesYModalidad(inglesSolicitado, modalidadTrabajo);
     }
 
     @PostMapping({"", "/"})

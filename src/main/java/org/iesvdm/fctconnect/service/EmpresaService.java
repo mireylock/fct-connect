@@ -26,51 +26,51 @@ public class EmpresaService {
         return this.empresaRepository.findAll();
     }
 
-//    public List<Empresa> all(Optional<String> buscarOpt, Optional<String> ordenarOpt) {
-//        if (buscarOpt.isPresent() && ordenarOpt.isPresent()) {
-//            if (ordenarOpt.get().equals("asc")) {
-//                return this.empresaRepository.findEmpresaByNombreContainingIgnoreCaseOrderByNombreAsc(buscarOpt.get());
-//            } else if (buscarOpt.get().equals("desc")){
-//                return this.empresaRepository.findEmpresaByNombreContainingIgnoreCaseOrderByNombreDesc(buscarOpt.get());
-//            }
-//        } else if (!buscarOpt.isPresent() && ordenarOpt.isPresent()) {
-//            if (ordenarOpt.get().equals("asc")) {
-//                return this.empresaRepository.findAllByOrderByNombreAsc();
-//            } else if (buscarOpt.get().equals("desc")){
-//                return this.empresaRepository.findAllByOrderByNombreDesc();
-//            }
-//        } else if (buscarOpt.isPresent() && !ordenarOpt.isPresent()) {
-//            return this.empresaRepository.findEmpresaByNombreContainingIgnoreCase(buscarOpt.get());
-//        }
-//        return this.empresaRepository.findAll();
-//    }
+    public List<Empresa> buscarPorNombre (Optional<String> buscarOpt, Optional<String> ordenarOpt) {
+        if (buscarOpt.isPresent() && ordenarOpt.isPresent()) {
+            if (ordenarOpt.get().equals("asc")) {
+                return this.empresaRepository.findEmpresaByNombreContainingIgnoreCaseOrderByNombreAsc(buscarOpt.get());
+            } else if (buscarOpt.get().equals("desc")){
+                return this.empresaRepository.findEmpresaByNombreContainingIgnoreCaseOrderByNombreDesc(buscarOpt.get());
+            }
+        } else if (!buscarOpt.isPresent() && ordenarOpt.isPresent()) {
+            if (ordenarOpt.get().equals("asc")) {
+                return this.empresaRepository.findAllByOrderByNombreAsc();
+            } else if (buscarOpt.get().equals("desc")){
+                return this.empresaRepository.findAllByOrderByNombreDesc();
+            }
+        } else if (buscarOpt.isPresent() && !ordenarOpt.isPresent()) {
+            return this.empresaRepository.findEmpresaByNombreContainingIgnoreCase(buscarOpt.get());
+        }
+        return this.empresaRepository.findAll();
+    }
 
-    public List<Empresa> all(Optional<String> inglesSolicitado, Optional<String> modalidadTrabajo) {
+    public List<Empresa> buscarPorInglesYModalidad (Optional<String> inglesSolicitado, Optional<String> modalidadTrabajo) {
         if (inglesSolicitado.isPresent() && modalidadTrabajo.isPresent()) {
-            return this.empresaRepository.findEmpresaByInglesSolicitadoAndModalidadTrabajo(inglesSolicitado.get(), modalidadTrabajo.get());
+            return this.empresaRepository.findEmpresaByInglesSolicitadoContainingIgnoreCaseAndModalidadTrabajoContainingIgnoreCase(inglesSolicitado.get(), modalidadTrabajo.get());
         } else if (inglesSolicitado.isPresent() && !modalidadTrabajo.isPresent()) {
-            return this.empresaRepository.findEmpresaByInglesSolicitado(inglesSolicitado.get());
+            return this.empresaRepository.findEmpresaByInglesSolicitadoContainingIgnoreCase(inglesSolicitado.get());
         } else if (!inglesSolicitado.isPresent() && modalidadTrabajo.isPresent()) {
-            return this.empresaRepository.findEmpresaByModalidadTrabajo(modalidadTrabajo.get());
+            return this.empresaRepository.findEmpresaByModalidadTrabajoContainingIgnoreCase(modalidadTrabajo.get());
         }
 
         return this.empresaRepository.findAll();
     }
 
 
-        public Map<String, Object> all(int pagina, int tamanio) {
-        Pageable paginado = PageRequest.of(pagina, tamanio, Sort.by("id").ascending());
-        Page<Empresa> pageAll = this.empresaRepository.findAll(paginado);
-
-        Map<String, Object> response = new HashMap<>();
-
-        response.put("empresas", pageAll.getContent());
-        response.put("currentPage", pageAll.getNumber());
-        response.put("totalItems", pageAll.getTotalElements());
-        response.put("totalPages", pageAll.getTotalPages());
-
-        return response;
-    }
+//    public Map<String, Object> all(int pagina, int tamanio) {
+//        Pageable paginado = PageRequest.of(pagina, tamanio, Sort.by("id").ascending());
+//        Page<Empresa> pageAll = this.empresaRepository.findAll(paginado);
+//
+//        Map<String, Object> response = new HashMap<>();
+//
+//        response.put("empresas", pageAll.getContent());
+//        response.put("currentPage", pageAll.getNumber());
+//        response.put("totalItems", pageAll.getTotalElements());
+//        response.put("totalPages", pageAll.getTotalPages());
+//
+//        return response;
+//    }
 
     public Empresa save(Empresa empresa) {
         return this.empresaRepository.save(empresa);
