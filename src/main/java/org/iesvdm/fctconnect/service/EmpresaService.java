@@ -58,19 +58,24 @@ public class EmpresaService {
     }
 
 
-//    public Map<String, Object> all(int pagina, int tamanio) {
-//        Pageable paginado = PageRequest.of(pagina, tamanio, Sort.by("id").ascending());
-//        Page<Empresa> pageAll = this.empresaRepository.findAll(paginado);
-//
-//        Map<String, Object> response = new HashMap<>();
-//
-//        response.put("empresas", pageAll.getContent());
-//        response.put("currentPage", pageAll.getNumber());
-//        response.put("totalItems", pageAll.getTotalElements());
-//        response.put("totalPages", pageAll.getTotalPages());
-//
-//        return response;
-//    }
+    public Map<String, Object> paginacion (String[] paginado) {
+        int pagina = Integer.parseInt(paginado[0]);
+        int tamanio =  Integer.parseInt(paginado[1]);
+
+        Pageable paginacion = PageRequest.of(pagina, tamanio, Sort.by("id").ascending());
+        Page<Empresa> pageAll = this.empresaRepository.findAll(paginacion);
+
+        Map<String, Object> response = new HashMap<>();
+
+        response.put("empresas", pageAll.getContent());
+        response.put("currentPage", pageAll.getNumber());
+        response.put("totalItems", pageAll.getTotalElements());
+        response.put("totalPages", pageAll.getTotalPages());
+
+        return response;
+    }
+
+
 
     public Empresa save(Empresa empresa) {
         return this.empresaRepository.save(empresa);

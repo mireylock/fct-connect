@@ -4,9 +4,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.iesvdm.fctconnect.domain.Empresa;
 import org.iesvdm.fctconnect.service.EmpresaService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Slf4j
@@ -21,26 +23,34 @@ public class EmpresaController {
     }
 
 
-    @GetMapping(value = {"", "/"}, params = {"!inglesSolicitado", "!modalidadTrabajo", "!buscar", "!order"})
+    @GetMapping(value = {"", "/"}, params = {"!inglesSolicitado", "!modalidadTrabajo", "!buscar", "!order", "!paginacion"})
     public List<Empresa> all() {
         log.info("Accediendo a todas las empresas");
         return this.empresaService.all();
     }
 
-    // http://localhost:8080/empresas?buscar=nombre&order=desc
-    @GetMapping(value = {"", "/"}, params = {"!inglesSolicitado", "!modalidadTrabajo"})
+    // http://localhost:8080/v1/api/empresas?buscar=nombre&order=desc
+    @GetMapping(value = {"", "/"}, params = {"!inglesSolicitado", "!modalidadTrabajo", "!paginacion"})
     public List<Empresa> buscarPorNombre (Optional<String> buscar, Optional<String> order) {
         log.info("Accediendo a todas las categorías con filtro buscar por nombre y ordenar");
         return this.empresaService.buscarPorNombre(buscar, order);
     }
 
-    // http://localhost:8080/empresas?inglesSolicitado=ingles&modalidadTrabajo=modalidad
-    // http://localhost:8080/empresas?inglesSolicitado=ingles
-    // http://localhost:8080/empresas?modalidadTrabajo=modalidad
-    @GetMapping(value = {"", "/"}, params = {"!buscar", "!order"})
+    // http://localhost:8080/v1/api/empresas?inglesSolicitado=ingles&modalidadTrabajo=modalidad
+    // http://localhost:8080/v1/api/empresas?inglesSolicitado=ingles
+    // http://localhost:8080/v1/api/empresas?modalidadTrabajo=modalidad
+    @GetMapping(value = {"", "/"}, params = {"!buscar", "!order", "!paginacion"})
     public List<Empresa> buscarPorInglesYModalidad (Optional<String> inglesSolicitado, Optional<String> modalidadTrabajo) {
         log.info("Accediendo a todas las categorías con filtro por inglés solicitado y modalidad de trabajo");
         return this.empresaService.buscarPorInglesYModalidad(inglesSolicitado, modalidadTrabajo);
+    }
+
+    // http://localhost:8080/v1/api/empresas?paginacion=0,1
+    @GetMapping(value = {"", "/"})
+    public ResponseEntity<Map<String, Object>> paginacion (@RequestParam(value="paginacion", defaultValue = "0") String[] paginado) {
+        log.info("Accediendo a empresas con paginación");
+        Map<String, Object> responseAll = this.empresaService.paginacion(paginado);
+        return ResponseEntity.ok(responseAll);
     }
 
     @PostMapping({"", "/"})
