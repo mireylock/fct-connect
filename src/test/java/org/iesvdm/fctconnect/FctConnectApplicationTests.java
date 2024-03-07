@@ -23,6 +23,8 @@ class FctConnectApplicationTests {
     SolicitudRepository solicitudRepository;
     @Autowired
     ProfesorTutorizaAlumnoRepository profesorTutorizaAlumnoRepository;
+    @Autowired
+    IdiomaRepository idiomaRepository;
 
     @Test
     void contextLoads() {
@@ -47,14 +49,35 @@ class FctConnectApplicationTests {
         empresa2.setModalidadTrabajo("hibrido");
         this.empresaRepository.save(empresa2);
 
+        Idioma idioma1 = new Idioma();
+        idioma1.setNombre("Inglés");
+        idiomaRepository.save(idioma1);
+
+        Idioma idioma2 = new Idioma();
+        idioma2.setNombre("Francés");
+        idiomaRepository.save(idioma2);
+
+        Idioma idioma3 = new Idioma();
+        idioma3.setNombre("Alemán");
+        idiomaRepository.save(idioma3);
+
         Alumno alumno1 = new Alumno();
         alumno1.setNombre("Todd");
         alumno1.setApellido1("Anderson");
+        Set<Idioma> idiomasAlu1 = new HashSet<>();
+        idiomasAlu1.add(idioma1);
+        idiomasAlu1.add(idioma2);
+        alumno1.setIdiomas(idiomasAlu1);
         this.alumnoRepository.save(alumno1);
 
         Alumno alumno2 = new Alumno();
         alumno2.setNombre("Neil");
         alumno2.setApellido1("Perry");
+        Set<Idioma> idiomasAlu2 = new HashSet<>();
+        idiomasAlu2.add(idioma1);
+        idiomasAlu2.add(idioma2);
+        idiomasAlu2.add(idioma3);
+        alumno2.setIdiomas(idiomasAlu2);
         this.alumnoRepository.save(alumno2);
 
         Solicitud solAlu1 = new Solicitud();
