@@ -8,7 +8,9 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name="alumno")
@@ -47,6 +49,14 @@ public class Alumno {
     @OneToMany(mappedBy = "alumno")
     @JsonIgnore
     private List<ProfesorTutorizaAlumno> profesorTutorizaAlumnos;
+
+    @ManyToMany (fetch = FetchType.EAGER)
+    //@JsonIgnore
+    @JoinTable(
+            name = "alumno_habla_idioma",
+            joinColumns = @JoinColumn(name = "id_alumno", referencedColumnName = "id_alumno"),
+            inverseJoinColumns = @JoinColumn(name = "id_idioma", referencedColumnName = "id_idioma"))
+    private Set<Idioma> idiomas = new HashSet<>();
 
 
 
