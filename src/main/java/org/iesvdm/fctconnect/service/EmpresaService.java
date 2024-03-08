@@ -1,5 +1,6 @@
 package org.iesvdm.fctconnect.service;
 
+import jakarta.persistence.Query;
 import org.iesvdm.fctconnect.domain.Empresa;
 import org.iesvdm.fctconnect.exception.EntityNotFoundException;
 import org.iesvdm.fctconnect.repository.EmpresaRepository;
@@ -9,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -74,6 +76,8 @@ public class EmpresaService {
 
         return response;
     }
+
+
 
 
 

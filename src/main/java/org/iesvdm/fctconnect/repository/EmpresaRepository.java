@@ -1,10 +1,14 @@
 package org.iesvdm.fctconnect.repository;
 
 import org.iesvdm.fctconnect.domain.Empresa;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface EmpresaRepository extends JpaRepository<Empresa, Long> {
@@ -23,5 +27,8 @@ public interface EmpresaRepository extends JpaRepository<Empresa, Long> {
     List<Empresa> findEmpresaByInglesSolicitadoContainingIgnoreCase(String inglesSolicitado);
 
     List<Empresa> findEmpresaByModalidadTrabajoContainingIgnoreCase(String modalidadTrabajo);
+
+    public List<Empresa> buscarEmpresaPaginacion (Optional<String> nombreOpt, Optional<String> modalidadTrabajoOpt, Optional<String> inglesSolicitadoOpt, Optional<String> orderOpt, Pageable pageable);
+
 
 }
