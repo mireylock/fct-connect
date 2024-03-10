@@ -23,35 +23,52 @@ public class EmpresaController {
     }
 
 
-    @GetMapping(value = {"", "/"}, params = {"!inglesSolicitado", "!modalidadTrabajo", "!buscar", "!order", "!paginacion"})
+    @GetMapping(value = {"", "/"}, params = {"!nombre", "!modalidadTrabajo", "!inglesSolicitado", "!order"})
     public List<Empresa> all() {
         log.info("Accediendo a todas las empresas");
         return this.empresaService.all();
     }
 
-    // http://localhost:8080/v1/api/empresas?buscar=nombre&order=desc
-    @GetMapping(value = {"", "/"}, params = {"!inglesSolicitado", "!modalidadTrabajo", "!paginacion"})
-    public List<Empresa> buscarPorNombre (Optional<String> buscar, Optional<String> order) {
-        log.info("Accediendo a todas las categorías con filtro buscar por nombre y ordenar");
-        return this.empresaService.buscarPorNombre(buscar, order);
+    // http://localhost:8080/v1/api/empresas?nombre=nombre&modalidadTrabajo=online&inglesSolicitado=importante&order=asc&pagina=0&tamanio=2
+    @GetMapping(value = {"", "/"})
+    public Map<String, Object> buscarEmpresaPaginacion (Optional<String> nombre, Optional<String> modalidadTrabajo, Optional<String> inglesSolicitado, Optional<String> order, Optional<Integer> pagina, Optional<Integer> tamanio) {
+        log.info("Accediendo a empresas con filtros");
+        return this.empresaService.buscarEmpresaPaginacion(nombre, modalidadTrabajo, inglesSolicitado, order, pagina, tamanio);
     }
+
+
+
+    // Búsquedas por nombre por ingles+modalidad de trabajo y paginación
+
+//    @GetMapping(value = {"", "/"}, params = {"!inglesSolicitado", "!modalidadTrabajo", "!buscar", "!order", "!paginacion"})
+//    public List<Empresa> all() {
+//        log.info("Accediendo a todas las empresas");
+//        return this.empresaService.all();
+//    }
+
+    // http://localhost:8080/v1/api/empresas?buscar=nombre&order=desc
+//    @GetMapping(value = {"", "/"}, params = {"!inglesSolicitado", "!modalidadTrabajo", "!paginacion"})
+//    public List<Empresa> buscarPorNombre (Optional<String> buscar, Optional<String> order) {
+//        log.info("Accediendo a todas las categorías con filtro buscar por nombre y ordenar");
+//        return this.empresaService.buscarPorNombre(buscar, order);
+//    }
 
     // http://localhost:8080/v1/api/empresas?inglesSolicitado=ingles&modalidadTrabajo=modalidad
     // http://localhost:8080/v1/api/empresas?inglesSolicitado=ingles
     // http://localhost:8080/v1/api/empresas?modalidadTrabajo=modalidad
-    @GetMapping(value = {"", "/"}, params = {"!buscar", "!order", "!paginacion"})
-    public List<Empresa> buscarPorInglesYModalidad (Optional<String> inglesSolicitado, Optional<String> modalidadTrabajo) {
-        log.info("Accediendo a todas las categorías con filtro por inglés solicitado y modalidad de trabajo");
-        return this.empresaService.buscarPorInglesYModalidad(inglesSolicitado, modalidadTrabajo);
-    }
+//    @GetMapping(value = {"", "/"}, params = {"!buscar", "!order", "!paginacion"})
+//    public List<Empresa> buscarPorInglesYModalidad (Optional<String> inglesSolicitado, Optional<String> modalidadTrabajo) {
+//        log.info("Accediendo a todas las categorías con filtro por inglés solicitado y modalidad de trabajo");
+//        return this.empresaService.buscarPorInglesYModalidad(inglesSolicitado, modalidadTrabajo);
+//    }
 
     // http://localhost:8080/v1/api/empresas?paginacion=0,1
-    @GetMapping(value = {"", "/"})
-    public ResponseEntity<Map<String, Object>> paginacion (@RequestParam(value="paginacion", defaultValue = "0") String[] paginado) {
-        log.info("Accediendo a empresas con paginación");
-        Map<String, Object> responseAll = this.empresaService.paginacion(paginado);
-        return ResponseEntity.ok(responseAll);
-    }
+//    @GetMapping(value = {"", "/"})
+//    public ResponseEntity<Map<String, Object>> paginacion (@RequestParam(value="paginacion", defaultValue = "0") String[] paginado) {
+//        log.info("Accediendo a empresas con paginación");
+//        Map<String, Object> responseAll = this.empresaService.paginacion(paginado);
+//        return ResponseEntity.ok(responseAll);
+//    }
 
     @PostMapping({"", "/"})
     public Empresa newEmpresa(@RequestBody Empresa empresa) {

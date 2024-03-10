@@ -51,7 +51,7 @@ public class Alumno {
     private List<ProfesorTutorizaAlumno> profesorTutorizaAlumnos;
 
     @ManyToMany (fetch = FetchType.EAGER)
-    //@JsonIgnore
+    @JsonIgnore
     @JoinTable(
             name = "alumno_habla_idioma",
             joinColumns = @JoinColumn(name = "id_alumno", referencedColumnName = "id_alumno"),

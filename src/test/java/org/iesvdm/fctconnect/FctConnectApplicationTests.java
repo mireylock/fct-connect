@@ -40,7 +40,7 @@ class FctConnectApplicationTests {
         Empresa empresa1 = new Empresa();
         empresa1.setNombre("Accenture");
         empresa1.setInglesSolicitado("importante");
-        empresa1.setModalidadTrabajo("presencial");
+        empresa1.setModalidadTrabajo("online");
         this.empresaRepository.save(empresa1);
 
         Empresa empresa2 = new Empresa();
@@ -48,6 +48,54 @@ class FctConnectApplicationTests {
         empresa2.setInglesSolicitado("importante");
         empresa2.setModalidadTrabajo("hibrido");
         this.empresaRepository.save(empresa2);
+
+        Empresa empresa3 = new Empresa();
+        empresa3.setNombre("Indra");
+        empresa3.setInglesSolicitado("no necesario");
+        empresa3.setModalidadTrabajo("presencial");
+        this.empresaRepository.save(empresa3);
+
+        Empresa empresa4 = new Empresa();
+        empresa4.setNombre("Innovatech");
+        empresa4.setInglesSolicitado("imprescindible");
+        empresa4.setModalidadTrabajo("presencial");
+        this.empresaRepository.save(empresa4);
+
+        Empresa empresa5 = new Empresa();
+        empresa5.setNombre("TechBridge");
+        empresa5.setInglesSolicitado("importante");
+        empresa5.setModalidadTrabajo("online");
+        this.empresaRepository.save(empresa5);
+
+        Empresa empresa6 = new Empresa();
+        empresa6.setNombre("TechWorks");
+        empresa6.setInglesSolicitado("importante");
+        empresa6.setModalidadTrabajo("hibrido");
+        this.empresaRepository.save(empresa6);
+
+        Empresa empresa7 = new Empresa();
+        empresa7.setNombre("CloudConnect");
+        empresa7.setInglesSolicitado("imprescindible");
+        empresa7.setModalidadTrabajo("presencial");
+        this.empresaRepository.save(empresa7);
+
+        Empresa empresa8 = new Empresa();
+        empresa8.setNombre("DataMinds");
+        empresa8.setInglesSolicitado("importante");
+        empresa8.setModalidadTrabajo("online");
+        this.empresaRepository.save(empresa8);
+
+        Empresa empresa9 = new Empresa();
+        empresa9.setNombre("InTech");
+        empresa9.setInglesSolicitado("imprescindible");
+        empresa9.setModalidadTrabajo("hibrido");
+        this.empresaRepository.save(empresa9);
+
+        Empresa empresa10 = new Empresa();
+        empresa10.setNombre("WebSolutions");
+        empresa10.setInglesSolicitado("importante");
+        empresa10.setModalidadTrabajo("presencial");
+        this.empresaRepository.save(empresa10);
 
         Idioma idioma1 = new Idioma();
         idioma1.setNombre("Inglés");
