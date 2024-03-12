@@ -3,10 +3,13 @@ package org.iesvdm.fctconnect.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.iesvdm.fctconnect.domain.Profesor;
 import org.iesvdm.fctconnect.service.ProfesorService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @RestController
@@ -19,12 +22,30 @@ public class ProfesorController {
         this.profesorService = profesorService;
     }
 
-
-    @GetMapping(value = {"", "/"})
+    @GetMapping(value = {"", "/"}, params = {"!buscar-por-nombre"})
     public List<Profesor> all() {
         log.info("Accediendo a todos los profesores");
         return this.profesorService.all();
     }
+
+    @GetMapping(value = {"","/"})
+    public Page<Profesor> filtradoPorNombreConPaginacion(@RequestParam("buscar-por-nombre") String buscarPorNombre, Pageable pageable) {
+        log.info("Accediendo a todas las categorías por buscar-por-nombre:" + buscarPorNombre);
+        return this.profesorService.filtradoPorNombreConPaginacion(Optional.of(buscarPorNombre), pageable);
+    }
+
+
+//    @GetMapping(value = {"", "/"})
+//    public List<Profesor> all(Optional<String> buscar, Optional<String> order) {
+//        log.info("Accediendo a profesores con filtro buscar y order");
+//        return this.profesorService.all();
+//    }
+//
+//    @GetMapping(value = {"", "/"})
+//    public List<Profesor> all(int pagina, int tamanio) {
+//        log.info("Accediendo a todos los profesores");
+//        return this.profesorService.all();
+//    }
 
     @PostMapping({"", "/"})
     public Profesor newProfesor(@RequestBody Profesor profesor) {

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class ProfesorService {
@@ -24,6 +25,12 @@ public class ProfesorService {
     public List<Profesor> all() {
         return this.profesorRepository.findAll();
     }
+
+    public Page<Profesor> filtradoPorNombreConPaginacion(Optional<String> nombreABuscar, Pageable pageable) {
+        return this.profesorRepository.paginacionPorNombreContenido(nombreABuscar.orElse(""), pageable);
+    }
+
+
 
 //    public List<Profesor> all(Optional<String> buscarOpt, Optional<String> ordenarOpt) {
 //        if (buscarOpt.isPresent() && ordenarOpt.isPresent()) {
@@ -44,20 +51,20 @@ public class ProfesorService {
 //            return this.profesorRepository.findAll();
 //        }
 //    }
-
-    public Map<String, Object> all(int pagina, int tamanio) {
-        Pageable paginado = PageRequest.of(pagina, tamanio, Sort.by("id").ascending());
-        Page<Profesor> pageAll = this.profesorRepository.findAll(paginado);
-
-        Map<String, Object> response = new HashMap<>();
-
-        response.put("profesores", pageAll.getContent());
-        response.put("currentPage", pageAll.getNumber());
-        response.put("totalItems", pageAll.getTotalElements());
-        response.put("totalPages", pageAll.getTotalPages());
-
-        return response;
-    }
+//
+//    public Map<String, Object> all(int pagina, int tamanio) {
+//        Pageable paginado = PageRequest.of(pagina, tamanio, Sort.by("id").ascending());
+//        Page<Profesor> pageAll = this.profesorRepository.findAll(paginado);
+//
+//        Map<String, Object> response = new HashMap<>();
+//
+//        response.put("profesores", pageAll.getContent());
+//        response.put("currentPage", pageAll.getNumber());
+//        response.put("totalItems", pageAll.getTotalElements());
+//        response.put("totalPages", pageAll.getTotalPages());
+//
+//        return response;
+//    }
 
     public Profesor save(Profesor profesor) {
         return this.profesorRepository.save(profesor);

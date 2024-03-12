@@ -31,12 +31,66 @@ class FctConnectApplicationTests {
     }
 
     @Test
-    void crearProfesorAlumno() {
+    void cargaInicialBbdd() {
         Profesor profe1 = new Profesor();
         profe1.setNombre("Jose Manuel");
         profe1.setApellido1("Evangelizador");
         profe1.setApellido2("En Java");
         this.profesorRepository.save(profe1);
+
+        Profesor profe2 = new Profesor();
+        profe2.setNombre("Eustaquio");
+        profe2.setApellido1("Montañez");
+        profe2.setApellido2("del Valle");
+        this.profesorRepository.save(profe2);
+
+        Profesor profe3 = new Profesor();
+        profe3.setNombre("Jose");
+        profe3.setApellido1("Rodríguez");
+        profe3.setApellido2("de la Fuente");
+        this.profesorRepository.save(profe3);
+
+        Profesor profe4 = new Profesor();
+        profe4.setNombre("Anacleto");
+        profe4.setApellido1("García");
+        profe4.setApellido2("Martínez");
+        this.profesorRepository.save(profe4);
+
+        Profesor profe5 = new Profesor();
+        profe5.setNombre("Fausto");
+        profe5.setApellido1("López");
+        profe5.setApellido2("Sánchez");
+        this.profesorRepository.save(profe5);
+
+        Profesor profe6 = new Profesor();
+        profe6.setNombre("Fulgencio");
+        profe6.setApellido1("Martín");
+        profe6.setApellido2("González");
+        this.profesorRepository.save(profe6);
+
+        Profesor profe7 = new Profesor();
+        profe7.setNombre("Protasio");
+        profe7.setApellido1("Hernández");
+        profe7.setApellido2("Gutiérrez");
+        this.profesorRepository.save(profe7);
+
+        Profesor profe8 = new Profesor();
+        profe8.setNombre("Pedrielectro");
+        profe8.setApellido1("López");
+        profe8.setApellido2("Gil");
+        this.profesorRepository.save(profe8);
+
+        Profesor profe9 = new Profesor();
+        profe9.setNombre("Segismundo");
+        profe9.setApellido1("Gómez");
+        profe9.setApellido2("Serrano");
+        this.profesorRepository.save(profe9);
+
+        Profesor profe10 = new Profesor();
+        profe10.setNombre("Bonifacio");
+        profe10.setApellido1("Fernández");
+        profe10.setApellido2("López");
+        this.profesorRepository.save(profe10);
 
         Empresa empresa1 = new Empresa();
         empresa1.setNombre("Accenture");
