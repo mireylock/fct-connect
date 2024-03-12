@@ -21,7 +21,7 @@ public class Profesor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_profesor")
     @EqualsAndHashCode.Include
-    private Long id;
+    private long id;
 
     private String mail;
     private String password;

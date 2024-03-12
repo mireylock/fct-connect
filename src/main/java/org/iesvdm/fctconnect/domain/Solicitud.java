@@ -18,7 +18,7 @@ public class Solicitud {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_solicitud")
     @EqualsAndHashCode.Include
-    private Long id;
+    private long id;
 
     private String descripcion;
     private String tipo; //alumno o empresa

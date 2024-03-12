@@ -20,7 +20,7 @@ public class Empresa {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_empresa")
     @EqualsAndHashCode.Include
-    private Long id;
+    private long id;
 
     private String nombre;
     private String mail;
