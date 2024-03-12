@@ -1,16 +1,14 @@
 package org.iesvdm.fctconnect.repository;
 
-import jakarta.persistence.Query;
-import org.iesvdm.fctconnect.domain.Empresa;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 @Repository
-public interface EmpresaCustomQuery {
+public interface CustomQuery {
     public Map<String, Object> buscarEmpresaPaginacion (Optional<String> nombreOpt, Optional<String> modalidadTrabajoOpt, Optional<String> inglesSolicitadoOpt, Optional<String> orderOpt, Optional<Integer> paginaOpt, Optional<Integer> tamanio);
+
+    public Map<String, Object> buscarAlumnoPaginacion(Optional<Boolean> carnetConducirOpt, Optional<Boolean> vehiculoPropioOpt, Optional<String> idiomaOpt,  Optional<String> orderOpt, Optional<Integer> paginaOpt, Optional<Integer> tamanio);
 
 }

@@ -3,6 +3,7 @@ package org.iesvdm.fctconnect.service;
 import org.iesvdm.fctconnect.domain.Alumno;
 import org.iesvdm.fctconnect.exception.EntityNotFoundException;
 import org.iesvdm.fctconnect.repository.AlumnoRepository;
+import org.iesvdm.fctconnect.repository.CustomQueryImpl;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -12,18 +13,26 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class AlumnoService {
     private final AlumnoRepository alumnoRepository;
+    private final CustomQueryImpl customQuery;
 
-    public AlumnoService(AlumnoRepository alumnoRepository) {
+    public AlumnoService(AlumnoRepository alumnoRepository, CustomQueryImpl empresaRepositoryCustomQuery) {
         this.alumnoRepository = alumnoRepository;
+        this.customQuery = empresaRepositoryCustomQuery;
     }
 
     public List<Alumno> all() {
         return this.alumnoRepository.findAll();
     }
+
+    public Map<String, Object> buscarAlumnoPaginacion(Optional<Boolean> carnetConducirOpt, Optional<Boolean> vehiculoPropioOpt, Optional<String> idiomaOpt, Optional<String> orderOpt, Optional<Integer> paginaOpt, Optional<Integer> tamanio) {
+        return this.customQuery.buscarAlumnoPaginacion(carnetConducirOpt, vehiculoPropioOpt, idiomaOpt, orderOpt, paginaOpt, tamanio);
+    }
+
 
 //    public List<Alumno> all(Optional<String> buscarOpt, Optional<String> ordenarOpt) {
 //        if (buscarOpt.isPresent() && ordenarOpt.isPresent()) {

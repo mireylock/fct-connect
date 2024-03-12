@@ -3,14 +3,9 @@ package org.iesvdm.fctconnect.service;
 import org.iesvdm.fctconnect.domain.Empresa;
 import org.iesvdm.fctconnect.exception.EntityNotFoundException;
 import org.iesvdm.fctconnect.repository.EmpresaRepository;
-import org.iesvdm.fctconnect.repository.EmpresaRepositoryCustomQueryImpl;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.iesvdm.fctconnect.repository.CustomQueryImpl;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -19,11 +14,11 @@ import java.util.Optional;
 public class EmpresaService {
     private final EmpresaRepository empresaRepository;
 
-    private final EmpresaRepositoryCustomQueryImpl empresaRepositoryCustomQuery;
+    private final CustomQueryImpl customQuery;
 
-    public EmpresaService(EmpresaRepository empresaRepository, EmpresaRepositoryCustomQueryImpl empresaRepositoryCustomQuery) {
+    public EmpresaService(EmpresaRepository empresaRepository, CustomQueryImpl empresaRepositoryCustomQuery) {
         this.empresaRepository = empresaRepository;
-        this.empresaRepositoryCustomQuery = empresaRepositoryCustomQuery;
+        this.customQuery = empresaRepositoryCustomQuery;
     }
 
     public List<Empresa> all() {
@@ -31,7 +26,7 @@ public class EmpresaService {
     }
 
     public Map<String, Object> buscarEmpresaPaginacion (Optional<String> nombreOpt, Optional<String> modalidadTrabajoOpt, Optional<String> inglesSolicitadoOpt, Optional<String> orderOpt, Optional<Integer> paginaOpt, Optional<Integer> tamanioOpt) {
-        return this.empresaRepositoryCustomQuery.buscarEmpresaPaginacion(nombreOpt, modalidadTrabajoOpt, inglesSolicitadoOpt, orderOpt, paginaOpt, tamanioOpt);
+        return this.customQuery.buscarEmpresaPaginacion(nombreOpt, modalidadTrabajoOpt, inglesSolicitadoOpt, orderOpt, paginaOpt, tamanioOpt);
     }
 
 

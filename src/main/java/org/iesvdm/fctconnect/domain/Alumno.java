@@ -38,9 +38,9 @@ public class Alumno {
     @Column(name="path_expediente")
     private String pathExpediente;
     @Column(name="carnet_conducir")
-    private boolean carnetConducir;
+    private Long carnetConducir;
     @Column(name="vehiculo_propio")
-    private boolean vehiculoPropio;
+    private Long vehiculoPropio;
 
     @OneToMany(mappedBy = "alumno")
     @JsonIgnore
