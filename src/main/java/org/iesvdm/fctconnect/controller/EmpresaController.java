@@ -31,7 +31,12 @@ public class EmpresaController {
 
     // http://localhost:8080/v1/api/empresas?nombre=nombre&modalidadTrabajo=online&inglesSolicitado=importante&order=asc&pagina=0&tamanio=2
     @GetMapping(value = {"", "/"})
-    public Map<String, Object> buscarEmpresaPaginacion (Optional<String> nombre, Optional<String> modalidadTrabajo, Optional<String> inglesSolicitado, Optional<String> order, Optional<Integer> pagina, Optional<Integer> tamanio) {
+    public Map<String, Object> buscarEmpresaPaginacion (Optional<String> nombre,
+                                                        Optional<String> modalidadTrabajo,
+                                                        Optional<String> inglesSolicitado,
+                                                        Optional<String> order,
+                                                        Optional<Integer> pagina,
+                                                        Optional<Integer> tamanio) {
         log.info("Accediendo a empresas con filtros");
         return this.empresaService.buscarEmpresaPaginacion(nombre, modalidadTrabajo, inglesSolicitado, order, pagina, tamanio);
     }

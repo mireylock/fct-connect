@@ -30,7 +30,12 @@ public class AlumnoController {
 
     // http://localhost:8080/v1/api/alumnos?carnetConducir=false&vehiculoPropio=false&idioma=ing&order=asc&pagina=0&tamanio=2
     @GetMapping(value = {"", "/"})
-    public Map<String, Object> buscarAlumnosPaginacion(Optional<Boolean> carnetConducir, Optional<Boolean> vehiculoPropio, Optional<String> idioma, Optional<String> order, Optional<Integer> pagina, Optional<Integer> tamanio) {
+    public Map<String, Object> buscarAlumnosPaginacion(Optional<Boolean> carnetConducir,
+                                                       Optional<Boolean> vehiculoPropio,
+                                                       Optional<String> idioma,
+                                                       Optional<String> order,
+                                                       Optional<Integer> pagina,
+                                                       Optional<Integer> tamanio) {
         log.info("Accediendo a alumnos con filtros");
         return this.alumnoService.buscarAlumnoPaginacion(carnetConducir, vehiculoPropio, idioma, order, pagina, tamanio);
     }

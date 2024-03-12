@@ -6,6 +6,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.iesvdm.fctconnect.domain.Alumno;
 import org.iesvdm.fctconnect.domain.Empresa;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
@@ -19,7 +22,12 @@ public class CustomQueryImpl implements CustomQuery {
     private EntityManager em;
 
     @Override
-    public Map<String, Object> buscarEmpresaPaginacion (Optional<String> nombreOpt, Optional<String> modalidadTrabajoOpt, Optional<String> inglesSolicitadoOpt, Optional<String> orderOpt, Optional<Integer> paginaOpt, Optional<Integer> tamanio) {
+    public Map<String, Object> buscarEmpresaPaginacion (Optional<String> nombreOpt,
+                                                        Optional<String> modalidadTrabajoOpt,
+                                                        Optional<String> inglesSolicitadoOpt,
+                                                        Optional<String> orderOpt,
+                                                        Optional<Integer> paginaOpt,
+                                                        Optional<Integer> tamanio) {
         String queryStr = "select E from Empresa E";
         String countQueryStr = "select count(*) from Empresa E";
 
@@ -51,7 +59,7 @@ public class CustomQueryImpl implements CustomQuery {
                     countQueryStr += " AND E.inglesSolicitado like :inglesSolicitado";
 
                 }
-            } else if (!modalidadTrabajoOpt.isPresent()) {
+            } else {
                 if (inglesSolicitadoOpt.isPresent()) {
                     queryStr += "E.modalidadTrabajo like :modalidadTrabajo";
                     countQueryStr += "E.modalidadTrabajo like :modalidadTrabajo";
@@ -59,7 +67,10 @@ public class CustomQueryImpl implements CustomQuery {
             }
         }
 
-        if (orderOpt.isPresent() && orderOpt.equals("asc") || orderOpt.equals("desc")) queryStr += " order by E.nombre "+orderOpt.get();
+        if (nombreOpt.isPresent() && orderOpt.isPresent() &&
+                (orderOpt.get().equals("asc") || orderOpt.get().equals("desc"))) {
+            queryStr += " order by E.nombre "+orderOpt.get();
+        }
 
         Query query = null;
         query = em.createQuery(queryStr, Empresa.class);
@@ -76,13 +87,14 @@ public class CustomQueryImpl implements CustomQuery {
         long totalItems = (Long) countQuery.getSingleResult();
         long totalPages = 1;
         if (tamanio.isPresent() && tamanio.get()!=0) {
-            totalPages = totalItems/tamanio.get();
+            double paginas = (double) totalItems /tamanio.get();
+            totalPages = (long) Math.ceil(paginas);
         }
         List<Empresa> empresas = query.getResultList();
 
         Map<String, Object> response = new HashMap<>();
         response.put("empresas", empresas);
-        response.put("currentPage", paginaOpt.get());
+        response.put("currentPage", paginaOpt.orElse(0));
         response.put("totalItems", totalItems);
         response.put("totalPages", totalPages);
 
@@ -90,7 +102,12 @@ public class CustomQueryImpl implements CustomQuery {
     }
 
     @Override
-    public Map<String, Object> buscarAlumnoPaginacion(Optional<Boolean> carnetConducirOpt, Optional<Boolean> vehiculoPropioOpt, Optional<String> idiomaOpt,  Optional<String> orderOpt, Optional<Integer> paginaOpt, Optional<Integer> tamanio) {
+    public Map<String, Object> buscarAlumnoPaginacion(Optional<Boolean> carnetConducirOpt,
+                                                      Optional<Boolean> vehiculoPropioOpt,
+                                                      Optional<String> idiomaOpt,
+                                                      Optional<String> orderOpt,
+                                                      Optional<Integer> paginaOpt,
+                                                      Optional<Integer> tamanio) {
         String queryStr = "select A from Alumno A";
         String countQueryStr = "select count(*) from Alumno A";
 
@@ -132,14 +149,16 @@ public class CustomQueryImpl implements CustomQuery {
 
         }
 
-        if (orderOpt.isPresent() && orderOpt.equals("asc") || orderOpt.equals("desc")) queryStr += " order by I.nombre "+orderOpt.get();
+        if (idiomaOpt.isPresent() && orderOpt.isPresent() &&
+                (orderOpt.get().equals("asc") || orderOpt.get().equals("desc")))  {
+            queryStr += " order by I.nombre "+orderOpt.get();
+        }
 
         log.info(queryStr);
 
         Query query = null;
         query = em.createQuery(queryStr, Alumno.class);
         if (carnetConducirOpt.isPresent()) query.setParameter("carnetConducir", carnetConducirOpt.get() ? 1 : 0);
-
         if (vehiculoPropioOpt.isPresent()) query.setParameter("vehiculoPropio", vehiculoPropioOpt.get() ? 1 : 0);
         if (idiomaOpt.isPresent()) query.setParameter("nombre", idiomaOpt.get());
 
@@ -152,12 +171,14 @@ public class CustomQueryImpl implements CustomQuery {
         long totalItems = (Long) countQuery.getSingleResult();
         long totalPages = 1;
         if (tamanio.isPresent() && tamanio.get()!=0) {
-            totalPages = totalItems/tamanio.get();
-        }        List<Empresa> alumnos = query.getResultList();
+            double paginas = (double) totalItems /tamanio.get();
+            totalPages = (long) Math.ceil(paginas);
+        }
+        List<Alumno> alumnos = query.getResultList();
 
         Map<String, Object> response = new HashMap<>();
         response.put("alumnos", alumnos);
-        response.put("currentPage", paginaOpt.get());
+        response.put("currentPage", paginaOpt.orElse(0));
         response.put("totalItems", totalItems);
         response.put("totalPages", totalPages);
 

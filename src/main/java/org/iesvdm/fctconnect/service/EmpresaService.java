@@ -25,8 +25,14 @@ public class EmpresaService {
         return this.empresaRepository.findAll();
     }
 
-    public Map<String, Object> buscarEmpresaPaginacion (Optional<String> nombreOpt, Optional<String> modalidadTrabajoOpt, Optional<String> inglesSolicitadoOpt, Optional<String> orderOpt, Optional<Integer> paginaOpt, Optional<Integer> tamanioOpt) {
-        return this.customQuery.buscarEmpresaPaginacion(nombreOpt, modalidadTrabajoOpt, inglesSolicitadoOpt, orderOpt, paginaOpt, tamanioOpt);
+    public Map<String, Object> buscarEmpresaPaginacion (Optional<String> nombreOpt,
+                                                        Optional<String> modalidadTrabajoOpt,
+                                                        Optional<String> inglesSolicitadoOpt,
+                                                        Optional<String> orderOpt,
+                                                        Optional<Integer> paginaOpt,
+                                                        Optional<Integer> tamanioOpt) {
+        return this.customQuery.buscarEmpresaPaginacion(nombreOpt, modalidadTrabajoOpt, inglesSolicitadoOpt,
+                orderOpt, paginaOpt, tamanioOpt);
     }
 
 
