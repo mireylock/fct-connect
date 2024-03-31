@@ -11,20 +11,17 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Entity
-@Table(name="profesor")
+@Table(name="profesor",
+        uniqueConstraints = {
+        @UniqueConstraint(columnNames = "mail"),
+        @UniqueConstraint(columnNames = "dni")
+})
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Profesor {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_profesor")
-    @EqualsAndHashCode.Include
-    private long id;
-
-    private String mail;
-    private String password;
+@DiscriminatorValue(value="profesor")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+public class Profesor extends Usuario{
     private String dni;
     private String nombre;
     private String apellido1;

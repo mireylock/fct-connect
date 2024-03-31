@@ -13,20 +13,17 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name="alumno")
+@Table(name="alumno",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = "mail"),
+                @UniqueConstraint(columnNames = "dni")
+        }
+)
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Alumno {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id_alumno")
-    @EqualsAndHashCode.Include
-    private long id;
-
-    private String mail;
-    private String password;
+@DiscriminatorValue(value="alumno")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+public class Alumno extends Usuario{
     private String dni;
     private String nombre;
     private String apellido1;
@@ -54,10 +51,28 @@ public class Alumno {
     @JsonIgnore
     @JoinTable(
             name = "alumno_habla_idioma",
-            joinColumns = @JoinColumn(name = "id_alumno", referencedColumnName = "id_alumno"),
+            joinColumns = @JoinColumn(name = "id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "id_idioma", referencedColumnName = "id_idioma"))
     private Set<Idioma> idiomas = new HashSet<>();
 
+
+    public Alumno(long id, String email, String password, String dni, String nombre, String apellido1, String apellido2, String telefono, String direccion, String pathCV, String pathExpediente, Long carnetConducir, Long vehiculoPropio, List<Solicitud> solicitudes, List<ProfesorTutorizaAlumno> profesorTutorizaAlumnos, Set<Idioma> idiomas) {
+        super(id, email, password);
+        this.password = password;
+        this.dni = dni;
+        this.nombre = nombre;
+        this.apellido1 = apellido1;
+        this.apellido2 = apellido2;
+        this.telefono = telefono;
+        this.direccion = direccion;
+        this.pathCV = pathCV;
+        this.pathExpediente = pathExpediente;
+        this.carnetConducir = carnetConducir;
+        this.vehiculoPropio = vehiculoPropio;
+        this.solicitudes = solicitudes;
+        this.profesorTutorizaAlumnos = profesorTutorizaAlumnos;
+        this.idiomas = idiomas;
+    }
 
 
 }

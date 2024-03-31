@@ -10,25 +10,19 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Entity
-@Table(name="empresa")
+@Table(name="empresa", uniqueConstraints = {
+        @UniqueConstraint(columnNames = "mail")}
+)
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Empresa {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_empresa")
-    @EqualsAndHashCode.Include
-    private long id;
-
+@DiscriminatorValue(value="empresa")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+public class Empresa extends Usuario{
     private String nombre;
-    private String mail;
-    private String password;
     @Column(name="ingles_solicitado")
     private String inglesSolicitado; //imprescindible, importante, no necesario
     @Column(name="modalidad_trabajo")
-    private String modalidadTrabajo; //presencial, online o híbrido
+    private String modalidadTrabajo; //presencial, online o híbrido TODO cambiar a que puedan ser varios
     private String resumen;
     @Column(name="path_sitio_web")
     private String pathSitioWeb;
@@ -37,4 +31,13 @@ public class Empresa {
     @JsonIgnore
     private List<Solicitud> solicitudes;
 
+    public Empresa(long id, String email, String password, String nombre, String inglesSolicitado, String modalidadTrabajo, String resumen, String pathSitioWeb, List<Solicitud> solicitudes) {
+        super(id, email, password);
+        this.nombre = nombre;
+        this.inglesSolicitado = inglesSolicitado;
+        this.modalidadTrabajo = modalidadTrabajo;
+        this.resumen = resumen;
+        this.pathSitioWeb = pathSitioWeb;
+        this.solicitudes = solicitudes;
+    }
 }

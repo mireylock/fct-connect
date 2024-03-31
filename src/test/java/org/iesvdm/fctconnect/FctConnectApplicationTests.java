@@ -25,6 +25,8 @@ class FctConnectApplicationTests {
     ProfesorTutorizaAlumnoRepository profesorTutorizaAlumnoRepository;
     @Autowired
     IdiomaRepository idiomaRepository;
+    @Autowired
+    AdministradorRepository administradorRepository;
 
     @Test
     void contextLoads() {
@@ -36,6 +38,8 @@ class FctConnectApplicationTests {
         profe1.setNombre("Jose Manuel");
         profe1.setApellido1("Evangelizador");
         profe1.setApellido2("En Java");
+        profe1.setEmail("jevang@email.com");
+        profe1.setPassword("pass1234");
         this.profesorRepository.save(profe1);
 
         Profesor profe2 = new Profesor();
@@ -167,6 +171,8 @@ class FctConnectApplicationTests {
         Alumno alumno1 = new Alumno();
         alumno1.setNombre("Mireya");
         alumno1.setApellido1("Medalle");
+        alumno1.setEmail("mireya@email.com");
+        alumno1.setPassword("pass1234");
         Set<Idioma> idiomasAlu1 = new HashSet<>();
         idiomasAlu1.add(idioma1);
         idiomasAlu1.add(idioma3);
@@ -304,6 +310,13 @@ class FctConnectApplicationTests {
         tutoria3.setAlumno(alumno2);
         tutoria3.setTipoTutoria("Practicas");
         this.profesorTutorizaAlumnoRepository.save(tutoria3);
+
+        Administrador admin = new Administrador();
+        admin.setNombre("Adeministrador");
+        admin.setEmail("admin@email.com");
+        admin.setPassword("pass1234");
+        this.administradorRepository.save(admin);
+
 
     }
 
