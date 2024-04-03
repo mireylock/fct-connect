@@ -77,34 +77,35 @@ public class AuthController {
         }
 
         String rol = registerRequest.getRol();
+        String encodedPassword = encoder.encode(registerRequest.getPassword());
 
         if (rol !=null) {
             switch (rol) {
                 case "administrador":
                     Administrador nuevoAdmin = new Administrador();
                     nuevoAdmin.setEmail(registerRequest.getEmail());
-                    nuevoAdmin.setPassword(registerRequest.getPassword());
+                    nuevoAdmin.setPassword(encodedPassword);
                     administradorRepository.save(nuevoAdmin);
                     break;
 
                 case "alumno":
                     Alumno nuevoAlumno = new Alumno();
                     nuevoAlumno.setEmail(registerRequest.getEmail());
-                    nuevoAlumno.setPassword(registerRequest.getPassword());// encoder.encode(registerRequest.getPassword())
+                    nuevoAlumno.setPassword(encodedPassword);
                     alumnoRepository.save(nuevoAlumno);
                     break;
 
                 case "empresa":
                     Empresa nuevaEmpresa = new Empresa();
                     nuevaEmpresa.setEmail(registerRequest.getEmail());
-                    nuevaEmpresa.setPassword(registerRequest.getPassword());
+                    nuevaEmpresa.setPassword(encodedPassword);
                     empresaRepository.save(nuevaEmpresa);
                     break;
 
                 case "profesor":
                     Profesor nuevoProfesor = new Profesor();
                     nuevoProfesor.setEmail(registerRequest.getEmail());
-                    nuevoProfesor.setPassword(registerRequest.getPassword());
+                    nuevoProfesor.setPassword(encodedPassword);
                     profesorRepository.save(nuevoProfesor);
                     break;
             }

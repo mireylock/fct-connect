@@ -20,7 +20,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @DiscriminatorValue(value="profesor")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Profesor extends Usuario{
     private String dni;
     private String nombre;

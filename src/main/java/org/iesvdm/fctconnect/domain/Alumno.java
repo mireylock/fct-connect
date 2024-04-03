@@ -13,16 +13,9 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name="alumno",
-        uniqueConstraints = {
-                @UniqueConstraint(columnNames = "mail"),
-                @UniqueConstraint(columnNames = "dni")
-        }
-)
 @Data
 @NoArgsConstructor
 @DiscriminatorValue(value="alumno")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Alumno extends Usuario{
     private String dni;
     private String nombre;

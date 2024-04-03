@@ -16,6 +16,12 @@ import java.util.Set;
 @NoArgsConstructor
 @DiscriminatorColumn(name="rol")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Table(name="usuario",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = "mail"),
+                @UniqueConstraint(columnNames = "dni")
+        }
+)
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public abstract class Usuario {
     @Id

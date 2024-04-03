@@ -10,13 +10,9 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Entity
-@Table(name="empresa", uniqueConstraints = {
-        @UniqueConstraint(columnNames = "mail")}
-)
 @Data
 @NoArgsConstructor
 @DiscriminatorValue(value="empresa")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Empresa extends Usuario{
     private String nombre;
     @Column(name="ingles_solicitado")

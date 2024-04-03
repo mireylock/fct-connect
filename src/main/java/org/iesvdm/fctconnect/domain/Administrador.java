@@ -5,16 +5,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name="adminisitrador",
-        uniqueConstraints = {
-                @UniqueConstraint(columnNames = "mail"),
-                @UniqueConstraint(columnNames = "dni")
-        }
-)
+
 @Data
 @NoArgsConstructor
 @DiscriminatorValue(value="administrador")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Administrador extends Usuario {
         private String dni;
         private String nombre;
