@@ -16,9 +16,9 @@ import java.util.List;
 public class Empresa extends Usuario{
     private String nombre;
     @Column(name="ingles_solicitado")
-    private String inglesSolicitado; //imprescindible, importante, no necesario
+    private String inglesSolicitado;
     @Column(name="modalidad_trabajo")
-    private String modalidadTrabajo; //presencial, online o híbrido TODO cambiar a que puedan ser varios
+    private String modalidadTrabajo; //TODO cambiar para que puedan ser varias a la vez... presencial, híbdrido y/o online
     private String resumen;
     @Column(name="path_sitio_web")
     private String pathSitioWeb;
