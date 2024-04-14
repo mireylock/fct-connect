@@ -70,7 +70,7 @@ public class AuthController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/register")
+    @PostMapping(value = {"/register-alumno", "/register-empresa", "/register-profesor", "register-admin"})
     public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterRequest registerRequest) {
         if (userRepository.existsByEmail(registerRequest.getEmail())) {
             return ResponseEntity.badRequest().body(new MessageResponse("Error: Email ya en uso!"));
@@ -85,6 +85,10 @@ public class AuthController {
                     Administrador nuevoAdmin = new Administrador();
                     nuevoAdmin.setEmail(registerRequest.getEmail());
                     nuevoAdmin.setPassword(encodedPassword);
+                    nuevoAdmin.setNombre(registerRequest.getNombre());
+                    nuevoAdmin.setApellido1(registerRequest.getApellido1());
+                    nuevoAdmin.setApellido2(registerRequest.getApellido2());
+                    nuevoAdmin.setDni(registerRequest.getDni());
                     administradorRepository.save(nuevoAdmin);
                     break;
 
@@ -92,6 +96,10 @@ public class AuthController {
                     Alumno nuevoAlumno = new Alumno();
                     nuevoAlumno.setEmail(registerRequest.getEmail());
                     nuevoAlumno.setPassword(encodedPassword);
+                    nuevoAlumno.setNombre(registerRequest.getNombre());
+                    nuevoAlumno.setApellido1(registerRequest.getApellido1());
+                    nuevoAlumno.setApellido2(registerRequest.getApellido2());
+                    nuevoAlumno.setDni(registerRequest.getDni());
                     alumnoRepository.save(nuevoAlumno);
                     break;
 
@@ -99,6 +107,7 @@ public class AuthController {
                     Empresa nuevaEmpresa = new Empresa();
                     nuevaEmpresa.setEmail(registerRequest.getEmail());
                     nuevaEmpresa.setPassword(encodedPassword);
+                    nuevaEmpresa.setNombre(registerRequest.getNombre());
                     empresaRepository.save(nuevaEmpresa);
                     break;
 
@@ -106,6 +115,10 @@ public class AuthController {
                     Profesor nuevoProfesor = new Profesor();
                     nuevoProfesor.setEmail(registerRequest.getEmail());
                     nuevoProfesor.setPassword(encodedPassword);
+                    nuevoProfesor.setNombre(registerRequest.getNombre());
+                    nuevoProfesor.setApellido1(registerRequest.getApellido1());
+                    nuevoProfesor.setApellido2(registerRequest.getApellido2());
+                    nuevoProfesor.setDni(registerRequest.getDni());
                     profesorRepository.save(nuevoProfesor);
                     break;
             }
