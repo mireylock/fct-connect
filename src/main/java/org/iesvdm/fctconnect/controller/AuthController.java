@@ -5,8 +5,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.iesvdm.fctconnect.domain.*;
 import org.iesvdm.fctconnect.repository.*;
 import org.iesvdm.fctconnect.security.TokenUtils;
+import org.iesvdm.fctconnect.service.EmpresaRequestService;
 import org.iesvdm.fctconnect.service.UserDetailsImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -22,31 +23,31 @@ import java.util.*;
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/v1/api/auth")
 public class AuthController {
-    @Autowired
-    AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
+    private final UsuarioRepository userRepository;
+    private final PasswordEncoder encoder;
+    private final TokenUtils tokenUtils;
+    private final AdministradorRepository administradorRepository;
+    private final AlumnoRepository alumnoRepository;
+    private final EmpresaRepository empresaRepository;
+    private final ProfesorRepository profesorRepository;
+    private final EmpresaRequestRepository empresaRequestRepository;
+    private final EmpresaRequestService empresaRequestService;
 
-    @Autowired
-    UsuarioRepository userRepository;
+    public AuthController(AuthenticationManager authenticationManager, UsuarioRepository userRepository, PasswordEncoder encoder, TokenUtils tokenUtils, AdministradorRepository administradorRepository, AlumnoRepository alumnoRepository, EmpresaRepository empresaRepository, ProfesorRepository profesorRepository, EmpresaRequestRepository empresaRequestRepository, EmpresaRequestService empresaRequestService) {
+        this.authenticationManager = authenticationManager;
+        this.userRepository = userRepository;
+        this.encoder = encoder;
+        this.tokenUtils = tokenUtils;
+        this.administradorRepository = administradorRepository;
+        this.alumnoRepository = alumnoRepository;
+        this.empresaRepository = empresaRepository;
+        this.profesorRepository = profesorRepository;
+        this.empresaRequestRepository = empresaRequestRepository;
+        this.empresaRequestService = empresaRequestService;
+    }
 
-    @Autowired
-    PasswordEncoder encoder;
-
-    @Autowired
-    TokenUtils tokenUtils;
-
-    @Autowired
-    AdministradorRepository administradorRepository;
-
-    @Autowired
-    AlumnoRepository alumnoRepository;
-
-    @Autowired
-    EmpresaRepository empresaRepository;
-
-    @Autowired
-    ProfesorRepository profesorRepository;
-
-    @PostMapping("/login-alumno")
+    @PostMapping(value={"/login-alumno", "/login-empresa", "/login-profesor"})
     public ResponseEntity<Map<String, Object>> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
         Authentication authentication = authenticationManager.authenticate(
@@ -70,9 +71,10 @@ public class AuthController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping(value = {"/register-alumno", "/register-empresa", "/register-profesor", "register-admin"})
+    @PostMapping(value = {"/register"})
     public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterRequest registerRequest) {
         if (userRepository.existsByEmail(registerRequest.getEmail())) {
+            log.info("Email ya en uso");
             return ResponseEntity.badRequest().body(new MessageResponse("Error: Email ya en uso!"));
         }
 
@@ -106,7 +108,7 @@ public class AuthController {
                 case "empresa":
                     Empresa nuevaEmpresa = new Empresa();
                     nuevaEmpresa.setEmail(registerRequest.getEmail());
-                    nuevaEmpresa.setPassword(encodedPassword);
+                    nuevaEmpresa.setPassword(registerRequest.getPassword());
                     nuevaEmpresa.setNombre(registerRequest.getNombre());
                     empresaRepository.save(nuevaEmpresa);
                     break;
@@ -125,6 +127,36 @@ public class AuthController {
         }
 
         return ResponseEntity.ok(new MessageResponse("Usuario registrado correctamente!"));
+    }
+
+    @GetMapping("/request-empresa")
+    public List<EmpresaRequest> all () {
+        return this.empresaRequestService.all();
+    }
+
+
+    @PostMapping("/request-empresa")
+    public ResponseEntity<?> registerEmpresaRequest(@Valid @RequestBody RegisterRequestEmpresa registerRequestEmpresa) {
+        if (userRepository.existsByEmail(registerRequestEmpresa.getEmail())) {
+            return ResponseEntity.badRequest().body(new MessageResponse("Error: Email ya en uso!"));
+        }
+
+        String encodedPassword = encoder.encode(registerRequestEmpresa.getPassword());
+
+        EmpresaRequest empresaRequest = new EmpresaRequest();
+        empresaRequest.setEmail(registerRequestEmpresa.getEmail());
+        empresaRequest.setPassword(encodedPassword);
+        empresaRequest.setNombre(registerRequestEmpresa.getNombre());
+        empresaRequestRepository.save(empresaRequest);
+
+        return ResponseEntity.ok(new MessageResponse("Solicitud de registro enviada correctamente!"));
+    }
+
+    @ResponseBody
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/request-empresa/{id}")
+    public void deleteEmpresaRequest(@PathVariable("id") Long id) {
+        this.empresaRequestService.delete(id);
     }
 
 }
