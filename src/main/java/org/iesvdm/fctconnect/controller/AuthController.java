@@ -108,7 +108,7 @@ public class AuthController {
                 case "empresa":
                     Empresa nuevaEmpresa = new Empresa();
                     nuevaEmpresa.setEmail(registerRequest.getEmail());
-                    nuevaEmpresa.setPassword(registerRequest.getPassword());
+                    nuevaEmpresa.setPassword(encodedPassword);
                     nuevaEmpresa.setNombre(registerRequest.getNombre());
                     empresaRepository.save(nuevaEmpresa);
                     break;
@@ -141,11 +141,9 @@ public class AuthController {
             return ResponseEntity.badRequest().body(new MessageResponse("Error: Email ya en uso!"));
         }
 
-        String encodedPassword = encoder.encode(registerRequestEmpresa.getPassword());
-
         EmpresaRequest empresaRequest = new EmpresaRequest();
         empresaRequest.setEmail(registerRequestEmpresa.getEmail());
-        empresaRequest.setPassword(encodedPassword);
+        empresaRequest.setPassword(registerRequestEmpresa.getPassword());
         empresaRequest.setNombre(registerRequestEmpresa.getNombre());
         empresaRequestRepository.save(empresaRequest);
 
