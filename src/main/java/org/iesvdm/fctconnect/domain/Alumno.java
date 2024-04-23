@@ -18,7 +18,6 @@ import java.util.Set;
 @DiscriminatorValue(value="alumno")
 public class Alumno extends Usuario{
     private String dni;
-    private String nombre;
     private String apellido1;
     private String apellido2;
     private String telefono;
@@ -50,7 +49,7 @@ public class Alumno extends Usuario{
 
 
     public Alumno(long id, String email, String password, String dni, String nombre, String apellido1, String apellido2, String telefono, String direccion, String pathCV, String pathExpediente, Long carnetConducir, Long vehiculoPropio, List<Solicitud> solicitudes, List<ProfesorTutorizaAlumno> profesorTutorizaAlumnos, Set<Idioma> idiomas) {
-        super(id, email, password);
+        super(id, email, password, nombre);
         this.password = password;
         this.dni = dni;
         this.nombre = nombre;

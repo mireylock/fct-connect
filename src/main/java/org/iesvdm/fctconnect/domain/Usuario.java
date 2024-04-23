@@ -30,6 +30,7 @@ public abstract class Usuario {
     protected long id;
     protected String email;
     protected String password;
+    protected String nombre;
 
     public String getRol() {
         // Obtener la anotación @DiscriminatorValue que está en las clases que heredan de Usuario

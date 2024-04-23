@@ -11,16 +11,14 @@ import lombok.NoArgsConstructor;
 @DiscriminatorValue(value="administrador")
 public class Administrador extends Usuario {
         private String dni;
-        private String nombre;
         private String apellido1;
         private String apellido2;
         private String telefono;
         private String direccion;
 
         public Administrador(long id, String email, String password, String dni, String nombre, String apellido1, String apellido2, String telefono, String direccion) {
-                super(id, email, password);
+                super(id, email, password, nombre);
                 this.dni = dni;
-                this.nombre = nombre;
                 this.apellido1 = apellido1;
                 this.apellido2 = apellido2;
                 this.telefono = telefono;

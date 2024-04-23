@@ -14,7 +14,6 @@ import java.util.List;
 @NoArgsConstructor
 @DiscriminatorValue(value="empresa")
 public class Empresa extends Usuario{
-    private String nombre;
     @Column(name="ingles_solicitado")
     private String inglesSolicitado;
     @Column(name="modalidad_trabajo")
@@ -28,7 +27,7 @@ public class Empresa extends Usuario{
     private List<Solicitud> solicitudes;
 
     public Empresa(long id, String email, String password, String nombre, String inglesSolicitado, String modalidadTrabajo, String resumen, String pathSitioWeb, List<Solicitud> solicitudes) {
-        super(id, email, password);
+        super(id, email, password, nombre);
         this.nombre = nombre;
         this.inglesSolicitado = inglesSolicitado;
         this.modalidadTrabajo = modalidadTrabajo;

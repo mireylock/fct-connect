@@ -22,7 +22,6 @@ import java.util.List;
 @DiscriminatorValue(value="profesor")
 public class Profesor extends Usuario{
     private String dni;
-    private String nombre;
     private String apellido1;
     private String apellido2;
     private String telefono;

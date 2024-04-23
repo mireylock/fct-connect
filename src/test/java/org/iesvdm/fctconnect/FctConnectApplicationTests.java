@@ -6,6 +6,7 @@ import org.iesvdm.fctconnect.repository.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.*;
 
@@ -28,6 +29,10 @@ class FctConnectApplicationTests {
     @Autowired
     AdministradorRepository administradorRepository;
 
+    @Autowired
+    PasswordEncoder encoder;
+
+
     @Test
     void contextLoads() {
     }
@@ -35,67 +40,12 @@ class FctConnectApplicationTests {
     @Test
     void cargaInicialBbdd() {
         Profesor profe1 = new Profesor();
-        profe1.setNombre("Jose Manuel");
-        profe1.setApellido1("Evangelizador");
-        profe1.setApellido2("En Java");
-        profe1.setEmail("jevang@email.com");
-        profe1.setPassword("pass1234");
+        profe1.setNombre("Antonio");
+        profe1.setApellido1("Ramos");
+        profe1.setApellido2("Flores");
+        profe1.setEmail("aramflo@email.com");
+        profe1.setPassword(this.encoder.encode("123456"));
         this.profesorRepository.save(profe1);
-
-        Profesor profe2 = new Profesor();
-        profe2.setNombre("Eustaquio");
-        profe2.setApellido1("Montañez");
-        profe2.setApellido2("del Valle");
-        this.profesorRepository.save(profe2);
-
-        Profesor profe3 = new Profesor();
-        profe3.setNombre("Jose");
-        profe3.setApellido1("Rodríguez");
-        profe3.setApellido2("de la Fuente");
-        this.profesorRepository.save(profe3);
-
-        Profesor profe4 = new Profesor();
-        profe4.setNombre("Anacleto");
-        profe4.setApellido1("García");
-        profe4.setApellido2("Martínez");
-        this.profesorRepository.save(profe4);
-
-        Profesor profe5 = new Profesor();
-        profe5.setNombre("Fausto");
-        profe5.setApellido1("López");
-        profe5.setApellido2("Sánchez");
-        this.profesorRepository.save(profe5);
-
-        Profesor profe6 = new Profesor();
-        profe6.setNombre("Fulgencio");
-        profe6.setApellido1("Martín");
-        profe6.setApellido2("González");
-        this.profesorRepository.save(profe6);
-
-        Profesor profe7 = new Profesor();
-        profe7.setNombre("Protasio");
-        profe7.setApellido1("Hernández");
-        profe7.setApellido2("Gutiérrez");
-        this.profesorRepository.save(profe7);
-
-        Profesor profe8 = new Profesor();
-        profe8.setNombre("Pedrielectro");
-        profe8.setApellido1("López");
-        profe8.setApellido2("Gil");
-        this.profesorRepository.save(profe8);
-
-        Profesor profe9 = new Profesor();
-        profe9.setNombre("Segismundo");
-        profe9.setApellido1("Gómez");
-        profe9.setApellido2("Serrano");
-        this.profesorRepository.save(profe9);
-
-        Profesor profe10 = new Profesor();
-        profe10.setNombre("Bonifacio");
-        profe10.setApellido1("Fernández");
-        profe10.setApellido2("López");
-        this.profesorRepository.save(profe10);
-
 
 
         Idioma idioma1 = new Idioma();
@@ -114,7 +64,7 @@ class FctConnectApplicationTests {
         alumno1.setNombre("Mireya");
         alumno1.setApellido1("Medalle");
         alumno1.setEmail("mireya@email.com");
-        alumno1.setPassword("pass1234");
+        alumno1.setPassword(this.encoder.encode("123456"));
         Set<Idioma> idiomasAlu1 = new HashSet<>();
         idiomasAlu1.add(idioma1);
         idiomasAlu1.add(idioma3);
@@ -224,6 +174,7 @@ class FctConnectApplicationTests {
         empresa1.setNombre("Accenture");
         empresa1.setInglesSolicitado(EInglesSolicitado.IMPORTANTE.toString());
         empresa1.setModalidadTrabajo(EModalidadTrabajo.HIBRIDO.toString());
+        empresa1.setPassword(this.encoder.encode("123456"));
         empresaRepository.save(empresa1);
 
         Empresa empresa2 = new Empresa();
@@ -300,7 +251,6 @@ class FctConnectApplicationTests {
         tutoria1.setTipoTutoria("Proyecto");
         this.profesorTutorizaAlumnoRepository.save(tutoria1);
 
-
         ProfesorTutorizaAlumno tutoria2 = new ProfesorTutorizaAlumno();
         tutoria2.setProfesor(profe1);
         tutoria2.setAlumno(alumno1);
@@ -316,7 +266,7 @@ class FctConnectApplicationTests {
         Administrador admin = new Administrador();
         admin.setNombre("Adeministrador");
         admin.setEmail("admin@email.com");
-        admin.setPassword("pass1234");
+        admin.setPassword(this.encoder.encode("123456"));
         this.administradorRepository.save(admin);
 
 
