@@ -2,12 +2,12 @@ package org.iesvdm.fctconnect.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -15,9 +15,14 @@ import java.util.List;
 @DiscriminatorValue(value="empresa")
 public class Empresa extends Usuario{
     @Column(name="ingles_solicitado")
-    private String inglesSolicitado;
+    private EInglesSolicitado inglesSolicitado;
+
     @Column(name="modalidad_trabajo")
-    private String modalidadTrabajo; //TODO cambiar para que puedan ser varias a la vez... presencial, híbdrido y/o online
+    @ElementCollection
+    @CollectionTable(name="modalidad_trabajo_empresa", joinColumns=@JoinColumn(name="id_empresa"))
+    @Enumerated(EnumType.STRING)
+    private Set<EModalidadTrabajo> modalidadesTrabajo;
+
     private String resumen;
     @Column(name="path_sitio_web")
     private String pathSitioWeb;
@@ -26,13 +31,17 @@ public class Empresa extends Usuario{
     @JsonIgnore
     private List<Solicitud> solicitudes;
 
-    public Empresa(long id, String email, String password, String nombre, String inglesSolicitado, String modalidadTrabajo, String resumen, String pathSitioWeb, List<Solicitud> solicitudes) {
-        super(id, email, password, nombre);
-        this.nombre = nombre;
-        this.inglesSolicitado = inglesSolicitado;
-        this.modalidadTrabajo = modalidadTrabajo;
-        this.resumen = resumen;
-        this.pathSitioWeb = pathSitioWeb;
-        this.solicitudes = solicitudes;
-    }
+    @ManyToMany (fetch = FetchType.EAGER)
+    @JsonIgnore
+    @JoinTable(
+            name = "empresa_tecnologia",
+            joinColumns = @JoinColumn(name = "id_empresa", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "id_tecnologia", referencedColumnName = "id_tecnologia"))
+    private Set<Tecnologia> tecnologias = new HashSet<>();
+
+    @OneToMany(mappedBy = "empresa")
+    @JsonIgnore
+    private Set<Ubicacion> ubicaciones;
+
+
 }
