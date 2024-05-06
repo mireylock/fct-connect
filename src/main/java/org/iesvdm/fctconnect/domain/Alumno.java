@@ -2,6 +2,7 @@ package org.iesvdm.fctconnect.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -17,7 +18,9 @@ import java.util.Set;
 @NoArgsConstructor
 @DiscriminatorValue(value="alumno")
 public class Alumno extends Usuario{
+    @NotBlank
     private String dni;
+    @NotBlank
     private String apellido1;
     private String apellido2;
     private String telefono;
@@ -43,7 +46,7 @@ public class Alumno extends Usuario{
     @JsonIgnore
     @JoinTable(
             name = "alumno_habla_idioma",
-            joinColumns = @JoinColumn(name = "id", referencedColumnName = "id"),
+            joinColumns = @JoinColumn(name = "id_alumno", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "id_idioma", referencedColumnName = "id_idioma"))
     private Set<Idioma> idiomas = new HashSet<>();
 

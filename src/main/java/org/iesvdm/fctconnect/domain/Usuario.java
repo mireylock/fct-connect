@@ -1,6 +1,9 @@
 package org.iesvdm.fctconnect.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -28,8 +31,13 @@ public abstract class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     protected long id;
+    @NotBlank
+    @Email
     protected String email;
+    @NotBlank
+    @Size(min = 6)
     protected String password;
+    @NotBlank
     protected String nombre;
 
     public String getRol() {

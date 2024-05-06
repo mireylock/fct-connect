@@ -19,10 +19,11 @@ public class Solicitud {
     @Column(name = "id_solicitud")
     @EqualsAndHashCode.Include
     private long id;
-
     private String descripcion;
-    private String tipo; //alumno o empresa
-    private String estado; //enviada, aceptada o rechazada
+    @Enumerated(EnumType.STRING)
+    private ETipoSolicitud tipo;
+    @Enumerated(EnumType.STRING)
+    private EEstadoSolicitud estado;
 
     @ManyToOne
     @JoinColumn(name="id_alumno")

@@ -1,6 +1,7 @@
 package org.iesvdm.fctconnect.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,7 +11,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @DiscriminatorValue(value="administrador")
 public class Administrador extends Usuario {
+        @NotBlank
         private String dni;
+        @NotBlank
         private String apellido1;
         private String apellido2;
         private String telefono;
