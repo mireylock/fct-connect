@@ -91,6 +91,7 @@ public class AuthController {
                     nuevoAdmin.setApellido1(registerRequest.getApellido1());
                     nuevoAdmin.setApellido2(registerRequest.getApellido2());
                     nuevoAdmin.setDni(registerRequest.getDni());
+                    nuevoAdmin.setPathFoto(registerRequest.getPathFoto());
                     administradorRepository.save(nuevoAdmin);
                     break;
 
@@ -102,6 +103,7 @@ public class AuthController {
                     nuevoAlumno.setApellido1(registerRequest.getApellido1());
                     nuevoAlumno.setApellido2(registerRequest.getApellido2());
                     nuevoAlumno.setDni(registerRequest.getDni());
+                    nuevoAlumno.setPathFoto(registerRequest.getPathFoto());
                     alumnoRepository.save(nuevoAlumno);
                     break;
 
@@ -110,6 +112,7 @@ public class AuthController {
                     nuevaEmpresa.setEmail(registerRequest.getEmail());
                     nuevaEmpresa.setPassword(encodedPassword);
                     nuevaEmpresa.setNombre(registerRequest.getNombre());
+                    nuevaEmpresa.setPathFoto(registerRequest.getPathFoto());
                     empresaRepository.save(nuevaEmpresa);
                     break;
 
@@ -121,6 +124,7 @@ public class AuthController {
                     nuevoProfesor.setApellido1(registerRequest.getApellido1());
                     nuevoProfesor.setApellido2(registerRequest.getApellido2());
                     nuevoProfesor.setDni(registerRequest.getDni());
+                    nuevoProfesor.setPathFoto(registerRequest.getPathFoto());
                     profesorRepository.save(nuevoProfesor);
                     break;
             }
@@ -145,6 +149,7 @@ public class AuthController {
         empresaRequest.setEmail(registerRequestEmpresa.getEmail());
         empresaRequest.setPassword(registerRequestEmpresa.getPassword());
         empresaRequest.setNombre(registerRequestEmpresa.getNombre());
+        empresaRequest.setPathFoto(registerRequestEmpresa.getPathFoto());
         empresaRequestRepository.save(empresaRequest);
 
         return ResponseEntity.ok(new MessageResponse("Solicitud de registro enviada correctamente!"));

@@ -2,7 +2,9 @@ package org.iesvdm.fctconnect.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -55,11 +57,9 @@ public class Alumno extends Usuario{
     private Formacion formacion;
 
 
-    public Alumno(long id, String email, String password, String dni, String nombre, String apellido1, String apellido2, String telefono, String direccion, String pathCV, String pathExpediente, Long carnetConducir, Long vehiculoPropio, List<Solicitud> solicitudes, List<ProfesorTutorizaAlumno> profesorTutorizaAlumnos, Set<Idioma> idiomas) {
-        super(id, email, password, nombre);
-        this.password = password;
+    public Alumno(long id, @NotBlank @Email String email, @NotBlank @Size(min = 6) String password, @NotBlank String nombre, String pathFoto, String dni, String apellido1, String apellido2, String telefono, String direccion, String pathCV, String pathExpediente, Long carnetConducir, Long vehiculoPropio, List<Solicitud> solicitudes, List<ProfesorTutorizaAlumno> profesorTutorizaAlumnos, Set<Idioma> idiomas, Formacion formacion) {
+        super(id, email, password, nombre, pathFoto);
         this.dni = dni;
-        this.nombre = nombre;
         this.apellido1 = apellido1;
         this.apellido2 = apellido2;
         this.telefono = telefono;
@@ -71,7 +71,6 @@ public class Alumno extends Usuario{
         this.solicitudes = solicitudes;
         this.profesorTutorizaAlumnos = profesorTutorizaAlumnos;
         this.idiomas = idiomas;
+        this.formacion = formacion;
     }
-
-
 }

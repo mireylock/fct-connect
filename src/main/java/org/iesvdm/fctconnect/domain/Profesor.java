@@ -3,7 +3,9 @@ package org.iesvdm.fctconnect.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -20,7 +22,6 @@ import java.util.Set;
         @UniqueConstraint(columnNames = "dni")
 })
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 @DiscriminatorValue(value="profesor")
 public class Profesor extends Usuario{
@@ -44,4 +45,16 @@ public class Profesor extends Usuario{
             joinColumns = @JoinColumn(name = "id_profesor", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "id_asignatura", referencedColumnName = "id_asignatura"))
     private Set<Asignatura> asignaturas = new HashSet<>();
+
+    public Profesor(long id, @NotBlank @Email String email, @NotBlank @Size(min = 6) String password, @NotBlank String nombre, String pathFoto, String dni, String apellido1, String apellido2, String telefono, String direccion, String departamento, List<ProfesorTutorizaAlumno> profesorTutorizaAlumnos, Set<Asignatura> asignaturas) {
+        super(id, email, password, nombre, pathFoto);
+        this.dni = dni;
+        this.apellido1 = apellido1;
+        this.apellido2 = apellido2;
+        this.telefono = telefono;
+        this.direccion = direccion;
+        this.departamento = departamento;
+        this.profesorTutorizaAlumnos = profesorTutorizaAlumnos;
+        this.asignaturas = asignaturas;
+    }
 }

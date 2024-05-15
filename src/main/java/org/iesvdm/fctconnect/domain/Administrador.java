@@ -1,7 +1,10 @@
 package org.iesvdm.fctconnect.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -19,8 +22,8 @@ public class Administrador extends Usuario {
         private String telefono;
         private String direccion;
 
-        public Administrador(long id, String email, String password, String dni, String nombre, String apellido1, String apellido2, String telefono, String direccion) {
-                super(id, email, password, nombre);
+        public Administrador(long id, @NotBlank @Email String email, @NotBlank @Size(min = 6) String password, @NotBlank String nombre, String pathFoto, String dni, String apellido1, String apellido2, String telefono, String direccion) {
+                super(id, email, password, nombre, pathFoto);
                 this.dni = dni;
                 this.apellido1 = apellido1;
                 this.apellido2 = apellido2;

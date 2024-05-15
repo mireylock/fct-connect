@@ -10,8 +10,6 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 //import org.springframework.security.core.GrantedAuthority;
 
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Data
@@ -39,6 +37,8 @@ public abstract class Usuario {
     protected String password;
     @NotBlank
     protected String nombre;
+    @Column(name = "path_foto")
+    protected String pathFoto;
 
     public String getRol() {
         // Obtener la anotación @DiscriminatorValue que está en las clases que heredan de Usuario

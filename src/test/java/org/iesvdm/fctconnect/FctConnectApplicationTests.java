@@ -59,6 +59,7 @@ class FctConnectApplicationTests {
         admin.setDni("123456789A");
         admin.setTelefono("+34 123456789");
         admin.setPassword(this.encoder.encode("123456"));
+        admin.setPathFoto("../../../../assets/img/profile.png");
         this.administradorRepository.save(admin);
 
         Asignatura entornos = new Asignatura();
@@ -86,6 +87,7 @@ class FctConnectApplicationTests {
         asignaturasProfe1.add(hlc);
         asignaturasProfe1.add(entornos);
         profe1.setAsignaturas(asignaturasProfe1);
+        profe1.setPathFoto("../../../../assets/img/profile.png");
         this.profesorRepository.save(profe1);
 
         Profesor profe2 = new Profesor();
@@ -99,8 +101,8 @@ class FctConnectApplicationTests {
         Set<Asignatura> asignaturasProfe2 = new HashSet<>();
         asignaturasProfe2.add(hlc);
         profe2.setAsignaturas(asignaturasProfe2);
+        profe2.setPathFoto("../../../../assets/img/profile.png");
         this.profesorRepository.save(profe2);
-
 
         Idioma idioma1 = new Idioma();
         idioma1.setNombre("Inglés");
@@ -144,6 +146,7 @@ class FctConnectApplicationTests {
         alumno1.setCarnetConducir(1L);
         alumno1.setVehiculoPropio(0L);
         alumno1.setFormacion(DAW);
+        alumno1.setPathFoto("../../../../assets/img/profile.png");
         this.alumnoRepository.save(alumno1);
 
         Alumno alumno2 = new Alumno();
@@ -160,6 +163,7 @@ class FctConnectApplicationTests {
         alumno2.setCarnetConducir(1L);
         alumno2.setVehiculoPropio(1L);
         alumno2.setFormacion(DAM);
+        alumno2.setPathFoto("../../../../assets/img/profile.png");
         this.alumnoRepository.save(alumno2);
 
         Alumno alumno3 = new Alumno();
@@ -172,7 +176,86 @@ class FctConnectApplicationTests {
         alumno3.setCarnetConducir(0L);
         alumno3.setVehiculoPropio(0L);
         alumno3.setFormacion(SMR);
+        alumno3.setPathFoto("../../../../assets/img/profile.png");
         this.alumnoRepository.save(alumno3);
+
+        Alumno alumno5 = new Alumno();
+        alumno5.setNombre("Luis");
+        alumno5.setApellido1("García");
+        alumno5.setEmail("luis@mail.com");
+        alumno5.setDni("567890123K");
+        alumno5.setTelefono("+34 654321789");
+        alumno5.setPassword(this.encoder.encode("abc123"));
+        alumno5.setCarnetConducir(1L);
+        alumno5.setVehiculoPropio(0L);
+        alumno5.setFormacion(DAM);
+        alumno5.setPathFoto("../../../../assets/img/profile.png");
+        this.alumnoRepository.save(alumno5);
+
+        Alumno alumno6 = new Alumno();
+        alumno6.setNombre("Sofía");
+        alumno6.setApellido1("Sánchez");
+        alumno6.setEmail("sofia@mail.com");
+        alumno6.setDni("678901234L");
+        alumno6.setTelefono("+34 789654123");
+        alumno6.setPassword(this.encoder.encode("pass123"));
+        alumno6.setCarnetConducir(0L);
+        alumno6.setVehiculoPropio(1L);
+        alumno6.setFormacion(DAW);
+        alumno6.setPathFoto("../../../../assets/img/profile.png");
+        this.alumnoRepository.save(alumno6);
+
+        Alumno alumno7 = new Alumno();
+        alumno7.setNombre("Carlos");
+        alumno7.setApellido1("Díaz");
+        alumno7.setEmail("carlos@mail.com");
+        alumno7.setDni("789012345M");
+        alumno7.setTelefono("+34 321987654");
+        alumno7.setPassword(this.encoder.encode("qwerty123"));
+        alumno7.setCarnetConducir(1L);
+        alumno7.setVehiculoPropio(0L);
+        alumno7.setFormacion(SMR);
+        alumno7.setPathFoto("../../../../assets/img/profile.png");
+        this.alumnoRepository.save(alumno7);
+
+        Alumno alumno8 = new Alumno();
+        alumno8.setNombre("Ana");
+        alumno8.setApellido1("Rodríguez");
+        alumno8.setEmail("ana@mail.com");
+        alumno8.setDni("890123456N");
+        alumno8.setTelefono("+34 123987654");
+        alumno8.setPassword(this.encoder.encode("abc123xyz"));
+        alumno8.setCarnetConducir(0L);
+        alumno8.setVehiculoPropio(1L);
+        alumno8.setFormacion(DAW);
+        alumno8.setPathFoto("../../../../assets/img/profile.png");
+        this.alumnoRepository.save(alumno8);
+
+        Alumno alumno9 = new Alumno();
+        alumno9.setNombre("Pedro");
+        alumno9.setApellido1("Pérez");
+        alumno9.setEmail("pedro@mail.com");
+        alumno9.setDni("901234567O");
+        alumno9.setTelefono("+34 987123789");
+        alumno9.setPassword(this.encoder.encode("password123"));
+        alumno9.setCarnetConducir(1L);
+        alumno9.setVehiculoPropio(0L);
+        alumno9.setFormacion(DAM);
+        alumno9.setPathFoto("../../../../assets/img/profile.png");
+        this.alumnoRepository.save(alumno9);
+
+        Alumno alumno10 = new Alumno();
+        alumno10.setNombre("Elena");
+        alumno10.setApellido1("Ruiz");
+        alumno10.setEmail("elena@mail.com");
+        alumno10.setDni("012345678P");
+        alumno10.setTelefono("+34 789654321");
+        alumno10.setPassword(this.encoder.encode("pass123abc"));
+        alumno10.setCarnetConducir(0L);
+        alumno10.setVehiculoPropio(1L);
+        alumno10.setFormacion(SMR);
+        alumno10.setPathFoto("../../../../assets/img/profile.png");
+        this.alumnoRepository.save(alumno10);
 
 
         Tecnologia javaSpring = new Tecnologia();
@@ -199,6 +282,7 @@ class FctConnectApplicationTests {
         tecnologiasEmpr1.add(javaSpring);
         tecnologiasEmpr1.add(angular);
         empresa1.setTecnologias(tecnologiasEmpr1);
+        empresa1.setPathFoto("../../../../assets/img/profile.png");
         empresaRepository.save(empresa1);
 
         Ubicacion ubi1emp1 = new Ubicacion();
@@ -224,6 +308,7 @@ class FctConnectApplicationTests {
         Set<Tecnologia> tecnologiasEmpr2 = new HashSet<>();
         tecnologiasEmpr2.add(javaSpring);
         empresa2.setTecnologias(tecnologiasEmpr2);
+        empresa2.setPathFoto("../../../../assets/img/profile.png");
         empresaRepository.save(empresa2);
 
         Ubicacion ubi1emp2 = new Ubicacion();
@@ -252,6 +337,7 @@ class FctConnectApplicationTests {
         modalidadesTrabajoEmp3.add(EModalidadTrabajo.ONLINE);
         empresa3.setModalidadesTrabajo(modalidadesTrabajoEmp3);
         empresa3.setResumen("Empresa consultora");
+        empresa3.setPathFoto("../../../../assets/img/profile.png");
         empresaRepository.save(empresa3);
 
         Solicitud solAlu1 = new Solicitud();

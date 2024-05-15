@@ -2,6 +2,9 @@ package org.iesvdm.fctconnect.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -43,5 +46,14 @@ public class Empresa extends Usuario{
     @JsonIgnore
     private Set<Ubicacion> ubicaciones;
 
-
+    public Empresa(long id, @NotBlank @Email String email, @NotBlank @Size(min = 6) String password, @NotBlank String nombre, String pathFoto, EInglesSolicitado inglesSolicitado, Set<EModalidadTrabajo> modalidadesTrabajo, String resumen, String pathSitioWeb, List<Solicitud> solicitudes, Set<Tecnologia> tecnologias, Set<Ubicacion> ubicaciones) {
+        super(id, email, password, nombre, pathFoto);
+        this.inglesSolicitado = inglesSolicitado;
+        this.modalidadesTrabajo = modalidadesTrabajo;
+        this.resumen = resumen;
+        this.pathSitioWeb = pathSitioWeb;
+        this.solicitudes = solicitudes;
+        this.tecnologias = tecnologias;
+        this.ubicaciones = ubicaciones;
+    }
 }
