@@ -50,6 +50,10 @@ public class Alumno extends Usuario{
             inverseJoinColumns = @JoinColumn(name = "id_idioma", referencedColumnName = "id_idioma"))
     private Set<Idioma> idiomas = new HashSet<>();
 
+    @ManyToOne
+    @JoinColumn(name="id_formacion")
+    private Formacion formacion;
+
 
     public Alumno(long id, String email, String password, String dni, String nombre, String apellido1, String apellido2, String telefono, String direccion, String pathCV, String pathExpediente, Long carnetConducir, Long vehiculoPropio, List<Solicitud> solicitudes, List<ProfesorTutorizaAlumno> profesorTutorizaAlumnos, Set<Idioma> idiomas) {
         super(id, email, password, nombre);

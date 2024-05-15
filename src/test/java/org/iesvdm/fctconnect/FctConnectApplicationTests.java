@@ -42,6 +42,9 @@ class FctConnectApplicationTests {
     @Autowired
     UbicacionRepository ubicacionRepository;
 
+    @Autowired
+    FormacionRepository formacionRepository;
+
 
     @Test
     void contextLoads() {
@@ -111,9 +114,25 @@ class FctConnectApplicationTests {
         idioma3.setNombre("Alemán");
         idiomaRepository.save(idioma3);
 
+        Formacion DAW = new Formacion();
+        DAW.setNombre("Desarrollo de Aplicaciones Web");
+        DAW.setNivel(ENivelFormacion.GRADO_SUPERIOR);
+        formacionRepository.save(DAW);
+
+        Formacion DAM = new Formacion();
+        DAM.setNombre("Desarrollo de Aplicaciones Multiplataforma");
+        DAM.setNivel(ENivelFormacion.GRADO_SUPERIOR);
+        formacionRepository.save(DAM);
+
+        Formacion SMR = new Formacion();
+        SMR.setNombre("Sistemas Microinformáticos y en Red");
+        SMR.setNivel(ENivelFormacion.GRADO_MEDIO);
+        formacionRepository.save(SMR);
+
         Alumno alumno1 = new Alumno();
         alumno1.setNombre("Mireya");
         alumno1.setApellido1("Medalle");
+        alumno1.setApellido2("Merino");
         alumno1.setEmail("mireya@mail.com");
         alumno1.setDni("123456789D");
         alumno1.setTelefono("+34 123456789");
@@ -124,7 +143,37 @@ class FctConnectApplicationTests {
         alumno1.setIdiomas(idiomasAlu1);
         alumno1.setCarnetConducir(1L);
         alumno1.setVehiculoPropio(0L);
+        alumno1.setFormacion(DAW);
         this.alumnoRepository.save(alumno1);
+
+        Alumno alumno2 = new Alumno();
+        alumno2.setNombre("Juan");
+        alumno2.setApellido1("García");
+        alumno2.setEmail("juan@mail.com");
+        alumno2.setDni("123456789E");
+        alumno2.setTelefono("+34 123456789");
+        alumno2.setPassword(this.encoder.encode("123456"));
+        Set<Idioma> idiomasAlu2 = new HashSet<>();
+        idiomasAlu2.add(idioma1);
+        idiomasAlu2.add(idioma2);
+        alumno2.setIdiomas(idiomasAlu2);
+        alumno2.setCarnetConducir(1L);
+        alumno2.setVehiculoPropio(1L);
+        alumno2.setFormacion(DAM);
+        this.alumnoRepository.save(alumno2);
+
+        Alumno alumno3 = new Alumno();
+        alumno3.setNombre("Ramiro");
+        alumno3.setApellido1("Ramírez");
+        alumno3.setEmail("ramiro@mail.com");
+        alumno3.setDni("123456789F");
+        alumno3.setTelefono("+34 123456789");
+        alumno3.setPassword(this.encoder.encode("123456"));
+        alumno3.setCarnetConducir(0L);
+        alumno3.setVehiculoPropio(0L);
+        alumno3.setFormacion(SMR);
+        this.alumnoRepository.save(alumno3);
+
 
         Tecnologia javaSpring = new Tecnologia();
         javaSpring.setNombre("Java en Spring Boot");
