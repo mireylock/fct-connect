@@ -60,19 +60,19 @@ public class AlumnoService {
 //        }
 //    }
 
-//    public Map<String, Object> all(int pagina, int tamanio) {
-//        Pageable paginado = PageRequest.of(pagina, tamanio, Sort.by("id").ascending());
-//        Page<Alumno> pageAll = this.alumnoRepository.findAll(paginado);
-//
-//        Map<String, Object> response = new HashMap<>();
-//
-//        response.put("alumnos", pageAll.getContent());
-//        response.put("currentPage", pageAll.getNumber());
-//        response.put("totalItems", pageAll.getTotalElements());
-//        response.put("totalPages", pageAll.getTotalPages());
-//
-//        return response;
-//    }
+    public Map<String, Object> all(int pagina, int tamanio) {
+        Pageable paginado = PageRequest.of(pagina, tamanio, Sort.by("id").ascending());
+        Page<Alumno> pageAll = this.alumnoRepository.findAll(paginado);
+
+        Map<String, Object> response = new HashMap<>();
+
+        response.put("alumnos", pageAll.getContent());
+        response.put("currentPage", pageAll.getNumber());
+        response.put("totalItems", pageAll.getTotalElements());
+        response.put("totalPages", pageAll.getTotalPages());
+
+        return response;
+    }
 
     public Alumno save(Alumno alumno) {
         return this.alumnoRepository.save(alumno);

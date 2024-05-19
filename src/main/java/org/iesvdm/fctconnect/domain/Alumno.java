@@ -5,17 +5,20 @@ import jakarta.persistence.Entity;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 @Entity
+@Table(name="alumno",
+        uniqueConstraints = {
+            @UniqueConstraint(columnNames = "mail"),
+                @UniqueConstraint(columnNames = "dni")
+})
 @Data
 @NoArgsConstructor
 @DiscriminatorValue(value="alumno")
@@ -56,7 +59,7 @@ public class Alumno extends Usuario{
     @JoinColumn(name="id_formacion")
     private Formacion formacion;
 
-
+    @Builder
     public Alumno(long id, @NotBlank @Email String email, @NotBlank @Size(min = 6) String password, @NotBlank String nombre, String pathFoto, String dni, String apellido1, String apellido2, String telefono, String direccion, String pathCV, String pathExpediente, Long carnetConducir, Long vehiculoPropio, List<Solicitud> solicitudes, List<ProfesorTutorizaAlumno> profesorTutorizaAlumnos, Set<Idioma> idiomas, Formacion formacion) {
         super(id, email, password, nombre, pathFoto);
         this.dni = dni;

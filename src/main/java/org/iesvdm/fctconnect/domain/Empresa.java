@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -46,6 +47,7 @@ public class Empresa extends Usuario{
     @JsonIgnore
     private Set<Ubicacion> ubicaciones;
 
+    @Builder
     public Empresa(long id, @NotBlank @Email String email, @NotBlank @Size(min = 6) String password, @NotBlank String nombre, String pathFoto, EInglesSolicitado inglesSolicitado, Set<EModalidadTrabajo> modalidadesTrabajo, String resumen, String pathSitioWeb, List<Solicitud> solicitudes, Set<Tecnologia> tecnologias, Set<Ubicacion> ubicaciones) {
         super(id, email, password, nombre, pathFoto);
         this.inglesSolicitado = inglesSolicitado;

@@ -6,10 +6,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.List;
@@ -46,6 +43,7 @@ public class Profesor extends Usuario{
             inverseJoinColumns = @JoinColumn(name = "id_asignatura", referencedColumnName = "id_asignatura"))
     private Set<Asignatura> asignaturas = new HashSet<>();
 
+    @Builder
     public Profesor(long id, @NotBlank @Email String email, @NotBlank @Size(min = 6) String password, @NotBlank String nombre, String pathFoto, String dni, String apellido1, String apellido2, String telefono, String direccion, String departamento, List<ProfesorTutorizaAlumno> profesorTutorizaAlumnos, Set<Asignatura> asignaturas) {
         super(id, email, password, nombre, pathFoto);
         this.dni = dni;

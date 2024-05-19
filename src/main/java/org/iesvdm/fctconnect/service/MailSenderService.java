@@ -3,6 +3,7 @@ package org.iesvdm.fctconnect.service;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import org.iesvdm.fctconnect.domain.Alumno;
+import org.iesvdm.fctconnect.domain.RegisterRequestEmpresa;
 import org.iesvdm.fctconnect.domain.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -58,13 +59,13 @@ public class MailSenderService {
     }
 
     @Async
-    public void notificarPorEmail(Alumno alumno) {
+    public void notificarPorEmail(RegisterRequestEmpresa requestEmpresa) {
 
         this.send(emailSender,
-                alumno.getEmail(),
+                requestEmpresa.getEmail(),
                 "Bienvenido a FCT Connect",
-                "¡Bienvenid@, "+alumno.getNombre()+"!" +
-                        "\nNos complace informarte de que has sido registrada exitosamente en FCT Connect"
+                "¡Bienvenid@, "+requestEmpresa.getNombre()+"!" +
+                        "\nNos complace informarte de que tu registro en FCT Connect ha sido exitoso"
         );
     }
 }

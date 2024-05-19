@@ -16,9 +16,9 @@ public class MailSenderController {
     private MailSenderService mailSenderService;
 
     @PostMapping("/send-mail")
-    public MensajeRespuesta sendMail(@RequestBody Alumno alummno) {
+    public MensajeRespuesta sendMail(@RequestBody RegisterRequestEmpresa registerRequestEmpresa) {
 
-        this.mailSenderService.notificarPorEmail(alummno);
+        this.mailSenderService.notificarPorEmail(registerRequestEmpresa);
         return new MensajeRespuesta("Mensaje Enviado!");
     }
 
