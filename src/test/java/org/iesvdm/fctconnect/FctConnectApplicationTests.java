@@ -45,6 +45,9 @@ class FctConnectApplicationTests {
     @Autowired
     FormacionRepository formacionRepository;
 
+    @Autowired
+    AlumnoHablaIdiomaRepository alumnoHablaIdiomaRepository;
+
 
     @Test
     void contextLoads() {
@@ -121,19 +124,19 @@ class FctConnectApplicationTests {
 
         Formacion DAW = Formacion.builder()
                 .nombre("Desarrollo de Aplicaciones Web")
-                .nivel(ENivelFormacion.GRADO_SUPERIOR)
+                .nivel("Grado Superior")
                 .build();
         formacionRepository.save(DAW);
 
         Formacion DAM = Formacion.builder()
                 .nombre("Desarrollo de Aplicaciones Multiplataforma")
-                .nivel(ENivelFormacion.GRADO_SUPERIOR)
+                .nivel("Grado Superior")
                 .build();
         formacionRepository.save(DAM);
 
         Formacion SMR = Formacion.builder()
                 .nombre("Sistemas Microinformáticos y en Red")
-                .nivel(ENivelFormacion.GRADO_MEDIO)
+                .nivel("Grado Medio")
                 .build();
         formacionRepository.save(SMR);
 
@@ -174,6 +177,7 @@ class FctConnectApplicationTests {
                 .email("ramiro@mail.com")
                 .dni("123456789F")
                 .telefono("+34 123456789")
+                .idiomas(Set.of(idioma1))
                 .password(this.encoder.encode("123456"))
                 .carnetConducir(0L)
                 .vehiculoPropio(0L)
@@ -223,6 +227,21 @@ class FctConnectApplicationTests {
                 .pathFoto("../../../../assets/img/profile.png")
                 .build();
         this.alumnoRepository.save(alumno6);
+
+//        AlumnoHablaIdioma mireyaHablaIngles = AlumnoHablaIdioma.builder()
+//                .idioma(idioma1)
+//                .alumno(alumno1)
+//                .descripcion("Nivel C1 porque estuve viviendo en UK")
+//                .build();
+//        this.alumnoHablaIdiomaRepository.save(mireyaHablaIngles);
+//
+//        AlumnoHablaIdioma alumno2HablaIdioma1 = AlumnoHablaIdioma.builder()
+//                .idioma(idioma1)
+//                .alumno(alumno2)
+//                .descripcion("Nivel básico")
+//                .build();
+//        this.alumnoHablaIdiomaRepository.save(alumno2HablaIdioma1);
+
 
         Alumno alumno7 = Alumno.builder()
                 .nombre("Carlos")

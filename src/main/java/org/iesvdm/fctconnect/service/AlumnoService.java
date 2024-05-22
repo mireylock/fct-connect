@@ -29,14 +29,26 @@ public class AlumnoService {
         return this.alumnoRepository.findAll();
     }
 
-    public Map<String, Object> buscarAlumnoPaginacion(Optional<Boolean> carnetConducirOpt,
-                                                      Optional<Boolean> vehiculoPropioOpt,
-                                                      Optional<String> idiomaOpt,
-                                                      Optional<String> orderOpt,
-                                                      Optional<Integer> paginaOpt,
+    public Map<String, Object> all(int pagina, int tamanio) {
+        Pageable paginado = PageRequest.of(pagina, tamanio, Sort.by("id").ascending());
+        Page<Alumno> pageAll = this.alumnoRepository.findAll(paginado);
+
+        Map<String, Object> response = new HashMap<>();
+
+        response.put("alumnos", pageAll.getContent());
+        response.put("currentPage", pageAll.getNumber());
+        response.put("totalItems", pageAll.getTotalElements());
+        response.put("totalPages", pageAll.getTotalPages());
+
+        return response;
+    }
+
+    public Map<String, Object> buscarAlumnoPaginacion(Optional<String> nombre,
+                                                      Optional<Boolean> vehiculoPropio,
+                                                      Optional<String> idioma,
+                                                      Optional<Integer> pagina,
                                                       Optional<Integer> tamanio) {
-        return this.customQuery.buscarAlumnoPaginacion(carnetConducirOpt,
-                vehiculoPropioOpt, idiomaOpt, orderOpt, paginaOpt, tamanio);
+        return this.customQuery.buscarAlumnoPaginacion(nombre, vehiculoPropio, idioma, pagina, tamanio);
     }
 
 
@@ -60,19 +72,7 @@ public class AlumnoService {
 //        }
 //    }
 
-    public Map<String, Object> all(int pagina, int tamanio) {
-        Pageable paginado = PageRequest.of(pagina, tamanio, Sort.by("id").ascending());
-        Page<Alumno> pageAll = this.alumnoRepository.findAll(paginado);
 
-        Map<String, Object> response = new HashMap<>();
-
-        response.put("alumnos", pageAll.getContent());
-        response.put("currentPage", pageAll.getNumber());
-        response.put("totalItems", pageAll.getTotalElements());
-        response.put("totalPages", pageAll.getTotalPages());
-
-        return response;
-    }
 
     public Alumno save(Alumno alumno) {
         return this.alumnoRepository.save(alumno);

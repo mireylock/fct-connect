@@ -22,8 +22,9 @@ public class Formacion {
     private long id;
     @NotBlank
     private String nombre;
-    @Enumerated(EnumType.STRING)
-    private ENivelFormacion nivel;
+//    @Enumerated(EnumType.STRING)
+//    private ENivelFormacion nivel;
+    private String nivel;
 
     @OneToMany(mappedBy = "formacion")
     @JsonIgnore

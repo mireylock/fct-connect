@@ -102,71 +102,66 @@ public class CustomQueryImpl implements CustomQuery {
     }
 
     @Override
-    public Map<String, Object> buscarAlumnoPaginacion(Optional<Boolean> carnetConducirOpt,
-                                                      Optional<Boolean> vehiculoPropioOpt,
-                                                      Optional<String> idiomaOpt,
-                                                      Optional<String> orderOpt,
-                                                      Optional<Integer> paginaOpt,
+    public Map<String, Object> buscarAlumnoPaginacion(Optional<String> nombre,
+                                                      Optional<Boolean> vehiculoPropio,
+                                                      Optional<String> idioma,
+                                                      Optional<Integer> pagina,
                                                       Optional<Integer> tamanio) {
         String queryStr = "select A from Alumno A";
         String countQueryStr = "select count(*) from Alumno A";
 
-        if ((carnetConducirOpt.isPresent() || vehiculoPropioOpt.isPresent()) && !idiomaOpt.isPresent()) {
+        if (nombre.isPresent() && !nombre.get().isEmpty() || vehiculoPropio.isPresent() && idioma.isEmpty()) {
             queryStr += " where ";
             countQueryStr += " where ";
-        } else if (idiomaOpt.isPresent()) {
+        } else if (idioma.isPresent() && !idioma.get().isEmpty()) {
             queryStr += " join A.idiomas I where ";
             countQueryStr += " join A.idiomas I where ";
         }
 
-        if (carnetConducirOpt.isPresent()) {
-            queryStr += " A.carnetConducir=:carnetConducir ";
-            countQueryStr += " A.carnetConducir=:carnetConducir ";
+        if (nombre.isPresent() && !nombre.get().isEmpty()) {
+            queryStr += " CONCAT(A.nombre, ' ', A.apellido1, ' ', COALESCE(A.apellido2, '')) LIKE CONCAT('%', :nombre, '%') ";
+            countQueryStr += " CONCAT(A.nombre, ' ', A.apellido1, ' ', COALESCE(A.apellido2, '')) LIKE CONCAT('%', :nombre, '%') ";
 
-            if (vehiculoPropioOpt.isPresent()) {
+            if (vehiculoPropio.isPresent()) {
                 queryStr += " and A.vehiculoPropio=:vehiculoPropio ";
                 countQueryStr += " and A.vehiculoPropio=:vehiculoPropio ";
             }
 
-            if (idiomaOpt.isPresent()) {
-                queryStr += " and I.nombre LIKE CONCAT('%', :nombre, '%') ";
-                countQueryStr += " and I.nombre LIKE CONCAT('%', :nombre, '%') ";
+            if (idioma.isPresent() && !idioma.get().isEmpty()) {
+                queryStr += " and I.nombre LIKE CONCAT('%', :idioma, '%') ";
+                countQueryStr += " and I.nombre LIKE CONCAT('%', :idioma, '%') ";
 
             }
         } else {
-            if (vehiculoPropioOpt.isPresent()) {
+            if (vehiculoPropio.isPresent()) {
                 queryStr += " A.vehiculoPropio=:vehiculoPropio ";
                 countQueryStr += " A.vehiculoPropio=:vehiculoPropio ";
 
-                if (idiomaOpt.isPresent()) {
-                    queryStr += " and I.nombre LIKE CONCAT('%', :nombre, '%') ";
-                    countQueryStr += " and I.nombre LIKE CONCAT('%', :nombre, '%') ";
+                if (idioma.isPresent() && !idioma.get().isEmpty()) {
+                    queryStr += " and I.nombre LIKE CONCAT('%', :idioma, '%') ";
+                    countQueryStr += " and I.nombre LIKE CONCAT('%', :idioma, '%') ";
                 }
-            } else if (idiomaOpt.isPresent()) {
-                queryStr += " I.nombre LIKE CONCAT('%', :nombre, '%') ";
-                countQueryStr += " I.nombre LIKE CONCAT('%', :nombre, '%') ";
+            } else if (idioma.isPresent() && !idioma.get().isEmpty()) {
+                queryStr += " I.nombre LIKE CONCAT('%', :idioma, '%') ";
+                countQueryStr += " I.nombre LIKE CONCAT('%', :idioma, '%') ";
             }
 
         }
 
-        if (idiomaOpt.isPresent() && orderOpt.isPresent() &&
-                (orderOpt.get().equals("asc") || orderOpt.get().equals("desc")))  {
-            queryStr += " order by I.nombre "+orderOpt.get();
-        }
-
-        log.info(queryStr);
+        log.info("LA QUERY ES: "+queryStr);
 
         Query query = null;
         query = em.createQuery(queryStr, Alumno.class);
-        if (carnetConducirOpt.isPresent()) query.setParameter("carnetConducir", carnetConducirOpt.get() ? 1 : 0);
-        if (vehiculoPropioOpt.isPresent()) query.setParameter("vehiculoPropio", vehiculoPropioOpt.get() ? 1 : 0);
-        if (idiomaOpt.isPresent()) query.setParameter("nombre", idiomaOpt.get());
+
+        if (nombre.isPresent() && !nombre.get().isEmpty()) query.setParameter("nombre", nombre.get());
+        if (vehiculoPropio.isPresent()) query.setParameter("vehiculoPropio", vehiculoPropio.get() ? 1 : 0);
+        if (idioma.isPresent() && !idioma.get().isEmpty()) query.setParameter("idioma", idioma.get());
 
         Query countQuery = null;
         countQuery = em.createQuery(countQueryStr, Long.class);
-        if (carnetConducirOpt.isPresent()) countQuery.setParameter("carnetConducir", carnetConducirOpt.get() ? 1 : 0);
-        if (vehiculoPropioOpt.isPresent()) countQuery.setParameter("vehiculoPropio", vehiculoPropioOpt.get() ? 1 : 0);
-        if (idiomaOpt.isPresent()) countQuery.setParameter("nombre", idiomaOpt.get());
+        if (nombre.isPresent() && !nombre.get().isEmpty()) countQuery.setParameter("nombre", nombre.get());
+        if (vehiculoPropio.isPresent()) countQuery.setParameter("vehiculoPropio", vehiculoPropio.get() ? 1 : 0);
+        if (idioma.isPresent() && !idioma.get().isEmpty()) countQuery.setParameter("idioma", idioma.get());
 
         long totalItems = (Long) countQuery.getSingleResult();
         long totalPages = 1;
@@ -174,11 +169,16 @@ public class CustomQueryImpl implements CustomQuery {
             double paginas = (double) totalItems /tamanio.get();
             totalPages = (long) Math.ceil(paginas);
         }
+
+        query.setFirstResult(pagina.orElse(0) * tamanio.orElse(1));
+        query.setMaxResults(tamanio.orElse(5));
+
         List<Alumno> alumnos = query.getResultList();
+
 
         Map<String, Object> response = new HashMap<>();
         response.put("alumnos", alumnos);
-        response.put("currentPage", paginaOpt.orElse(0));
+        response.put("currentPage", pagina.orElse(0));
         response.put("totalItems", totalItems);
         response.put("totalPages", totalPages);
 

@@ -22,22 +22,26 @@ public class AlumnoController {
         this.alumnoService = alumnoService;
     }
 
-    @GetMapping(value = {"", "/"}, params = {"!carnetConducir", "!vehiculoPropio", "!idioma", "!order"})
+    @GetMapping(value = {"", "/"}, params = {"!pagina", "!tamanio", "!nombre", "!vehiculoPropio", "!idioma"})
     public List<Alumno> all() {
         log.info("Accediendo a todos los alumnos");
         return this.alumnoService.all();
     }
 
-    // http://localhost:8080/v1/api/alumnos?carnetConducir=false&vehiculoPropio=false&idioma=ing&order=asc&pagina=0&tamanio=2
+    @GetMapping(value = {"", "/"}, params = {"!nombre", "!vehiculoPropio", "!idioma"})
+    public Map<String, Object> all(int pagina, int tamanio) {
+        log.info("Accediendo a alumnos con paginacion");
+        return this.alumnoService.all(pagina, tamanio);
+    }
+
     @GetMapping(value = {"", "/"})
-    public Map<String, Object> buscarAlumnosPaginacion(Optional<Boolean> carnetConducir,
+    public Map<String, Object> buscarAlumnosPaginacion(Optional<String> nombre,
                                                        Optional<Boolean> vehiculoPropio,
                                                        Optional<String> idioma,
-                                                       Optional<String> order,
                                                        Optional<Integer> pagina,
                                                        Optional<Integer> tamanio) {
         log.info("Accediendo a alumnos con filtros");
-        return this.alumnoService.buscarAlumnoPaginacion(carnetConducir, vehiculoPropio, idioma, order, pagina, tamanio);
+        return this.alumnoService.buscarAlumnoPaginacion(nombre, vehiculoPropio, idioma, pagina, tamanio);
     }
 
     @PostMapping({"", "/"})
