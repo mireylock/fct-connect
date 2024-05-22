@@ -110,7 +110,8 @@ public class CustomQueryImpl implements CustomQuery {
         String queryStr = "select A from Alumno A";
         String countQueryStr = "select count(*) from Alumno A";
 
-        if (nombre.isPresent() && !nombre.get().isEmpty() || vehiculoPropio.isPresent() && idioma.isEmpty()) {
+        if ((nombre.isPresent() && !nombre.get().isEmpty() || vehiculoPropio.isPresent())
+                && (idioma.isEmpty() || idioma.get().isEmpty())) {
             queryStr += " where ";
             countQueryStr += " where ";
         } else if (idioma.isPresent() && !idioma.get().isEmpty()) {
