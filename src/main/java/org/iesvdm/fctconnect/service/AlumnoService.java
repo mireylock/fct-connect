@@ -1,6 +1,7 @@
 package org.iesvdm.fctconnect.service;
 
 import org.iesvdm.fctconnect.domain.Alumno;
+import org.iesvdm.fctconnect.domain.dto.AlumnoDTO;
 import org.iesvdm.fctconnect.exception.EntityNotFoundException;
 import org.iesvdm.fctconnect.repository.AlumnoRepository;
 import org.iesvdm.fctconnect.repository.CustomQueryImpl;
@@ -83,15 +84,39 @@ public class AlumnoService {
                 .orElseThrow(() -> new EntityNotFoundException(id, Alumno.class));
     }
 
-    public Alumno replace(Long id, Alumno alumno) {
+//    public Alumno replace(Long id, Alumno alumno) {
+//
+//        return this.alumnoRepository.findById(id)
+//                .map(c -> {
+//                    alumno.setId(id); // si no se setea el id no lo guarda
+//                    return this.alumnoRepository.save(alumno);
+//                })
+//                .orElseThrow(() -> new EntityNotFoundException(id, Alumno.class));
+//    }
 
+
+    public Alumno replaceAlumno(Long id, AlumnoDTO alumnoDTO) {
         return this.alumnoRepository.findById(id)
-                .map(c -> {
-                    alumno.setId(id); // si no se setea el id no lo guarda
+                .map(alumno -> {
+                    alumno.setTelefono(alumnoDTO.getTelefono());
+                    alumno.setDireccion(alumnoDTO.getDireccion());
+                    alumno.setCarnetConducir(alumnoDTO.getCarnetConducir());
+                    alumno.setVehiculoPropio(alumnoDTO.getVehiculoPropio());
                     return this.alumnoRepository.save(alumno);
                 })
                 .orElseThrow(() -> new EntityNotFoundException(id, Alumno.class));
     }
+
+    public Alumno replaceDatosInteres(Long id, AlumnoDTO alumnoDTO) {
+        return this.alumnoRepository.findById(id)
+                .map(alumno -> {
+                    alumno.setCarnetConducir(alumnoDTO.getCarnetConducir());
+                    alumno.setVehiculoPropio(alumnoDTO.getVehiculoPropio());
+                    return this.alumnoRepository.save(alumno);
+                })
+                .orElseThrow(() -> new EntityNotFoundException(id, Alumno.class));
+    }
+
 
     public void delete(Long id) {
         this.alumnoRepository.findById(id).map(p -> {

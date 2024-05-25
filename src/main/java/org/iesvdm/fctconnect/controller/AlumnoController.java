@@ -2,9 +2,9 @@ package org.iesvdm.fctconnect.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.iesvdm.fctconnect.domain.Alumno;
+import org.iesvdm.fctconnect.domain.dto.AlumnoDTO;
 import org.iesvdm.fctconnect.service.AlumnoService;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -54,9 +54,14 @@ public class AlumnoController {
         return this.alumnoService.one(id);
     }
 
+//    @PutMapping("/{id}")
+//    public Alumno replaceAlumno(@PathVariable("id") Long id, @RequestBody Alumno alumno) {
+//        return this.alumnoService.replace(id, alumno);
+//    }
+
     @PutMapping("/{id}")
-    public Alumno replaceAlumno(@PathVariable("id") Long id, @RequestBody Alumno alumno) {
-        return this.alumnoService.replace(id, alumno);
+    public Alumno replaceAlumno(@PathVariable("id") Long id, @RequestBody AlumnoDTO alumnoDTO) {
+        return this.alumnoService.replaceAlumno(id, alumnoDTO);
     }
 
 
