@@ -1,6 +1,9 @@
 package org.iesvdm.fctconnect.service;
 
+import org.iesvdm.fctconnect.domain.EEstadoSolicitud;
+import org.iesvdm.fctconnect.domain.ETipoSolicitud;
 import org.iesvdm.fctconnect.domain.Solicitud;
+import org.iesvdm.fctconnect.domain.dto.SolicitudDTO;
 import org.iesvdm.fctconnect.exception.EntityNotFoundException;
 import org.iesvdm.fctconnect.repository.SolicitudRepository;
 import org.springframework.data.domain.Page;
@@ -23,6 +26,14 @@ public class SolicitudService {
 
     public List<Solicitud> all() {
         return this.solicitudRepository.findAll();
+    }
+
+    public List<Solicitud> allAlumno(String estado, String tipo, long id) {
+        return this.solicitudRepository.findByEstadoAndTipoAndAlumno_Id(EEstadoSolicitud.valueOf(estado), ETipoSolicitud.valueOf(tipo), id);
+    }
+
+    public List<Solicitud> allEmpresa(String estado, String tipo, long id) {
+        return this.solicitudRepository.findByEstadoAndTipoAndEmpresa_Id(EEstadoSolicitud.valueOf(estado), ETipoSolicitud.valueOf(tipo), id);
     }
 
 //    public List<Solicitud> all(Optional<String> buscarOpt, Optional<String> ordenarOpt) {
@@ -68,11 +79,11 @@ public class SolicitudService {
                 .orElseThrow(() -> new EntityNotFoundException(id, Solicitud.class));
     }
 
-    public Solicitud replace(Long id, Solicitud solicitud) {
+    public Solicitud replace(Long id, SolicitudDTO solicitudDTO) {
 
         return this.solicitudRepository.findById(id)
-                .map(c -> {
-                    solicitud.setId(id); // si no se setea el id no lo guarda
+                .map(solicitud -> {
+                    solicitud.setEstado(EEstadoSolicitud.valueOf(solicitudDTO.getEstado()));
                     return this.solicitudRepository.save(solicitud);
                 })
                 .orElseThrow(() -> new EntityNotFoundException(id, Solicitud.class));

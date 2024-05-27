@@ -2,6 +2,7 @@ package org.iesvdm.fctconnect.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.iesvdm.fctconnect.domain.Solicitud;
+import org.iesvdm.fctconnect.domain.dto.SolicitudDTO;
 import org.iesvdm.fctconnect.service.SolicitudService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -20,11 +21,29 @@ public class SolicitudController {
     }
 
 
-    @GetMapping(value = {"", "/"})
-    public List<Solicitud> all() {
-        log.info("Accediendo a todas las solicitudes");
-        return this.solicitudService.all();
+//    @GetMapping(value = {"", "/"})
+//    public List<Solicitud> all() {
+//        log.info("Accediendo a todas las solicitudes");
+//        return this.solicitudService.all();
+//    }
+
+    @GetMapping(value = { "/alu"})
+    public List<Solicitud> allSolicitudesAlumno(String estado, String tipo, long id) {
+        return this.solicitudService.allAlumno(estado, tipo, id);
     }
+
+    @GetMapping(value = { "/emp"})
+    public List<Solicitud> allSolicitudesEmpresa(String estado, String tipo, long id) {
+        return this.solicitudService.allEmpresa(estado, tipo, id);
+    }
+
+    @PutMapping("/{id}")
+    public Solicitud replaceSolicitud(@PathVariable("id") Long id, @RequestBody SolicitudDTO solicitudDTO) {
+        return this.solicitudService.replace(id, solicitudDTO);
+    }
+
+
+
 
     @PostMapping({"", "/"})
     public Solicitud newSolicitud(@RequestBody Solicitud solicitud) {
@@ -36,10 +55,6 @@ public class SolicitudController {
         return this.solicitudService.one(id);
     }
 
-    @PutMapping("/{id}")
-    public Solicitud replaceSolicitud(@PathVariable("id") Long id, @RequestBody Solicitud solicitud) {
-        return this.solicitudService.replace(id, solicitud);
-    }
 
 
     @ResponseBody

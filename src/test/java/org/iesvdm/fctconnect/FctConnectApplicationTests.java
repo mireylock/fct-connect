@@ -400,6 +400,18 @@ class FctConnectApplicationTests {
                 .build();
         this.empresaRepository.save(empresa3);
 
+        Empresa empresa4 = Empresa.builder()
+                .nombre("NTT DATA")
+                .email("ntt@mail.com")
+                .password(this.encoder.encode("123456"))
+                .inglesSolicitado(EInglesSolicitado.NO_NECESARIO)
+                .modalidadesTrabajo(new HashSet<>(Set.of(EModalidadTrabajo.HIBRIDO, EModalidadTrabajo.ONLINE)))
+                .resumen("Empresa consultora")
+                .pathFoto("../../../../assets/img/profile.png")
+                .build();
+        this.empresaRepository.save(empresa4);
+
+        //Enviada de Mireya
         Solicitud solAlu1 = Solicitud.builder()
                 .alumno(alumno1)
                 .empresa(empresa2)
@@ -409,14 +421,36 @@ class FctConnectApplicationTests {
                 .build();
         this.solicitudRepository.save(solAlu1);
 
+        //Recibida de Mireya
         Solicitud solEmp2 = Solicitud.builder()
                 .alumno(alumno1)
                 .empresa(empresa1)
                 .tipo(ETipoSolicitud.EMPRESA_A_ALUMNO)
                 .descripcion("Accenture, empresa1, solicita a alumno 1, Mireya")
-                .estado(EEstadoSolicitud.RECHAZADA)
+                .estado(EEstadoSolicitud.ENVIADA)
                 .build();
         this.solicitudRepository.save(solEmp2);
+
+        //Aceptada de Mireya
+        Solicitud solEmp3 = Solicitud.builder()
+                .alumno(alumno1)
+                .empresa(empresa3)
+                .tipo(ETipoSolicitud.EMPRESA_A_ALUMNO)
+                .descripcion("Empresa3, solicita a alumno 1, Mireya")
+                .estado(EEstadoSolicitud.ACEPTADA)
+                .build();
+        this.solicitudRepository.save(solEmp3);
+
+        //Rechazada de Mireya
+        Solicitud solEmp4 = Solicitud.builder()
+                .alumno(alumno1)
+                .empresa(empresa4)
+                .tipo(ETipoSolicitud.EMPRESA_A_ALUMNO)
+                .descripcion("Empresa4, solicita a alumno 1, Mireya")
+                .estado(EEstadoSolicitud.RECHAZADA)
+                .build();
+        this.solicitudRepository.save(solEmp4);
+
 
         ProfesorTutorizaAlumno tutoria1 = ProfesorTutorizaAlumno.builder()
                 .profesor(profe1)
