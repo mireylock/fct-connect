@@ -1,7 +1,7 @@
 package org.iesvdm.fctconnect.service;
 
-import org.iesvdm.fctconnect.domain.EEstadoSolicitud;
-import org.iesvdm.fctconnect.domain.ETipoSolicitud;
+import org.iesvdm.fctconnect.domain.enums.EEstadoSolicitud;
+import org.iesvdm.fctconnect.domain.enums.ETipoSolicitud;
 import org.iesvdm.fctconnect.domain.Solicitud;
 import org.iesvdm.fctconnect.domain.dto.SolicitudDTO;
 import org.iesvdm.fctconnect.exception.EntityNotFoundException;

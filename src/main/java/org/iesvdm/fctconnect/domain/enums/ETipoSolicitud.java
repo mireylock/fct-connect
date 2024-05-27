@@ -1,4 +1,4 @@
-package org.iesvdm.fctconnect.domain;
+package org.iesvdm.fctconnect.domain.enums;
 
 public enum ETipoSolicitud {
     EMPRESA_A_ALUMNO,

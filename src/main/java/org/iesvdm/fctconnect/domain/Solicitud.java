@@ -1,8 +1,9 @@
 package org.iesvdm.fctconnect.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+import org.iesvdm.fctconnect.domain.enums.EEstadoSolicitud;
+import org.iesvdm.fctconnect.domain.enums.ETipoSolicitud;
 
 @Entity
 @Table(name="solicitud")

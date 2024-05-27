@@ -8,6 +8,8 @@ import jakarta.validation.constraints.Size;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.iesvdm.fctconnect.domain.enums.EInglesSolicitado;
+import org.iesvdm.fctconnect.domain.enums.EModalidadTrabajo;
 
 import java.util.HashSet;
 import java.util.List;

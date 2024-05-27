@@ -2,6 +2,10 @@ package org.iesvdm.fctconnect;
 
 import lombok.extern.slf4j.Slf4j;
 import org.iesvdm.fctconnect.domain.*;
+import org.iesvdm.fctconnect.domain.enums.EEstadoSolicitud;
+import org.iesvdm.fctconnect.domain.enums.EInglesSolicitado;
+import org.iesvdm.fctconnect.domain.enums.EModalidadTrabajo;
+import org.iesvdm.fctconnect.domain.enums.ETipoSolicitud;
 import org.iesvdm.fctconnect.repository.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package org.iesvdm.fctconnect.domain;
+package org.iesvdm.fctconnect.domain.enums;
 
 public enum EEstadoSolicitud {
     ENVIADA,

@@ -13,6 +13,9 @@ import java.util.Optional;
 @Repository
 public interface EmpresaRepository extends JpaRepository<Empresa, Long> {
 
+    Page<Empresa> findEmpresaByNameContainingIgnoreCaseAAndInglesSolicitadoAndModalidadesTrabajoContainingAndTecnologias(String nombre, String inglesSolicitado, String modalidadTrabajo);
+
+
     // Búsquedas por nombre por ingles+modalidad de trabajo y paginación
 //    public List<Empresa> findEmpresaByNombreContainingIgnoreCaseOrderByNombreAsc(String buscar);
 //

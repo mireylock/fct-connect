@@ -1,7 +1,7 @@
 package org.iesvdm.fctconnect.repository;
 
-import org.iesvdm.fctconnect.domain.EEstadoSolicitud;
-import org.iesvdm.fctconnect.domain.ETipoSolicitud;
+import org.iesvdm.fctconnect.domain.enums.EEstadoSolicitud;
+import org.iesvdm.fctconnect.domain.enums.ETipoSolicitud;
 import org.iesvdm.fctconnect.domain.Solicitud;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
