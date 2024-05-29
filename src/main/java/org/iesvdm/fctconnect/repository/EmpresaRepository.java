@@ -26,26 +26,4 @@ public interface EmpresaRepository extends JpaRepository<Empresa, Long> {
                                          @Param("inglesSolicitado") EInglesSolicitado inglesSolicitado,
                                          @Param("modalidadTrabajo") EModalidadTrabajo modalidadTrabajo,
                                          @Param("tecnologia") String tecnologia);
-
-
-
-    // Búsquedas por nombre por ingles+modalidad de trabajo y paginación
-//    public List<Empresa> findEmpresaByNombreContainingIgnoreCaseOrderByNombreAsc(String buscar);
-//
-//    List<Empresa> findEmpresaByNombreContainingIgnoreCaseOrderByNombreDesc(String buscar);
-//
-//    List<Empresa> findAllByOrderByNombreAsc();
-//
-//    List<Empresa> findAllByOrderByNombreDesc();
-//
-//    List<Empresa> findEmpresaByNombreContainingIgnoreCase(String buscar);
-//
-//    List<Empresa> findEmpresaByInglesSolicitadoContainingIgnoreCaseAndModalidadTrabajoContainingIgnoreCase(String inglesSolicitado, String modalidadTrabajo);
-//
-//    List<Empresa> findEmpresaByInglesSolicitadoContainingIgnoreCase(String inglesSolicitado);
-//
-//    List<Empresa> findEmpresaByModalidadTrabajoContainingIgnoreCase(String modalidadTrabajo);
-
-
-
 }
