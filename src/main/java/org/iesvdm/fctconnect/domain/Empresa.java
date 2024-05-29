@@ -38,7 +38,6 @@ public class Empresa extends Usuario{
     private List<Solicitud> solicitudes;
 
     @ManyToMany (fetch = FetchType.EAGER)
-    @JsonIgnore
     @JoinTable(
             name = "empresa_tecnologia",
             joinColumns = @JoinColumn(name = "id_empresa", referencedColumnName = "id"),

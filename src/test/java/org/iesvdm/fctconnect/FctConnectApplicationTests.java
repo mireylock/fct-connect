@@ -58,6 +58,28 @@ class FctConnectApplicationTests {
     }
 
     @Test
+    void empresasSinCampos() {
+        Empresa empresaSinIngles = Empresa.builder()
+                .nombre("sin ingles")
+                .email("noenglish@mail.com")
+                .password(this.encoder.encode("123456"))
+                .modalidadesTrabajo(new HashSet<>(Set.of(EModalidadTrabajo.HIBRIDO, EModalidadTrabajo.ONLINE)))
+                .resumen("Empresa sin ingles")
+                .pathFoto("../../../../assets/img/profile.png")
+                .build();
+        this.empresaRepository.save(empresaSinIngles);
+
+        Empresa empresaSinModalidades = Empresa.builder()
+                .nombre("sin modalidades")
+                .email("nomodal@mail.com")
+                .password(this.encoder.encode("123456"))
+                .inglesSolicitado(EInglesSolicitado.NO_NECESARIO)
+                .resumen("Empresa consultora")
+                .pathFoto("../../../../assets/img/profile.png")
+                .build();
+        this.empresaRepository.save(empresaSinModalidades);
+    }
+    @Test
     void cargaInicialBbdd() {
         Administrador admin = Administrador.builder()
                 .nombre("Admin")
