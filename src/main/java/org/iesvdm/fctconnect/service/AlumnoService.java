@@ -4,7 +4,7 @@ import org.iesvdm.fctconnect.domain.Alumno;
 import org.iesvdm.fctconnect.domain.dto.AlumnoDTO;
 import org.iesvdm.fctconnect.exception.EntityNotFoundException;
 import org.iesvdm.fctconnect.repository.AlumnoRepository;
-import org.iesvdm.fctconnect.repository.CustomQueryImpl;
+import org.iesvdm.fctconnect.repository.CustomQueryBusquedaAlumnoImpl;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -19,11 +19,11 @@ import java.util.Optional;
 @Service
 public class AlumnoService {
     private final AlumnoRepository alumnoRepository;
-    private final CustomQueryImpl customQuery;
+    private final CustomQueryBusquedaAlumnoImpl customQuery;
 
-    public AlumnoService(AlumnoRepository alumnoRepository, CustomQueryImpl empresaRepositoryCustomQuery) {
+    public AlumnoService(AlumnoRepository alumnoRepository, CustomQueryBusquedaAlumnoImpl customQuery) {
         this.alumnoRepository = alumnoRepository;
-        this.customQuery = empresaRepositoryCustomQuery;
+        this.customQuery = customQuery;
     }
 
     public List<Alumno> all() {
@@ -53,28 +53,6 @@ public class AlumnoService {
     }
 
 
-//    public List<Alumno> all(Optional<String> buscarOpt, Optional<String> ordenarOpt) {
-//        if (buscarOpt.isPresent() && ordenarOpt.isPresent()) {
-//            if (ordenarOpt.get().equals("asc")) {
-//                return this.alumnoRepository.findAlumnoByNombreContainingIgnoreCaseOrderByNombreAsc(buscarOpt.get());
-//            } else {
-//                return this.alumnoRepository.findAlumnoByNombreContainingIgnoreCaseOrderByNombreDesc(buscarOpt.get());
-//            }
-//        } else if (!buscarOpt.isPresent() && ordenarOpt.isPresent()) {
-//            if (ordenarOpt.get().equals("asc")) {
-//                return this.alumnoRepository.findAllByOrderByNombreAsc();
-//            } else {
-//                return this.alumnoRepository.findAllByOrderByNombreDesc();
-//            }
-//        } else if (buscarOpt.isPresent() && !ordenarOpt.isPresent()) {
-//            return this.alumnoRepository.findAlumnoByNombreContainingIgnoreCase(buscarOpt.get());
-//        } else {
-//            return this.alumnoRepository.findAll();
-//        }
-//    }
-
-
-
     public Alumno save(Alumno alumno) {
         return this.alumnoRepository.save(alumno);
     }
@@ -84,32 +62,12 @@ public class AlumnoService {
                 .orElseThrow(() -> new EntityNotFoundException(id, Alumno.class));
     }
 
-//    public Alumno replace(Long id, Alumno alumno) {
-//
-//        return this.alumnoRepository.findById(id)
-//                .map(c -> {
-//                    alumno.setId(id); // si no se setea el id no lo guarda
-//                    return this.alumnoRepository.save(alumno);
-//                })
-//                .orElseThrow(() -> new EntityNotFoundException(id, Alumno.class));
-//    }
-
 
     public Alumno replaceAlumno(Long id, AlumnoDTO alumnoDTO) {
         return this.alumnoRepository.findById(id)
                 .map(alumno -> {
                     alumno.setTelefono(alumnoDTO.getTelefono());
                     alumno.setDireccion(alumnoDTO.getDireccion());
-                    alumno.setCarnetConducir(alumnoDTO.getCarnetConducir());
-                    alumno.setVehiculoPropio(alumnoDTO.getVehiculoPropio());
-                    return this.alumnoRepository.save(alumno);
-                })
-                .orElseThrow(() -> new EntityNotFoundException(id, Alumno.class));
-    }
-
-    public Alumno replaceDatosInteres(Long id, AlumnoDTO alumnoDTO) {
-        return this.alumnoRepository.findById(id)
-                .map(alumno -> {
                     alumno.setCarnetConducir(alumnoDTO.getCarnetConducir());
                     alumno.setVehiculoPropio(alumnoDTO.getVehiculoPropio());
                     return this.alumnoRepository.save(alumno);

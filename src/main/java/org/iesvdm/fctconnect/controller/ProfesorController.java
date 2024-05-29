@@ -34,19 +34,6 @@ public class ProfesorController {
         return this.profesorService.filtradoPorNombreConPaginacion(Optional.of(buscarPorNombre), pageable);
     }
 
-
-//    @GetMapping(value = {"", "/"})
-//    public List<Profesor> all(Optional<String> buscar, Optional<String> order) {
-//        log.info("Accediendo a profesores con filtro buscar y order");
-//        return this.profesorService.all();
-//    }
-//
-//    @GetMapping(value = {"", "/"})
-//    public List<Profesor> all(int pagina, int tamanio) {
-//        log.info("Accediendo a todos los profesores");
-//        return this.profesorService.all();
-//    }
-
     @PostMapping({"", "/"})
     public Profesor newProfesor(@RequestBody Profesor profesor) {
         return this.profesorService.save(profesor);

@@ -54,16 +54,11 @@ public class AlumnoController {
         return this.alumnoService.one(id);
     }
 
-//    @PutMapping("/{id}")
-//    public Alumno replaceAlumno(@PathVariable("id") Long id, @RequestBody Alumno alumno) {
-//        return this.alumnoService.replace(id, alumno);
-//    }
 
     @PutMapping("/{id}")
     public Alumno replaceAlumno(@PathVariable("id") Long id, @RequestBody AlumnoDTO alumnoDTO) {
         return this.alumnoService.replaceAlumno(id, alumnoDTO);
     }
-
 
     @ResponseBody
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -71,34 +66,6 @@ public class AlumnoController {
     public void deleteAlumno(@PathVariable("id") Long id) {
         this.alumnoService.delete(id);
     }
-
-//    @GetMapping(value = {"","/"}, params = {"!orden", "!paginado", "!buscarOrdenDosCampos"})
-//    public List<Alumno> all() {
-//        log.info("Accediendo a todas las películas");
-//        return this.alumnoService.all();
-//    }
-//
-//    //Para rutas http://localhost:8080/alumnos?orden=campo1,sentido1
-//    @GetMapping(value = {"", "/"}, params = {"!paginado", "!buscarOrdenDosCampos"})
-//    public  List<Alumno> all (String[] orden) {
-//        log.info("Accediendo a todas las películas con filtro buscarOrder");
-//        return this.alumnoService.all(orden);
-//    }
-//
-//    //Para rutas: http://localhost:8080/alumnos?ordenDosCampos=titulo,asc&buscarOrdenDosCampos=descripcion,desc
-//    @GetMapping(value = {"", "/"}, params = {"!paginado"})
-//    public  List<Alumno> allBuscaDosCampos (String[] buscarOrdenDosCampos) {
-//        log.info("Accediendo a todas las películas con filtro buscarOrdenDosCampos");
-//        return this.alumnoService.allBuscaDosCampos(buscarOrdenDosCampos);
-//    }
-//
-//    //Para rutas http://localhost:8080/alumnos?paginado=0,1
-//    @GetMapping(value = {"", "/"})
-//    public ResponseEntity<Map<String, Object>> allPag (@RequestParam(value="paginado", defaultValue = "0") String[] paginado) {
-//        log.info("Accediendo a películas con paginación");
-//        Map<String, Object> responseAll = this.alumnoService.allPag(paginado);
-//        return ResponseEntity.ok(responseAll);
-//    }
 
 }
 

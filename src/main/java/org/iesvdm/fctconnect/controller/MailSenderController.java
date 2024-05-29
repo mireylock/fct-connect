@@ -22,17 +22,4 @@ public class MailSenderController {
         return new MensajeRespuesta("Mensaje Enviado!");
     }
 
-//    @PostMapping("/send-mail")
-//    public MensajeRespuesta sendMail(@RequestParam("from") String from,
-//                                      @RequestParam("to") String to,
-//                                      @RequestParam("subject") String subject,
-//                                      @RequestParam("text") String text) throws MessagingException {
-//
-//        this.mailSenderService.sendWithoutAttach(from, to, subject, text);
-//        return new MensajeRespuesta("Mensaje Enviado!");
-//    }
-
-
-
-
 }

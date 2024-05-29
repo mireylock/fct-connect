@@ -20,13 +20,6 @@ public class SolicitudController {
         this.solicitudService = solicitudService;
     }
 
-
-//    @GetMapping(value = {"", "/"})
-//    public List<Solicitud> all() {
-//        log.info("Accediendo a todas las solicitudes");
-//        return this.solicitudService.all();
-//    }
-
     @GetMapping(value = { "/alu"})
     public List<Solicitud> allSolicitudesAlumno(String estado, String tipo, long id) {
         return this.solicitudService.allAlumno(estado, tipo, id);
@@ -41,8 +34,6 @@ public class SolicitudController {
     public Solicitud replaceSolicitud(@PathVariable("id") Long id, @RequestBody SolicitudDTO solicitudDTO) {
         return this.solicitudService.replace(id, solicitudDTO);
     }
-
-
 
 
     @PostMapping({"", "/"})
