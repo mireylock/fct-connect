@@ -492,6 +492,13 @@ class FctConnectApplicationTests {
                 .build();
         this.profesorTutorizaAlumnoRepository.save(tutoria2);
 
+        ProfesorTutorizaAlumno tutoria3 = ProfesorTutorizaAlumno.builder()
+                .profesor(profe1)
+                .alumno(alumno2)
+                .tipoTutoria("Practicas")
+                .build();
+        this.profesorTutorizaAlumnoRepository.save(tutoria3);
+
     }
 
 //    @Test

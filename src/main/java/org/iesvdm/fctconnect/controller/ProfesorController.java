@@ -6,6 +6,7 @@ import org.iesvdm.fctconnect.service.ProfesorService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,6 +33,12 @@ public class ProfesorController {
     public Page<Profesor> filtradoPorNombreConPaginacion(@RequestParam("buscar-por-nombre") String buscarPorNombre, Pageable pageable) {
         log.info("Accediendo a todas las categorías por buscar-por-nombre:" + buscarPorNombre);
         return this.profesorService.filtradoPorNombreConPaginacion(Optional.of(buscarPorNombre), pageable);
+    }
+
+    @GetMapping(value = "/alu/{idAlumno}")
+    public List<Profesor> profesorDeUnAlumno (@PathVariable("idAlumno") Long idAlumno) {
+        log.info("Accediendo al profesor del alumno con id "+idAlumno);
+        return this.profesorService.profesoresDeUnAlumno(idAlumno);
     }
 
     @PostMapping({"", "/"})
