@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -49,26 +50,31 @@ public class AuthController {
 
     @PostMapping(value={"/login-alumno", "/login-empresa", "/login-profesor"})
     public ResponseEntity<Map<String, Object>> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
 
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
+            SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+            String token = tokenUtils.generateToken(authentication);
 
-        String token = tokenUtils.generateToken(authentication);
+            UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
-        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+            String rol = userDetails.getAuthority().getAuthority();
 
-        String rol = userDetails.getAuthority().getAuthority();
+            Map<String, Object> response = new HashMap<>();
+            response.put("token", token);
+            response.put("id", userDetails.getId());
+            response.put("email", userDetails.getEmail());
+            response.put("rol", rol);
 
-        Map<String, Object> response = new HashMap<>();
-
-        response.put("token", token);
-        response.put("id", userDetails.getId());
-        response.put("email", userDetails.getEmail());
-        response.put("rol", rol);
-
-        return ResponseEntity.ok(response);
+            return ResponseEntity.ok(response);
+        } catch (AuthenticationException e) {
+            Map<String, Object> response = new HashMap<>();
+            response.put("error", "Unauthorized");
+            response.put("message", "Invalid email or password");
+            return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
+        }
     }
 
     @PostMapping(value = {"/register"})
