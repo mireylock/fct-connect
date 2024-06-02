@@ -3,6 +3,7 @@ package org.iesvdm.fctconnect.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+import org.iesvdm.fctconnect.domain.enums.ENivelIdioma;
 
 @Entity
 @Table(name="alumno_habla_idioma")
@@ -20,12 +21,17 @@ public class AlumnoHablaIdioma {
     @Column
     private String pathDiploma;
     private String descripcion;
+    private ENivelIdioma nivel;
 
+
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="id_alumno")
     private Alumno alumno;
 
+
     @ManyToOne
     @JoinColumn(name="id_idioma")
     private Idioma idioma;
+
 }

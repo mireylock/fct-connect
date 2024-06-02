@@ -110,6 +110,8 @@ public class AuthController {
                     nuevoAlumno.setApellido2(registerRequest.getApellido2());
                     nuevoAlumno.setDni(registerRequest.getDni());
                     nuevoAlumno.setPathFoto(registerRequest.getPathFoto());
+                    nuevoAlumno.setVehiculoPropio(registerRequest.getCarnetConducir());
+                    nuevoAlumno.setCarnetConducir(registerRequest.getVehiculoPropio());
                     alumnoRepository.save(nuevoAlumno);
                     break;
 

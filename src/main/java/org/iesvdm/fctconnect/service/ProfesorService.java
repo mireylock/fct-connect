@@ -30,9 +30,9 @@ public class ProfesorService {
         return this.profesorRepository.paginacionPorNombreContenido(nombreABuscar.orElse(""), pageable);
     }
 
-    public List<Profesor> profesoresDeUnAlumno (long idAlumno) {
-        return this.profesorRepository.profesoresDeUnAlumno(idAlumno);
-    }
+//    public List<Profesor> profesoresDeUnAlumno (long idAlumno) {
+//        return this.profesorRepository.profesoresDeUnAlumno(idAlumno);
+//    }
 
 
 

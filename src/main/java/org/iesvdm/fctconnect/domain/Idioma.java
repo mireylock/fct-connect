@@ -23,15 +23,21 @@ public class Idioma {
     private long id;
 
     private String nombre;
-    private String descripcion;
-    @Column(name="path_diploma")
-    private String pathDiploma;
+//    private String descripcion;
+//    @Column(name="path_diploma")
+//    private String pathDiploma;
 
-    @ManyToMany(mappedBy = "idiomas", fetch = FetchType.EAGER,  cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE})
+//    @ManyToMany(mappedBy = "idiomas", fetch = FetchType.EAGER,  cascade = {
+//            CascadeType.PERSIST,
+//            CascadeType.MERGE})
+//    @JsonIgnore
+//    private Set<Alumno> alumnos = new HashSet<>();
+
     @JsonIgnore
-    private Set<Alumno> alumnos = new HashSet<>();
+    @OneToMany(mappedBy = "idioma")
+    private List<AlumnoHablaIdioma> alumnoHablaIdiomas;
+
+
 
 
 

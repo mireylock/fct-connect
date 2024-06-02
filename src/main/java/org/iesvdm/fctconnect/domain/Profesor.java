@@ -2,6 +2,7 @@ package org.iesvdm.fctconnect.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -11,6 +12,7 @@ import lombok.*;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name="profesor",
@@ -31,8 +33,8 @@ public class Profesor extends Usuario{
     private String direccion;
     private String departamento;
 
-    @OneToMany(mappedBy = "profesor")
     @JsonIgnore
+    @OneToMany(mappedBy = "profesor")
     private List<ProfesorTutorizaAlumno> profesorTutorizaAlumnos;
 
     @ManyToMany (fetch = FetchType.EAGER)

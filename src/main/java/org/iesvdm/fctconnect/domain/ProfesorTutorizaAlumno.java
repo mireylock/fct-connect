@@ -1,5 +1,6 @@
 package org.iesvdm.fctconnect.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,10 +20,13 @@ public class ProfesorTutorizaAlumno {
 
     private String tipoTutoria; //practicas, proyecto o ambos
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="id_alumno")
     private Alumno alumno;
 
+
+//    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="id_profesor")
     private Profesor profesor;

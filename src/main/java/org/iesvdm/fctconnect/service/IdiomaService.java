@@ -1,7 +1,11 @@
 package org.iesvdm.fctconnect.service;
 
+import org.iesvdm.fctconnect.domain.Alumno;
+import org.iesvdm.fctconnect.domain.AlumnoHablaIdioma;
 import org.iesvdm.fctconnect.domain.Idioma;
+import org.iesvdm.fctconnect.domain.dto.AlumnoHablaIdiomaDTO;
 import org.iesvdm.fctconnect.exception.EntityNotFoundException;
+import org.iesvdm.fctconnect.repository.AlumnoHablaIdiomaRepository;
 import org.iesvdm.fctconnect.repository.IdiomaRepository;
 import org.springframework.stereotype.Service;
 
@@ -10,13 +14,32 @@ import java.util.List;
 @Service
 public class IdiomaService {
     private final IdiomaRepository idiomaRepository;
+    private final AlumnoHablaIdiomaRepository alumnoHablaIdiomaRepository;
+    private final AlumnoService alumnoService;
 
-    public IdiomaService(IdiomaRepository idiomaRepository) {
+    public IdiomaService(IdiomaRepository idiomaRepository, AlumnoHablaIdiomaRepository alumnoHablaIdiomaRepository, AlumnoService alumnoService) {
         this.idiomaRepository = idiomaRepository;
+        this.alumnoHablaIdiomaRepository = alumnoHablaIdiomaRepository;
+        this.alumnoService = alumnoService;
     }
 
     public List<Idioma> all() {
         return this.idiomaRepository.findAll();
+    }
+
+    public AlumnoHablaIdioma saveAlumnoHablaIdioma (AlumnoHablaIdiomaDTO alumnoHablaIdiomaDTO) {
+        Alumno alumno = alumnoService.one(alumnoHablaIdiomaDTO.getAlumnoId());
+        Idioma idioma = one(alumnoHablaIdiomaDTO.getIdiomaId());
+
+        AlumnoHablaIdioma alumnoHablaIdioma = AlumnoHablaIdioma.builder()
+                .pathDiploma(alumnoHablaIdiomaDTO.getPathDiploma())
+                .descripcion(alumnoHablaIdiomaDTO.getDescripcion())
+                .nivel(alumnoHablaIdiomaDTO.getNivel())
+                .alumno(alumno)
+                .idioma(idioma)
+                .build();
+
+        return alumnoHablaIdiomaRepository.save(alumnoHablaIdioma);
     }
 
     public Idioma save(Idioma idioma) {

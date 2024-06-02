@@ -35,11 +35,11 @@ public class ProfesorController {
         return this.profesorService.filtradoPorNombreConPaginacion(Optional.of(buscarPorNombre), pageable);
     }
 
-    @GetMapping(value = "/alu/{idAlumno}")
-    public List<Profesor> profesorDeUnAlumno (@PathVariable("idAlumno") Long idAlumno) {
-        log.info("Accediendo al profesor del alumno con id "+idAlumno);
-        return this.profesorService.profesoresDeUnAlumno(idAlumno);
-    }
+//    @GetMapping(value = "/alu/{idAlumno}")
+//    public List<Profesor> profesorDeUnAlumno (@PathVariable("idAlumno") Long idAlumno) {
+//        log.info("Accediendo al profesor del alumno con id "+idAlumno);
+//        return this.profesorService.profesoresDeUnAlumno(idAlumno);
+//    }
 
     @PostMapping({"", "/"})
     public Profesor newProfesor(@RequestBody Profesor profesor) {

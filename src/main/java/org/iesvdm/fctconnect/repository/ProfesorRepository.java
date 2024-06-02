@@ -14,9 +14,9 @@ import java.util.Optional;
 @Repository
 public interface ProfesorRepository extends JpaRepository<Profesor, Long> {
 
-    @Query("SELECT P from Profesor P JOIN P.profesorTutorizaAlumnos t "+
-    "WHERE :idAlumno = t.alumno.id")
-    public List<Profesor> profesoresDeUnAlumno(@Param("idAlumno") long idAlumno);
+//    @Query("SELECT P FROM Profesor P JOIN P.profesorTutorizaAlumnos t "+
+//    "WHERE :idAlumno = t.alumno.id")
+//    public List<Profesor> profesoresDeUnAlumno(@Param("idAlumno") long idAlumno);
 
 
     @Query(value="select P from Profesor P where P.nombre like %?1%",

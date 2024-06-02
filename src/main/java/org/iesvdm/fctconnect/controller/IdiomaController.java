@@ -1,7 +1,11 @@
 package org.iesvdm.fctconnect.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.iesvdm.fctconnect.domain.Alumno;
+import org.iesvdm.fctconnect.domain.AlumnoHablaIdioma;
 import org.iesvdm.fctconnect.domain.Idioma;
+import org.iesvdm.fctconnect.domain.dto.AlumnoHablaIdiomaDTO;
+import org.iesvdm.fctconnect.service.AlumnoService;
 import org.iesvdm.fctconnect.service.IdiomaService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -27,9 +31,14 @@ public class IdiomaController {
     }
 
     @PostMapping({"", "/"})
-    public Idioma newIdioma(@RequestBody Idioma idioma) {
-        return this.idiomaService.save(idioma);
+    public AlumnoHablaIdioma newIdioma(@RequestBody AlumnoHablaIdiomaDTO alumnoHablaIdiomaDTO) {
+        return idiomaService.saveAlumnoHablaIdioma(alumnoHablaIdiomaDTO);
     }
+
+//    @PostMapping({"", "/"})
+//    public Idioma newIdioma(@RequestBody Idioma idioma) {
+//        return this.idiomaService.save(idioma);
+//    }
 
     @GetMapping("/{id}")
     public Idioma one(@PathVariable("id") Long id) {

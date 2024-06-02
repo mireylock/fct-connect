@@ -20,5 +20,7 @@ public class RegisterRequest {
     private String apellido2;
     private String dni;
     private String pathFoto;
+    private long carnetConducir;
+    private long vehiculoPropio;
 }
 
