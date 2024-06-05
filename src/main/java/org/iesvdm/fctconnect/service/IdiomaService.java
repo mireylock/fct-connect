@@ -42,6 +42,14 @@ public class IdiomaService {
         return alumnoHablaIdiomaRepository.save(alumnoHablaIdioma);
     }
 
+    public void deleteAlumnoHablaIdioma(Long id) {
+        this.alumnoHablaIdiomaRepository.findById(id).map(p -> {
+                    this.alumnoHablaIdiomaRepository.delete(p);
+                    return p;
+                })
+                .orElseThrow(() -> new EntityNotFoundException(id, AlumnoHablaIdioma.class));
+    }
+
     public Idioma save(Idioma idioma) {
         return this.idiomaRepository.save(idioma);
     }

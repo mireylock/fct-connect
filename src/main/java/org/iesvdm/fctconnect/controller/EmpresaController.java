@@ -2,6 +2,7 @@ package org.iesvdm.fctconnect.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.iesvdm.fctconnect.domain.Empresa;
+import org.iesvdm.fctconnect.domain.dto.EmpresaDTO;
 import org.iesvdm.fctconnect.domain.enums.EInglesSolicitado;
 import org.iesvdm.fctconnect.domain.enums.EModalidadTrabajo;
 import org.iesvdm.fctconnect.service.EmpresaService;
@@ -59,8 +60,8 @@ public class EmpresaController {
     }
 
     @PutMapping("/{id}")
-    public Empresa replaceEmpresa(@PathVariable("id") Long id, @RequestBody Empresa empresa) {
-        return this.empresaService.replace(id, empresa);
+    public Empresa replaceEmpresa(@PathVariable("id") Long id, @RequestBody EmpresaDTO empresaDTO) {
+        return this.empresaService.replace(id, empresaDTO);
     }
 
 

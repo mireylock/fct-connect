@@ -20,14 +20,19 @@ public class Tecnologia {
     @Column(name="id_tecnologia")
     @EqualsAndHashCode.Include
     private long id;
-    String nombre;
-    String descripcion;
+    private String nombre;
+    private String descripcion;
 
-    @ManyToMany(mappedBy = "tecnologias", fetch = FetchType.EAGER,  cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE})
+    @ManyToOne
     @JsonIgnore
-    private Set<Empresa> empresas = new HashSet<>();
+    @JoinColumn(name="id_empresa")
+    private Empresa empresa;
+
+//    @ManyToMany(mappedBy = "tecnologias", fetch = FetchType.EAGER,  cascade = {
+//            CascadeType.PERSIST,
+//            CascadeType.MERGE})
+//    @JsonIgnore
+//    private Set<Empresa> empresas = new HashSet<>();
 
 
 }

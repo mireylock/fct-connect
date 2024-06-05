@@ -7,6 +7,6 @@ import java.util.Optional;
 
 @Repository
 public interface CustomQueryBusquedaAlumno {
-    public Map<String, Object> buscarAlumnoPaginacion(Optional<String> nombre, Optional<Boolean> vehiculoPropio, Optional<String> idioma, Optional<Integer> pagina, Optional<Integer> tamanio);
+    public Map<String, Object> buscarAlumnoPaginacion(Optional<String> nombre, Optional<Boolean> vehiculoPropio, Optional<Long> idioma, Optional<Integer> pagina, Optional<Integer> tamanio);
 
 }

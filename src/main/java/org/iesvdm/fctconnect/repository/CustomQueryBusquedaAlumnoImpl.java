@@ -21,19 +21,19 @@ public class CustomQueryBusquedaAlumnoImpl implements CustomQueryBusquedaAlumno 
     @Override
     public Map<String, Object> buscarAlumnoPaginacion(Optional<String> nombre,
                                                       Optional<Boolean> vehiculoPropio,
-                                                      Optional<String> idioma,
+                                                      Optional<Long> idioma,
                                                       Optional<Integer> pagina,
                                                       Optional<Integer> tamanio) {
         String queryStr = "select A from Alumno A";
         String countQueryStr = "select count(*) from Alumno A";
 
         if ((nombre.isPresent() && !nombre.get().isEmpty() || vehiculoPropio.isPresent())
-                && (idioma.isEmpty() || idioma.get().isEmpty())) {
+                && (idioma.isEmpty())) {
             queryStr += " where ";
             countQueryStr += " where ";
-        } else if (idioma.isPresent() && !idioma.get().isEmpty()) {
-            queryStr += " join A.idiomas I where ";
-            countQueryStr += " join A.idiomas I where ";
+        } else if (idioma.isPresent()) {
+            queryStr += " join A.idiomas.idioma I where ";
+            countQueryStr += " join A.idiomas.idioma I where ";
         }
 
         if (nombre.isPresent() && !nombre.get().isEmpty()) {
@@ -45,23 +45,22 @@ public class CustomQueryBusquedaAlumnoImpl implements CustomQueryBusquedaAlumno 
                 countQueryStr += " and A.vehiculoPropio=:vehiculoPropio ";
             }
 
-            if (idioma.isPresent() && !idioma.get().isEmpty()) {
-                queryStr += " and I.nombre LIKE CONCAT('%', :idioma, '%') ";
-                countQueryStr += " and I.nombre LIKE CONCAT('%', :idioma, '%') ";
-
+            if (idioma.isPresent()) {
+                queryStr += " and I.id = idioma.get() ";
+                countQueryStr += " and I.id = idioma.get() ";
             }
         } else {
             if (vehiculoPropio.isPresent()) {
                 queryStr += " A.vehiculoPropio=:vehiculoPropio ";
                 countQueryStr += " A.vehiculoPropio=:vehiculoPropio ";
 
-                if (idioma.isPresent() && !idioma.get().isEmpty()) {
-                    queryStr += " and I.nombre LIKE CONCAT('%', :idioma, '%') ";
-                    countQueryStr += " and I.nombre LIKE CONCAT('%', :idioma, '%') ";
+                if (idioma.isPresent()) {
+                    queryStr += " and I.id = :idioma ";
+                    countQueryStr += " and I.id = :idioma ";
                 }
-            } else if (idioma.isPresent() && !idioma.get().isEmpty()) {
-                queryStr += " I.nombre LIKE CONCAT('%', :idioma, '%') ";
-                countQueryStr += " I.nombre LIKE CONCAT('%', :idioma, '%') ";
+            } else if (idioma.isPresent()) {
+                queryStr += " I.id = :idioma ";
+                countQueryStr += " I.id = :idioma ";
             }
 
         }
@@ -73,13 +72,13 @@ public class CustomQueryBusquedaAlumnoImpl implements CustomQueryBusquedaAlumno 
 
         if (nombre.isPresent() && !nombre.get().isEmpty()) query.setParameter("nombre", nombre.get());
         if (vehiculoPropio.isPresent()) query.setParameter("vehiculoPropio", vehiculoPropio.get() ? 1 : 0);
-        if (idioma.isPresent() && !idioma.get().isEmpty()) query.setParameter("idioma", idioma.get());
+        if (idioma.isPresent()) query.setParameter("idioma", idioma.get());
 
         Query countQuery = null;
         countQuery = em.createQuery(countQueryStr, Long.class);
         if (nombre.isPresent() && !nombre.get().isEmpty()) countQuery.setParameter("nombre", nombre.get());
         if (vehiculoPropio.isPresent()) countQuery.setParameter("vehiculoPropio", vehiculoPropio.get() ? 1 : 0);
-        if (idioma.isPresent() && !idioma.get().isEmpty()) countQuery.setParameter("idioma", idioma.get());
+        if (idioma.isPresent()) countQuery.setParameter("idioma", idioma.get());
 
         long totalItems = (Long) countQuery.getSingleResult();
         long totalPages = 1;

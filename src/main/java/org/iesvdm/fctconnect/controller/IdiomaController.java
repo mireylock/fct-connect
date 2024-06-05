@@ -35,6 +35,11 @@ public class IdiomaController {
         return idiomaService.saveAlumnoHablaIdioma(alumnoHablaIdiomaDTO);
     }
 
+    @DeleteMapping({"/aluIdioma/{id}"})
+    public void deleteAlumnoHablaIdioma (@PathVariable ("id") Long id){
+        idiomaService.deleteAlumnoHablaIdioma(id);
+    }
+
 //    @PostMapping({"", "/"})
 //    public Idioma newIdioma(@RequestBody Idioma idioma) {
 //        return this.idiomaService.save(idioma);

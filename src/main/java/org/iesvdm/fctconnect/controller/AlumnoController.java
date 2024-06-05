@@ -37,7 +37,7 @@ public class AlumnoController {
     @GetMapping(value = {"", "/"})
     public Map<String, Object> buscarAlumnosPaginacion(Optional<String> nombre,
                                                        Optional<Boolean> vehiculoPropio,
-                                                       Optional<String> idioma,
+                                                       Optional<Long> idioma,
                                                        Optional<Integer> pagina,
                                                        Optional<Integer> tamanio) {
         log.info("Accediendo a alumnos con filtros");

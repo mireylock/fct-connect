@@ -18,6 +18,7 @@ public class AlumnoHablaIdioma {
     @Column(name = "id_alumno_habla_idioma")
     @EqualsAndHashCode.Include
     private Long id;
+
     @Column
     private String pathDiploma;
     private String descripcion;

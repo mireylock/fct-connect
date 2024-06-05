@@ -46,7 +46,7 @@ public class AlumnoService {
 
     public Map<String, Object> buscarAlumnoPaginacion(Optional<String> nombre,
                                                       Optional<Boolean> vehiculoPropio,
-                                                      Optional<String> idioma,
+                                                      Optional<Long> idioma,
                                                       Optional<Integer> pagina,
                                                       Optional<Integer> tamanio) {
         return this.customQuery.buscarAlumnoPaginacion(nombre, vehiculoPropio, idioma, pagina, tamanio);

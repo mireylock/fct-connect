@@ -400,16 +400,6 @@ class FctConnectApplicationTests {
                 .build();
         this.alumnoRepository.save(alumno12);
 
-        Tecnologia javaSpring = Tecnologia.builder()
-                .nombre("Java en Spring Boot")
-                .descripcion("Para un proyecto del banco ING")
-                .build();
-        this.tecnologiaRepository.save(javaSpring);
-
-        Tecnologia angular = Tecnologia.builder()
-                .nombre("Angular 17")
-                .build();
-        this.tecnologiaRepository.save(angular);
 
         Empresa empresa1 = Empresa.builder()
                 .nombre("Accenture")
@@ -418,10 +408,24 @@ class FctConnectApplicationTests {
                 .inglesSolicitado(EInglesSolicitado.IMPORTANTE)
                 .modalidadesTrabajo(new HashSet<>(Set.of(EModalidadTrabajo.HIBRIDO, EModalidadTrabajo.PRESENCIAL)))
                 .resumen("Empresa consultora")
-                .tecnologias(new HashSet<>(Set.of(javaSpring, angular)))
+//                .tecnologias(new HashSet<>(Set.of(javaSpring, angular)))
                 .pathFoto("../../../../assets/img/profile.png")
                 .build();
         this.empresaRepository.save(empresa1);
+
+        Tecnologia javaAccenture = Tecnologia.builder()
+                .empresa(empresa1)
+                .nombre("Java 17")
+                .descripcion("Para un proyecto X")
+                .build();
+        this.tecnologiaRepository.save(javaAccenture);
+
+        Tecnologia angularAccenture = Tecnologia.builder()
+                .empresa(empresa1)
+                .nombre("Angular 17")
+                .build();
+        this.tecnologiaRepository.save(angularAccenture);
+
 
         Ubicacion ubi1emp1 = Ubicacion.builder()
                 .pais("España")
@@ -439,10 +443,16 @@ class FctConnectApplicationTests {
                 .inglesSolicitado(EInglesSolicitado.IMPRESCINDIBLE)
                 .modalidadesTrabajo(new HashSet<>(Set.of(EModalidadTrabajo.HIBRIDO, EModalidadTrabajo.ONLINE, EModalidadTrabajo.PRESENCIAL)))
                 .resumen("Empresa consultora")
-                .tecnologias(new HashSet<>(Set.of(javaSpring)))
+//                .tecnologias(new HashSet<>(Set.of(javaSpring)))
                 .pathFoto("../../../../assets/img/profile.png")
                 .build();
         this.empresaRepository.save(empresa2);
+
+        Tecnologia angularBabel = Tecnologia.builder()
+                .empresa(empresa2)
+                .nombre("Angular 14")
+                .build();
+        this.tecnologiaRepository.save(angularBabel);
 
         Ubicacion ubi1emp2 = Ubicacion.builder()
                 .pais("España")

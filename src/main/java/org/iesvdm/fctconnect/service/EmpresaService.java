@@ -1,6 +1,8 @@
 package org.iesvdm.fctconnect.service;
 
+import org.iesvdm.fctconnect.domain.Alumno;
 import org.iesvdm.fctconnect.domain.Empresa;
+import org.iesvdm.fctconnect.domain.dto.EmpresaDTO;
 import org.iesvdm.fctconnect.domain.enums.EInglesSolicitado;
 import org.iesvdm.fctconnect.domain.enums.EModalidadTrabajo;
 import org.iesvdm.fctconnect.exception.EntityNotFoundException;
@@ -15,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class EmpresaService {
@@ -43,12 +46,12 @@ public class EmpresaService {
         return response;
     }
 
-    public Map<String, Object> buscarEmpresaPaginacion (String nombre, EInglesSolicitado inglesSolicitado, EModalidadTrabajo modalidadTrabajo, String tecnologia, Optional<Integer> pagina, Optional<Integer> tamanio) {
-        List<Empresa> empresas = empresaRepository.findEmpresasByCriteria(nombre, inglesSolicitado, modalidadTrabajo, tecnologia);
+    public Map<String, Object> buscarEmpresaPaginacion(String nombre, EInglesSolicitado inglesSolicitado, EModalidadTrabajo modalidadTrabajo, String tecnologia, Optional<Integer> pagina, Optional<Integer> tamanio) {
+        List<Empresa> empresas = empresaRepository.findEmpresasByNombreInglesModalidadTecnologia(nombre, inglesSolicitado, modalidadTrabajo, tecnologia);
         long totalItems = empresas.size();
         long totalPages = 1;
-        if (tamanio.isPresent() && tamanio.get()!=0) {
-            double paginas = (double) totalItems /tamanio.get();
+        if (tamanio.isPresent() && tamanio.get() != 0) {
+            double paginas = (double) totalItems / tamanio.get();
             totalPages = (long) Math.ceil(paginas);
         }
 
@@ -71,14 +74,18 @@ public class EmpresaService {
                 .orElseThrow(() -> new EntityNotFoundException(id, Empresa.class));
     }
 
-    public Empresa replace(Long id, Empresa empresa) {
-
+    public Empresa replace(Long id, EmpresaDTO empresaDTO) {
         return this.empresaRepository.findById(id)
-                .map(c -> {
-                    empresa.setId(id); // si no se setea el id no lo guarda
+                .map(empresa -> {
+                    empresa.setInglesSolicitado(EInglesSolicitado.valueOf(empresaDTO.getInglesSolicitado()));
+                    empresa.setModalidadesTrabajo(empresaDTO.getModalidadesTrabajo().stream()
+                            .map(EModalidadTrabajo::valueOf).collect(Collectors.toSet()));
+                    empresa.setResumen(empresaDTO.getResumen());
+                    empresa.setPathSitioWeb(empresaDTO.getPathSitioWeb());
+
                     return this.empresaRepository.save(empresa);
                 })
-                .orElseThrow(() -> new EntityNotFoundException(id, Empresa.class));
+                .orElseThrow(() -> new EntityNotFoundException(id, Alumno.class));
     }
 
     public void delete(Long id) {
