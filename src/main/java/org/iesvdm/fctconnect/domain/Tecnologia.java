@@ -2,6 +2,8 @@ package org.iesvdm.fctconnect.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.util.HashSet;
@@ -20,6 +22,8 @@ public class Tecnologia {
     @Column(name="id_tecnologia")
     @EqualsAndHashCode.Include
     private long id;
+    @NotNull
+    @NotBlank
     private String nombre;
     private String descripcion;
 
