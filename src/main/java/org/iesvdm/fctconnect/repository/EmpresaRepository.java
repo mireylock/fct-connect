@@ -29,4 +29,12 @@ public interface EmpresaRepository extends JpaRepository<Empresa, Long> {
                                                                 @Param("inglesSolicitado") EInglesSolicitado inglesSolicitado,
                                                                 @Param("modalidadTrabajo") EModalidadTrabajo modalidadTrabajo,
                                                                 @Param("tecnologia") String tecnologia);
+
+    @Query("SELECT e FROM Empresa e " +
+            "WHERE (:nombre IS NULL OR :nombre = '' OR LOWER(e.nombre) LIKE LOWER(CONCAT('%', :nombre, '%'))) " +
+            "AND (:inglesSolicitado IS NULL OR e.inglesSolicitado = :inglesSolicitado) " +
+            "AND (:modalidadTrabajo IS NULL OR :modalidadTrabajo MEMBER OF e.modalidadesTrabajo)")
+    List<Empresa> findEmpresasByNombreInglesModalidad(@Param("nombre") String nombre,
+                                                                @Param("inglesSolicitado") EInglesSolicitado inglesSolicitado,
+                                                                @Param("modalidadTrabajo") EModalidadTrabajo modalidadTrabajo);
 }

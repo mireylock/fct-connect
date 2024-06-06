@@ -1,5 +1,6 @@
 package org.iesvdm.fctconnect.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.iesvdm.fctconnect.domain.Alumno;
 import org.iesvdm.fctconnect.domain.Empresa;
 import org.iesvdm.fctconnect.domain.dto.EmpresaDTO;
@@ -19,6 +20,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class EmpresaService {
     private final EmpresaRepository empresaRepository;
@@ -47,7 +49,17 @@ public class EmpresaService {
     }
 
     public Map<String, Object> buscarEmpresaPaginacion(String nombre, EInglesSolicitado inglesSolicitado, EModalidadTrabajo modalidadTrabajo, String tecnologia, Optional<Integer> pagina, Optional<Integer> tamanio) {
-        List<Empresa> empresas = empresaRepository.findEmpresasByNombreInglesModalidadTecnologia(nombre, inglesSolicitado, modalidadTrabajo, tecnologia);
+
+        List<Empresa> empresas;
+
+        if(tecnologia.isEmpty()) {
+            empresas = empresaRepository.findEmpresasByNombreInglesModalidad(nombre, inglesSolicitado, modalidadTrabajo);
+            log.info("Búsqueda de empresas sin tecnologia");
+        } else {
+            empresas = empresaRepository.findEmpresasByNombreInglesModalidadTecnologia(nombre, inglesSolicitado, modalidadTrabajo, tecnologia);
+            log.info("Búsqueda de empresas con tecnologia");
+        }
+
         long totalItems = empresas.size();
         long totalPages = 1;
         if (tamanio.isPresent() && tamanio.get() != 0) {
