@@ -48,7 +48,7 @@ public class AuthController {
         this.empresaRequestService = empresaRequestService;
     }
 
-    @PostMapping(value={"/login-alumno", "/login-empresa", "/login-profesor"})
+    @PostMapping(value = {"/login-alumno", "/login-empresa", "/login-profesor"})
     public ResponseEntity<Map<String, Object>> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
         try {
             Authentication authentication = authenticationManager.authenticate(
@@ -87,52 +87,56 @@ public class AuthController {
         String rol = registerRequest.getRol();
         String encodedPassword = encoder.encode(registerRequest.getPassword());
 
-        if (rol !=null) {
+        if (rol != null) {
             switch (rol) {
                 case "administrador":
-                    Administrador nuevoAdmin = new Administrador();
-                    nuevoAdmin.setEmail(registerRequest.getEmail());
-                    nuevoAdmin.setPassword(encodedPassword);
-                    nuevoAdmin.setNombre(registerRequest.getNombre());
-                    nuevoAdmin.setApellido1(registerRequest.getApellido1());
-                    nuevoAdmin.setApellido2(registerRequest.getApellido2());
-                    nuevoAdmin.setDni(registerRequest.getDni());
-                    nuevoAdmin.setPathFoto(registerRequest.getPathFoto());
+                    Administrador nuevoAdmin = Administrador.builder()
+                            .email(registerRequest.getEmail())
+                            .password(encodedPassword)
+                            .nombre(registerRequest.getNombre())
+                            .apellido1(registerRequest.getApellido1())
+                            .apellido2(registerRequest.getApellido2())
+                            .dni(registerRequest.getDni())
+                            .pathFoto(registerRequest.getPathFoto())
+                            .build();
                     administradorRepository.save(nuevoAdmin);
                     break;
 
                 case "alumno":
-                    Alumno nuevoAlumno = new Alumno();
-                    nuevoAlumno.setEmail(registerRequest.getEmail());
-                    nuevoAlumno.setPassword(encodedPassword);
-                    nuevoAlumno.setNombre(registerRequest.getNombre());
-                    nuevoAlumno.setApellido1(registerRequest.getApellido1());
-                    nuevoAlumno.setApellido2(registerRequest.getApellido2());
-                    nuevoAlumno.setDni(registerRequest.getDni());
-                    nuevoAlumno.setPathFoto(registerRequest.getPathFoto());
-                    nuevoAlumno.setVehiculoPropio(registerRequest.getCarnetConducir());
-                    nuevoAlumno.setCarnetConducir(registerRequest.getVehiculoPropio());
+                    Alumno nuevoAlumno = Alumno.builder()
+                            .email(registerRequest.getEmail())
+                            .password(encodedPassword)
+                            .nombre(registerRequest.getNombre())
+                            .apellido1(registerRequest.getApellido1())
+                            .apellido2(registerRequest.getApellido2())
+                            .dni(registerRequest.getDni())
+                            .pathFoto(registerRequest.getPathFoto())
+                            .vehiculoPropio(registerRequest.getCarnetConducir())
+                            .carnetConducir(registerRequest.getVehiculoPropio())
+                            .build();
                     alumnoRepository.save(nuevoAlumno);
                     break;
 
                 case "empresa":
-                    Empresa nuevaEmpresa = new Empresa();
-                    nuevaEmpresa.setEmail(registerRequest.getEmail());
-                    nuevaEmpresa.setPassword(encodedPassword);
-                    nuevaEmpresa.setNombre(registerRequest.getNombre());
-                    nuevaEmpresa.setPathFoto(registerRequest.getPathFoto());
+                    Empresa nuevaEmpresa = Empresa.builder()
+                            .email(registerRequest.getEmail())
+                            .password(encodedPassword)
+                            .nombre(registerRequest.getNombre())
+                            .pathFoto(registerRequest.getPathFoto())
+                            .build();
                     empresaRepository.save(nuevaEmpresa);
                     break;
 
                 case "profesor":
-                    Profesor nuevoProfesor = new Profesor();
-                    nuevoProfesor.setEmail(registerRequest.getEmail());
-                    nuevoProfesor.setPassword(encodedPassword);
-                    nuevoProfesor.setNombre(registerRequest.getNombre());
-                    nuevoProfesor.setApellido1(registerRequest.getApellido1());
-                    nuevoProfesor.setApellido2(registerRequest.getApellido2());
-                    nuevoProfesor.setDni(registerRequest.getDni());
-                    nuevoProfesor.setPathFoto(registerRequest.getPathFoto());
+                    Profesor nuevoProfesor = Profesor.builder()
+                            .email(registerRequest.getEmail())
+                            .password(encodedPassword)
+                            .nombre(registerRequest.getNombre())
+                            .apellido1(registerRequest.getApellido1())
+                            .apellido2(registerRequest.getApellido2())
+                            .dni(registerRequest.getDni())
+                            .pathFoto(registerRequest.getPathFoto())
+                            .build();
                     profesorRepository.save(nuevoProfesor);
                     break;
             }
@@ -142,7 +146,7 @@ public class AuthController {
     }
 
     @GetMapping("/request-empresa")
-    public List<EmpresaRequest> all () {
+    public List<EmpresaRequest> all() {
         return this.empresaRequestService.all();
     }
 
