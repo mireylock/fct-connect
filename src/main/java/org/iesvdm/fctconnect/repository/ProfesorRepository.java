@@ -18,6 +18,8 @@ public interface ProfesorRepository extends JpaRepository<Profesor, Long> {
 //    "WHERE :idAlumno = t.alumno.id")
 //    public List<Profesor> profesoresDeUnAlumno(@Param("idAlumno") long idAlumno);
 
+    List<Profesor> findAllByActivoIsTrue();
+    List<Profesor> findAllByActivoIsFalse();
 
     @Query(value="select P from Profesor P where P.nombre like %?1%",
             countQuery = "select count(*) from Profesor P where P.nombre like %?1%"

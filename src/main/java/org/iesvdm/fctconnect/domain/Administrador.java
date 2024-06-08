@@ -24,8 +24,9 @@ public class Administrador extends Usuario {
         private String direccion;
 
         @Builder
-        public Administrador(long id, @NotBlank @Email String email, @NotBlank @Size(min = 6) String password, @NotBlank String nombre, String pathFoto, String dni, String apellido1, String apellido2, String telefono, String direccion) {
-                super(id, email, password, nombre, pathFoto);
+
+        public Administrador(long id, @NotBlank @Email String email, @NotBlank @Size(min = 6) String password, @NotBlank String nombre, String pathFoto, boolean activo, String dni, String apellido1, String apellido2, String telefono, String direccion) {
+                super(id, email, password, nombre, pathFoto, activo);
                 this.dni = dni;
                 this.apellido1 = apellido1;
                 this.apellido2 = apellido2;

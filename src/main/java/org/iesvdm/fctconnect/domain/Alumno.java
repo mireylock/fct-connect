@@ -39,9 +39,9 @@ public class Alumno extends Usuario{
     @Column(name="path_expediente")
     private String pathExpediente;
     @Column(name="carnet_conducir")
-    private Long carnetConducir;
+    private Boolean carnetConducir;
     @Column(name="vehiculo_propio")
-    private Long vehiculoPropio;
+    private Boolean vehiculoPropio;
 
     @OneToMany(mappedBy = "alumno")
     @JsonIgnore
@@ -81,8 +81,8 @@ public class Alumno extends Usuario{
     private Formacion formacion;
 
     @Builder
-    public Alumno(long id, @NotBlank @Email String email, @NotBlank @Size(min = 6) String password, @NotBlank String nombre, String pathFoto, String dni, String apellido1, String apellido2, String telefono, String direccion, String pathCV, String pathExpediente, Long carnetConducir, Long vehiculoPropio, List<Solicitud> solicitudes, List<ProfesorTutorizaAlumno> profesorTutorizaAlumnos, List<AlumnoHablaIdioma> idiomas, Formacion formacion) {
-        super(id, email, password, nombre, pathFoto);
+    public Alumno(long id, @NotBlank @Email String email, @NotBlank @Size(min = 6) String password, @NotBlank String nombre, String pathFoto, boolean activo, String dni, String apellido1, String apellido2, String telefono, String direccion, String pathCV, String pathExpediente, Boolean carnetConducir, Boolean vehiculoPropio, List<Solicitud> solicitudes, List<ProfesorTutorizaAlumno> profesorTutorizaAlumnos, List<AlumnoHablaIdioma> idiomas, Formacion formacion) {
+        super(id, email, password, nombre, pathFoto, activo);
         this.dni = dni;
         this.apellido1 = apellido1;
         this.apellido2 = apellido2;

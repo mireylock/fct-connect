@@ -46,8 +46,8 @@ public class Profesor extends Usuario{
     private Set<Asignatura> asignaturas = new HashSet<>();
 
     @Builder
-    public Profesor(long id, @NotBlank @Email String email, @NotBlank @Size(min = 6) String password, @NotBlank String nombre, String pathFoto, String dni, String apellido1, String apellido2, String telefono, String direccion, String departamento, List<ProfesorTutorizaAlumno> profesorTutorizaAlumnos, Set<Asignatura> asignaturas) {
-        super(id, email, password, nombre, pathFoto);
+    public Profesor(long id, @NotBlank @Email String email, @NotBlank @Size(min = 6) String password, @NotBlank String nombre, String pathFoto, boolean activo, String dni, String apellido1, String apellido2, String telefono, String direccion, String departamento, List<ProfesorTutorizaAlumno> profesorTutorizaAlumnos, Set<Asignatura> asignaturas) {
+        super(id, email, password, nombre, pathFoto, activo);
         this.dni = dni;
         this.apellido1 = apellido1;
         this.apellido2 = apellido2;

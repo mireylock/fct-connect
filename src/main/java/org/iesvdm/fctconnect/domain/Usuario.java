@@ -36,6 +36,7 @@ public abstract class Usuario {
     protected String nombre;
     @Column(name = "path_foto")
     protected String pathFoto;
+    protected Boolean activo;
 
     public String getRol() {
         // Obtener la anotación @DiscriminatorValue que está en las clases que heredan de Usuario

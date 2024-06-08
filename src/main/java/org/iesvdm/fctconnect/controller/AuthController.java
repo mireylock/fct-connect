@@ -98,6 +98,7 @@ public class AuthController {
                             .apellido2(registerRequest.getApellido2())
                             .dni(registerRequest.getDni())
                             .pathFoto(registerRequest.getPathFoto())
+                            .activo(true)
                             .build();
                     administradorRepository.save(nuevoAdmin);
                     break;
@@ -113,6 +114,7 @@ public class AuthController {
                             .pathFoto(registerRequest.getPathFoto())
                             .vehiculoPropio(registerRequest.getCarnetConducir())
                             .carnetConducir(registerRequest.getVehiculoPropio())
+                            .activo(true)
                             .build();
                     alumnoRepository.save(nuevoAlumno);
                     break;
@@ -123,6 +125,7 @@ public class AuthController {
                             .password(encodedPassword)
                             .nombre(registerRequest.getNombre())
                             .pathFoto(registerRequest.getPathFoto())
+                            .activo(true)
                             .build();
                     empresaRepository.save(nuevaEmpresa);
                     break;
@@ -136,6 +139,7 @@ public class AuthController {
                             .apellido2(registerRequest.getApellido2())
                             .dni(registerRequest.getDni())
                             .pathFoto(registerRequest.getPathFoto())
+                            .activo(true)
                             .build();
                     profesorRepository.save(nuevoProfesor);
                     break;

@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 import org.iesvdm.fctconnect.domain.enums.EInglesSolicitado;
 import org.iesvdm.fctconnect.domain.enums.EModalidadTrabajo;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -52,8 +51,9 @@ public class Empresa extends Usuario{
     private Set<Ubicacion> ubicaciones;
 
     @Builder
-    public Empresa(long id, @NotBlank @Email String email, @NotBlank @Size(min = 6) String password, @NotBlank String nombre, String pathFoto, EInglesSolicitado inglesSolicitado, Set<EModalidadTrabajo> modalidadesTrabajo, String resumen, String pathSitioWeb, List<Solicitud> solicitudes, Set<Tecnologia> tecnologias, Set<Ubicacion> ubicaciones) {
-        super(id, email, password, nombre, pathFoto);
+
+    public Empresa(long id, @NotBlank @Email String email, @NotBlank @Size(min = 6) String password, @NotBlank String nombre, String pathFoto, boolean activo, EInglesSolicitado inglesSolicitado, Set<EModalidadTrabajo> modalidadesTrabajo, String resumen, String pathSitioWeb, List<Solicitud> solicitudes, Set<Tecnologia> tecnologias, Set<Ubicacion> ubicaciones) {
+        super(id, email, password, nombre, pathFoto, activo);
         this.inglesSolicitado = inglesSolicitado;
         this.modalidadesTrabajo = modalidadesTrabajo;
         this.resumen = resumen;

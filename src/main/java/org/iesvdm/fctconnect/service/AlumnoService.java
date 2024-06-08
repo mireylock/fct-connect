@@ -1,7 +1,9 @@
 package org.iesvdm.fctconnect.service;
 
 import org.iesvdm.fctconnect.domain.Alumno;
+import org.iesvdm.fctconnect.domain.Usuario;
 import org.iesvdm.fctconnect.domain.dto.AlumnoDTO;
+import org.iesvdm.fctconnect.domain.dto.UsuarioDTO;
 import org.iesvdm.fctconnect.exception.EntityNotFoundException;
 import org.iesvdm.fctconnect.repository.AlumnoRepository;
 import org.iesvdm.fctconnect.repository.CustomQueryBusquedaAlumnoImpl;
@@ -27,12 +29,26 @@ public class AlumnoService {
     }
 
     public List<Alumno> all() {
-        return this.alumnoRepository.findAll();
+        return this.alumnoRepository.findAllByActivoIsTrue();
     }
 
     public Map<String, Object> all(int pagina, int tamanio) {
         Pageable paginado = PageRequest.of(pagina, tamanio, Sort.by("id").ascending());
-        Page<Alumno> pageAll = this.alumnoRepository.findAll(paginado);
+        Page<Alumno> pageAll = this.alumnoRepository.findAllByActivoIsTrue(paginado);
+
+        Map<String, Object> response = new HashMap<>();
+
+        response.put("alumnos", pageAll.getContent());
+        response.put("currentPage", pageAll.getNumber());
+        response.put("totalItems", pageAll.getTotalElements());
+        response.put("totalPages", pageAll.getTotalPages());
+
+        return response;
+    }
+
+    public Map<String, Object> allInactivos(int pagina, int tamanio) {
+        Pageable paginado = PageRequest.of(pagina, tamanio, Sort.by("id").ascending());
+        Page<Alumno> pageAll = this.alumnoRepository.findAllByActivoIsFalse(paginado);
 
         Map<String, Object> response = new HashMap<>();
 
@@ -50,6 +66,14 @@ public class AlumnoService {
                                                       Optional<Integer> pagina,
                                                       Optional<Integer> tamanio) {
         return this.customQuery.buscarAlumnoPaginacion(nombre, vehiculoPropio, idioma, pagina, tamanio);
+    }
+
+    public Map<String, Object> buscarAlumnoInactivoPaginacion(Optional<String> nombre,
+                                                      Optional<Boolean> vehiculoPropio,
+                                                      Optional<Long> idioma,
+                                                      Optional<Integer> pagina,
+                                                      Optional<Integer> tamanio) {
+        return this.customQuery.buscarAlumnoInactivosPaginacion(nombre, vehiculoPropio, idioma, pagina, tamanio);
     }
 
 
@@ -76,13 +100,7 @@ public class AlumnoService {
     }
 
 
-    public void delete(Long id) {
-        this.alumnoRepository.findById(id).map(p -> {
-                    this.alumnoRepository.delete(p);
-                    return p;
-                })
-                .orElseThrow(() -> new EntityNotFoundException(id, Alumno.class));
-    }
+
 }
 
 

@@ -22,8 +22,11 @@ public class ProfesorService {
         this.profesorRepository = profesorRepository;
     }
 
-    public List<Profesor> all() {
-        return this.profesorRepository.findAll();
+    public List<Profesor> allActivos() {
+        return this.profesorRepository.findAllByActivoIsTrue();
+    }
+
+    public List<Profesor> allInactivos() { return this.profesorRepository.findAllByActivoIsFalse();
     }
 
     public Page<Profesor> filtradoPorNombreConPaginacion(Optional<String> nombreABuscar, Pageable pageable) {

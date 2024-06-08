@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class AlumnoDTO {
     private String telefono;
     private String direccion;
-    private Long carnetConducir;
-    private Long vehiculoPropio;
+    private Boolean carnetConducir;
+    private Boolean vehiculoPropio;
 
 }

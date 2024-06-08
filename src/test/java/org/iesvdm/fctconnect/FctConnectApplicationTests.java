@@ -10,7 +10,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 
@@ -55,10 +54,6 @@ class FctConnectApplicationTests {
     void contextLoads() {
     }
 
-    @Test
-    void idiomas() {
-
-    }
 
     @Test
     void empresasSinCampos() {
@@ -69,6 +64,7 @@ class FctConnectApplicationTests {
                 .modalidadesTrabajo(new HashSet<>(Set.of(EModalidadTrabajo.HIBRIDO, EModalidadTrabajo.ONLINE)))
                 .resumen("Empresa sin ingles")
                 .pathFoto("../../../../assets/img/profile.png")
+                .activo(true)
                 .build();
         this.empresaRepository.save(empresaSinIngles);
 
@@ -79,6 +75,7 @@ class FctConnectApplicationTests {
                 .inglesSolicitado(EInglesSolicitado.NO_NECESARIO)
                 .resumen("Empresa consultora")
                 .pathFoto("../../../../assets/img/profile.png")
+                .activo(true)
                 .build();
         this.empresaRepository.save(empresaSinModalidades);
     }
@@ -138,6 +135,7 @@ class FctConnectApplicationTests {
                 .telefono("+34 123456789")
                 .password(this.encoder.encode("123456"))
                 .pathFoto("../../../../assets/img/profile.png")
+                .activo(true)
                 .build();
         this.administradorRepository.save(admin);
 
@@ -166,6 +164,7 @@ class FctConnectApplicationTests {
                 .password(this.encoder.encode("123456"))
                 .asignaturas(new HashSet<>(Set.of(hlc, entornos)))
                 .pathFoto("../../../../assets/img/profile.png")
+                .activo(true)
                 .build();
         this.profesorRepository.save(profe1);
 
@@ -179,6 +178,7 @@ class FctConnectApplicationTests {
                 .password(this.encoder.encode("123456"))
                 .asignaturas(new HashSet<>(Set.of(hlc)))
                 .pathFoto("../../../../assets/img/profile.png")
+                .activo(true)
                 .build();
         this.profesorRepository.save(profe2);
 
@@ -211,10 +211,11 @@ class FctConnectApplicationTests {
                 .telefono("+34 123456789")
                 .password(this.encoder.encode("123456"))
 //                .idiomas(List.of(idioma1, aleman))
-                .carnetConducir(1L)
-                .vehiculoPropio(0L)
+                .carnetConducir(Boolean.TRUE)
+                .vehiculoPropio(Boolean.FALSE)
                 .formacion(DAW)
                 .pathFoto("../../../../assets/img/profile.png")
+                .activo(true)
                 .build();
         this.alumnoRepository.save(alumno1);
 
@@ -226,10 +227,11 @@ class FctConnectApplicationTests {
                 .telefono("+34 123456789")
                 .password(this.encoder.encode("123456"))
 //                .idiomas(Set.of(idioma1, frances))
-                .carnetConducir(1L)
-                .vehiculoPropio(1L)
+                .carnetConducir(Boolean.TRUE)
+                .vehiculoPropio(Boolean.TRUE)
                 .formacion(DAM)
                 .pathFoto("../../../../assets/img/profile.png")
+                .activo(true)
                 .build();
         this.alumnoRepository.save(alumno2);
 
@@ -241,10 +243,11 @@ class FctConnectApplicationTests {
                 .telefono("+34 123456789")
 //                .idiomas(Set.of(idioma1))
                 .password(this.encoder.encode("123456"))
-                .carnetConducir(0L)
-                .vehiculoPropio(0L)
+                .carnetConducir(Boolean.FALSE)
+                .vehiculoPropio(Boolean.FALSE)
                 .formacion(SMR)
                 .pathFoto("../../../../assets/img/profile.png")
+                .activo(true)
                 .build();
         this.alumnoRepository.save(alumno3);
 
@@ -255,10 +258,11 @@ class FctConnectApplicationTests {
                 .dni("123456779F")
                 .telefono("+34 123456789")
                 .password(this.encoder.encode("123456"))
-                .carnetConducir(0L)
-                .vehiculoPropio(0L)
+                .carnetConducir(Boolean.FALSE)
+                .vehiculoPropio(Boolean.FALSE)
                 .formacion(SMR)
                 .pathFoto("../../../../assets/img/profile.png")
+                .activo(true)
                 .build();
         this.alumnoRepository.save(alumno4);
 
@@ -269,10 +273,11 @@ class FctConnectApplicationTests {
                 .dni("567890123K")
                 .telefono("+34 654321789")
                 .password(this.encoder.encode("abc123"))
-                .carnetConducir(1L)
-                .vehiculoPropio(0L)
+                .carnetConducir(Boolean.TRUE)
+                .vehiculoPropio(Boolean.FALSE)
                 .formacion(DAM)
                 .pathFoto("../../../../assets/img/profile.png")
+                .activo(true)
                 .build();
         this.alumnoRepository.save(alumno5);
 
@@ -283,10 +288,11 @@ class FctConnectApplicationTests {
                 .dni("678901234L")
                 .telefono("+34 789654123")
                 .password(this.encoder.encode("pass123"))
-                .carnetConducir(0L)
-                .vehiculoPropio(1L)
+                .carnetConducir(Boolean.FALSE)
+                .vehiculoPropio(Boolean.TRUE)
                 .formacion(DAW)
                 .pathFoto("../../../../assets/img/profile.png")
+                .activo(true)
                 .build();
         this.alumnoRepository.save(alumno6);
 
@@ -323,10 +329,11 @@ class FctConnectApplicationTests {
                 .dni("789012345M")
                 .telefono("+34 321987654")
                 .password(this.encoder.encode("qwerty123"))
-                .carnetConducir(1L)
-                .vehiculoPropio(0L)
+                .carnetConducir(Boolean.TRUE)
+                .vehiculoPropio(Boolean.FALSE)
                 .formacion(SMR)
                 .pathFoto("../../../../assets/img/profile.png")
+                .activo(true)
                 .build();
         this.alumnoRepository.save(alumno7);
 
@@ -337,10 +344,11 @@ class FctConnectApplicationTests {
                 .dni("890123456N")
                 .telefono("+34 123987654")
                 .password(this.encoder.encode("abc123xyz"))
-                .carnetConducir(0L)
-                .vehiculoPropio(1L)
+                .carnetConducir(Boolean.FALSE)
+                .vehiculoPropio(Boolean.TRUE)
                 .formacion(DAW)
                 .pathFoto("../../../../assets/img/profile.png")
+                .activo(true)
                 .build();
         this.alumnoRepository.save(alumno8);
 
@@ -351,10 +359,11 @@ class FctConnectApplicationTests {
                 .dni("901234567O")
                 .telefono("+34 987123789")
                 .password(this.encoder.encode("password123"))
-                .carnetConducir(1L)
-                .vehiculoPropio(0L)
+                .carnetConducir(Boolean.TRUE)
+                .vehiculoPropio(Boolean.FALSE)
                 .formacion(DAM)
                 .pathFoto("../../../../assets/img/profile.png")
+                .activo(true)
                 .build();
         this.alumnoRepository.save(alumno9);
 
@@ -365,10 +374,11 @@ class FctConnectApplicationTests {
                 .dni("012345678P")
                 .telefono("+34 789654321")
                 .password(this.encoder.encode("pass123abc"))
-                .carnetConducir(0L)
-                .vehiculoPropio(1L)
+                .carnetConducir(Boolean.FALSE)
+                .vehiculoPropio(Boolean.TRUE)
                 .formacion(SMR)
                 .pathFoto("../../../../assets/img/profile.png")
+                .activo(true)
                 .build();
         this.alumnoRepository.save(alumno10);
 
@@ -379,10 +389,11 @@ class FctConnectApplicationTests {
                 .dni("012345671P")
                 .telefono("+34 789654321")
                 .password(this.encoder.encode("pass123abc"))
-                .carnetConducir(0L)
-                .vehiculoPropio(1L)
+                .carnetConducir(Boolean.FALSE)
+                .vehiculoPropio(Boolean.TRUE)
                 .formacion(SMR)
                 .pathFoto("../../../../assets/img/profile.png")
+                .activo(false)
                 .build();
         this.alumnoRepository.save(alumno11);
 
@@ -393,10 +404,11 @@ class FctConnectApplicationTests {
                 .dni("012345672P")
                 .telefono("+34 789654321")
                 .password(this.encoder.encode("pass123abc"))
-                .carnetConducir(0L)
-                .vehiculoPropio(1L)
+                .carnetConducir(Boolean.FALSE)
+                .vehiculoPropio(Boolean.TRUE)
                 .formacion(SMR)
                 .pathFoto("../../../../assets/img/profile.png")
+                .activo(false)
                 .build();
         this.alumnoRepository.save(alumno12);
 
@@ -410,6 +422,7 @@ class FctConnectApplicationTests {
                 .resumen("Empresa consultora")
 //                .tecnologias(new HashSet<>(Set.of(javaSpring, angular)))
                 .pathFoto("../../../../assets/img/profile.png")
+                .activo(true)
                 .build();
         this.empresaRepository.save(empresa1);
 
@@ -445,6 +458,7 @@ class FctConnectApplicationTests {
                 .resumen("Empresa consultora")
 //                .tecnologias(new HashSet<>(Set.of(javaSpring)))
                 .pathFoto("../../../../assets/img/profile.png")
+                .activo(true)
                 .build();
         this.empresaRepository.save(empresa2);
 
@@ -480,6 +494,7 @@ class FctConnectApplicationTests {
                 .modalidadesTrabajo(new HashSet<>(Set.of(EModalidadTrabajo.HIBRIDO, EModalidadTrabajo.ONLINE)))
                 .resumen("Empresa consultora")
                 .pathFoto("../../../../assets/img/profile.png")
+                .activo(true)
                 .build();
         this.empresaRepository.save(empresa3);
 
@@ -491,8 +506,21 @@ class FctConnectApplicationTests {
                 .modalidadesTrabajo(new HashSet<>(Set.of(EModalidadTrabajo.HIBRIDO, EModalidadTrabajo.ONLINE)))
                 .resumen("Empresa consultora")
                 .pathFoto("../../../../assets/img/profile.png")
+                .activo(true)
                 .build();
         this.empresaRepository.save(empresa4);
+
+        Empresa empresa5 = Empresa.builder()
+                .nombre("CGI")
+                .email("cgi@mail.com")
+                .password(this.encoder.encode("123456"))
+                .inglesSolicitado(EInglesSolicitado.NO_NECESARIO)
+                .modalidadesTrabajo(new HashSet<>(Set.of(EModalidadTrabajo.HIBRIDO, EModalidadTrabajo.ONLINE)))
+                .resumen("Empresa consultora")
+                .pathFoto("../../../../assets/img/profile.png")
+                .activo(false)
+                .build();
+        this.empresaRepository.save(empresa5);
 
         //Enviada de Mireya
         Solicitud solAlu1 = Solicitud.builder()

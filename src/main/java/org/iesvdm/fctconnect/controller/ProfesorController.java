@@ -24,9 +24,15 @@ public class ProfesorController {
     }
 
     @GetMapping(value = {"", "/"}, params = {"!buscar-por-nombre"})
-    public List<Profesor> all() {
-        log.info("Accediendo a todos los profesores");
-        return this.profesorService.all();
+    public List<Profesor> allActivos() {
+        log.info("Accediendo a todos los profesores activos");
+        return this.profesorService.allActivos();
+    }
+
+    @GetMapping(value = {"/inactivos"}, params = {"!buscar-por-nombre"})
+    public List<Profesor> allInactivos() {
+        log.info("Accediendo a todos los profesores inactivos");
+        return this.profesorService.allInactivos();
     }
 
     @GetMapping(value = {"","/"})

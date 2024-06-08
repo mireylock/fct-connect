@@ -9,4 +9,6 @@ import java.util.Optional;
 public interface CustomQueryBusquedaAlumno {
     public Map<String, Object> buscarAlumnoPaginacion(Optional<String> nombre, Optional<Boolean> vehiculoPropio, Optional<Long> idioma, Optional<Integer> pagina, Optional<Integer> tamanio);
 
+    public Map<String, Object> buscarAlumnoInactivosPaginacion(Optional<String> nombre, Optional<Boolean> vehiculoPropio, Optional<Long> idioma, Optional<Integer> pagina, Optional<Integer> tamanio);
+
 }

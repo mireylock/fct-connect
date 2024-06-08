@@ -3,8 +3,8 @@ package org.iesvdm.fctconnect.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.iesvdm.fctconnect.domain.Alumno;
 import org.iesvdm.fctconnect.domain.dto.AlumnoDTO;
+import org.iesvdm.fctconnect.domain.dto.UsuarioDTO;
 import org.iesvdm.fctconnect.service.AlumnoService;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,10 +28,17 @@ public class AlumnoController {
         return this.alumnoService.all();
     }
 
+
     @GetMapping(value = {"", "/"}, params = {"!nombre", "!vehiculoPropio", "!idioma"})
     public Map<String, Object> all(int pagina, int tamanio) {
         log.info("Accediendo a alumnos con paginacion");
         return this.alumnoService.all(pagina, tamanio);
+    }
+
+    @GetMapping(value = {"/inactivos"}, params = {"!nombre", "!vehiculoPropio", "!idioma"})
+    public Map<String, Object> allInactivos(int pagina, int tamanio) {
+        log.info("Accediendo a alumnos INACTIVOS con paginacion");
+        return this.alumnoService.allInactivos(pagina, tamanio);
     }
 
     @GetMapping(value = {"", "/"})
@@ -44,9 +51,14 @@ public class AlumnoController {
         return this.alumnoService.buscarAlumnoPaginacion(nombre, vehiculoPropio, idioma, pagina, tamanio);
     }
 
-    @PostMapping({"", "/"})
-    public Alumno newAlumno(@RequestBody Alumno alumno) {
-        return this.alumnoService.save(alumno);
+    @GetMapping(value = {"/inactivos"})
+    public Map<String, Object> buscarAlumnosInactivosPaginacion(Optional<String> nombre,
+                                                       Optional<Boolean> vehiculoPropio,
+                                                       Optional<Long> idioma,
+                                                       Optional<Integer> pagina,
+                                                       Optional<Integer> tamanio) {
+        log.info("Accediendo a alumnos INACTIVOS con filtros");
+        return this.alumnoService.buscarAlumnoInactivoPaginacion(nombre, vehiculoPropio, idioma, pagina, tamanio);
     }
 
     @GetMapping("/{id}")
@@ -60,12 +72,7 @@ public class AlumnoController {
         return this.alumnoService.replaceAlumno(id, alumnoDTO);
     }
 
-    @ResponseBody
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping("/{id}")
-    public void deleteAlumno(@PathVariable("id") Long id) {
-        this.alumnoService.delete(id);
-    }
+
 
 }
 

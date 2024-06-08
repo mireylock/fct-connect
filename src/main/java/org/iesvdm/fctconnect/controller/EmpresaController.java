@@ -7,7 +7,6 @@ import org.iesvdm.fctconnect.domain.enums.EInglesSolicitado;
 import org.iesvdm.fctconnect.domain.enums.EModalidadTrabajo;
 import org.iesvdm.fctconnect.service.EmpresaService;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,13 +28,20 @@ public class EmpresaController {
     @GetMapping(value = {"", "/"}, params = {"!nombre", "!modalidadTrabajo", "!inglesSolicitado", "!tecnologia", "!pagina", "!tamanio"})
     public List<Empresa> all() {
         log.info("Accediendo a todas las empresas");
-        return this.empresaService.all();
+        return this.empresaService.allActivos();
     }
+
 
     @GetMapping(value = {"", "/"}, params = {"!nombre", "!modalidadTrabajo", "!inglesSolicitado", "!tecnologia"})
     public Map<String, Object> all(int pagina, int tamanio) {
         log.info("Accediendo a empresas con paginacion");
         return this.empresaService.all(pagina, tamanio);
+    }
+
+    @GetMapping(value = { "/inactivas"}, params = {"!nombre", "!modalidadTrabajo", "!inglesSolicitado", "!tecnologia"})
+    public Map<String, Object> allInactivas(int pagina, int tamanio) {
+        log.info("Accediendo a empresas INACTIVAS con paginacion");
+        return this.empresaService.allInactivos(pagina, tamanio);
     }
 
     @GetMapping(value = {"", "/"})
@@ -47,6 +53,17 @@ public class EmpresaController {
                                                         Optional<Integer> tamanio) {
         log.info("Accediendo a empresas con filtros");
         return this.empresaService.buscarEmpresaPaginacion(nombre, inglesSolicitado, modalidadTrabajo, tecnologia, pagina, tamanio);
+    }
+
+    @GetMapping(value = {"/inactivas"})
+    public Map<String, Object> buscarEmpresaInactivasPaginacion (String nombre,
+                                                        EModalidadTrabajo modalidadTrabajo,
+                                                        EInglesSolicitado inglesSolicitado,
+                                                        String tecnologia,
+                                                        Optional<Integer> pagina,
+                                                        Optional<Integer> tamanio) {
+        log.info("Accediendo a empresas INACTIVAS con filtros");
+        return this.empresaService.buscarEmpresaInactivasPaginacion(nombre, inglesSolicitado, modalidadTrabajo, tecnologia, pagina, tamanio);
     }
 
     @PostMapping({"", "/"})

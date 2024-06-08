@@ -29,14 +29,14 @@ public class EmpresaService {
         this.empresaRepository = empresaRepository;
     }
 
-    public List<Empresa> all() {
-        return this.empresaRepository.findAll();
+    public List<Empresa> allActivos() {
+        return this.empresaRepository.findAllByActivoIsTrue();
     }
 
 
     public Map<String, Object> all(int pagina, int tamanio) {
         Pageable paginado = PageRequest.of(pagina, tamanio, Sort.by("id").ascending());
-        Page<Empresa> pageAll = this.empresaRepository.findAll(paginado);
+        Page<Empresa> pageAll = this.empresaRepository.findAllByActivoIsTrue(paginado);
 
         Map<String, Object> response = new HashMap<>();
 
@@ -48,6 +48,22 @@ public class EmpresaService {
         return response;
     }
 
+    public Map<String, Object> allInactivos(int pagina, int tamanio) {
+        Pageable paginado = PageRequest.of(pagina, tamanio, Sort.by("id").ascending());
+        Page<Empresa> pageAll = this.empresaRepository.findAllByActivoIsFalse(paginado);
+
+        Map<String, Object> response = new HashMap<>();
+
+        response.put("empresas", pageAll.getContent());
+        response.put("currentPage", pageAll.getNumber());
+        response.put("totalItems", pageAll.getTotalElements());
+        response.put("totalPages", pageAll.getTotalPages());
+
+        return response;
+    }
+
+
+
     public Map<String, Object> buscarEmpresaPaginacion(String nombre, EInglesSolicitado inglesSolicitado, EModalidadTrabajo modalidadTrabajo, String tecnologia, Optional<Integer> pagina, Optional<Integer> tamanio) {
 
         List<Empresa> empresas;
@@ -58,6 +74,34 @@ public class EmpresaService {
         } else {
             empresas = empresaRepository.findEmpresasByNombreInglesModalidadTecnologia(nombre, inglesSolicitado, modalidadTrabajo, tecnologia);
             log.info("Búsqueda de empresas con tecnologia");
+        }
+
+        long totalItems = empresas.size();
+        long totalPages = 1;
+        if (tamanio.isPresent() && tamanio.get() != 0) {
+            double paginas = (double) totalItems / tamanio.get();
+            totalPages = (long) Math.ceil(paginas);
+        }
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("empresas", empresas);
+        response.put("currentPage", pagina.orElse(0));
+        response.put("totalItems", totalItems);
+        response.put("totalPages", totalPages);
+
+        return response;
+    }
+
+    public Map<String, Object> buscarEmpresaInactivasPaginacion(String nombre, EInglesSolicitado inglesSolicitado, EModalidadTrabajo modalidadTrabajo, String tecnologia, Optional<Integer> pagina, Optional<Integer> tamanio) {
+
+        List<Empresa> empresas;
+
+        if(tecnologia.isEmpty()) {
+            empresas = empresaRepository.findEmpresasInactivasByNombreInglesModalidad(nombre, inglesSolicitado, modalidadTrabajo);
+            log.info("Búsqueda de empresas INACTIVAS sin tecnologia");
+        } else {
+            empresas = empresaRepository.findEmpresasInactivasByNombreInglesModalidadTecnologia(nombre, inglesSolicitado, modalidadTrabajo, tecnologia);
+            log.info("Búsqueda de empresas INACTIVAS con tecnologia");
         }
 
         long totalItems = empresas.size();

@@ -17,16 +17,19 @@ public class UserDetailsImpl implements UserDetails {
 
     private String email;
 
+    private boolean activo;
+
     @JsonIgnore
     private String password;
 
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserDetailsImpl(Long id, String email, String password,
+    public UserDetailsImpl(Long id, String email, String password, boolean activo,
                            GrantedAuthority authority) {
         this.id = id;
         this.email = email;
         this.password = password;
+        this.activo = activo;
         this.authorities = Collections.singletonList(authority);
     }
 
@@ -37,6 +40,7 @@ public class UserDetailsImpl implements UserDetails {
                 user.getId(),
                 user.getEmail(),
                 user.getPassword(),
+                user.getActivo(),
                 authority);
     }
 
@@ -81,7 +85,7 @@ public class UserDetailsImpl implements UserDetails {
     }
 
     public boolean isEnabled() {
-        return true;
+        return activo;
     }
 
     public boolean equals(Object o) {
