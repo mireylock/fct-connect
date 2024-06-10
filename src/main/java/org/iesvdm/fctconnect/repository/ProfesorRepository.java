@@ -22,8 +22,11 @@ public interface ProfesorRepository extends JpaRepository<Profesor, Long> {
 
     List<Profesor> findAllByActivoIsFalse();
 
-    @Query(value = "select P from Profesor P where CONCAT(P.nombre, ' ', P.apellido1, ' ', COALESCE(P.apellido2, '')) LIKE CONCAT('%', :nombre, '%')")
+    @Query(value = "select P from Profesor P where CONCAT(P.nombre, ' ', P.apellido1, ' ', COALESCE(P.apellido2, '')) LIKE CONCAT('%', :nombre, '%') and P.activo=true")
     public Page<Profesor> findProfesorByNombreCompleto(String nombre, Pageable pageable);
+
+    @Query(value = "select P from Profesor P where CONCAT(P.nombre, ' ', P.apellido1, ' ', COALESCE(P.apellido2, '')) LIKE CONCAT('%', :nombre, '%') and P.activo=false")
+    public Page<Profesor> findProfesorByNombreCompletoInactivo(String nombre, Pageable pageable);
 
 
 //    public List<Profesor> findProfesorByNombreContainingIgnoreCaseOrderByNombreAsc(String order);

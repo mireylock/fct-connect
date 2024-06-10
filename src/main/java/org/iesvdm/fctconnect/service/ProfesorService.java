@@ -50,6 +50,25 @@ public class ProfesorService {
         return response;
     }
 
+    public Map<String, Object> buscarProfesorInactivoPaginacion(String nombre, Optional<Integer> pagina, Optional<Integer> tamanio) {
+        int page = pagina.orElse(0);
+        int size = tamanio.orElse(6);
+
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Profesor> profesores = this.profesorRepository.findProfesorByNombreCompletoInactivo(nombre, pageable);
+
+        long totalItems = profesores.getTotalElements();
+        long totalPages = profesores.getTotalPages();
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("profesores", profesores.getContent());
+        response.put("currentPage", page);
+        response.put("totalItems", totalItems);
+        response.put("totalPages", totalPages);
+
+        return response;
+    }
+
 //    public List<Profesor> profesoresDeUnAlumno (long idAlumno) {
 //        return this.profesorRepository.profesoresDeUnAlumno(idAlumno);
 //    }

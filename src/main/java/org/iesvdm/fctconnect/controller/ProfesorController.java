@@ -41,6 +41,14 @@ public class ProfesorController {
         return this.profesorService.buscarProfesorPaginacion(nombre, pagina, tamanio);
     }
 
+    @GetMapping(value = { "/inactivos"})
+    public Map<String, Object> buscarProfesorInactivosPaginacion(String nombre,
+                                                        Optional<Integer> pagina,
+                                                        Optional<Integer> tamanio) {
+        log.info("Accediendo a profesores INACTIVOS con filtros");
+        return this.profesorService.buscarProfesorInactivoPaginacion(nombre, pagina, tamanio);
+    }
+
 
 //    @GetMapping(value = "/alu/{idAlumno}")
 //    public List<Profesor> profesorDeUnAlumno (@PathVariable("idAlumno") Long idAlumno) {

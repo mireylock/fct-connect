@@ -96,6 +96,8 @@ public class AlumnoService {
                     alumno.setVehiculoPropio(alumnoDTO.getVehiculoPropio());
                     alumno.setPathCV(alumnoDTO.getPathCV());
                     alumno.setPathExpediente(alumnoDTO.getPathExpediente());
+                    alumno.setFormacion(alumnoDTO.getFormacion());
+                    alumno.setPathFoto(alumnoDTO.getPathFoto());
                     return this.alumnoRepository.save(alumno);
                 })
                 .orElseThrow(() -> new EntityNotFoundException(id, Alumno.class));

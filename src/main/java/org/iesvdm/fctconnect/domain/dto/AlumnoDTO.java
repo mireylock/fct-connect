@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.iesvdm.fctconnect.domain.Formacion;
 
 @Data
 @AllArgsConstructor
@@ -16,5 +17,7 @@ public class AlumnoDTO {
     private Boolean vehiculoPropio;
     private String pathCV;
     private String pathExpediente;
+    private Formacion formacion;
+    private String pathFoto;
 
 }

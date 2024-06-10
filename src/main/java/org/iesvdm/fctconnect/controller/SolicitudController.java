@@ -2,7 +2,8 @@ package org.iesvdm.fctconnect.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.iesvdm.fctconnect.domain.Solicitud;
-import org.iesvdm.fctconnect.domain.dto.SolicitudDTO;
+import org.iesvdm.fctconnect.domain.dto.SolicitudCrearDTO;
+import org.iesvdm.fctconnect.domain.dto.SolicitudEstadoDTO;
 import org.iesvdm.fctconnect.service.SolicitudService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -31,14 +32,14 @@ public class SolicitudController {
     }
 
     @PutMapping("/{id}")
-    public Solicitud replaceSolicitud(@PathVariable("id") Long id, @RequestBody SolicitudDTO solicitudDTO) {
-        return this.solicitudService.replace(id, solicitudDTO);
+    public Solicitud replaceSolicitud(@PathVariable("id") Long id, @RequestBody SolicitudEstadoDTO solicitudEstadoDTO) {
+        return this.solicitudService.replace(id, solicitudEstadoDTO);
     }
 
 
     @PostMapping({"", "/"})
-    public Solicitud newSolicitud(@RequestBody Solicitud solicitud) {
-        return this.solicitudService.save(solicitud);
+    public Solicitud newSolicitud(@RequestBody SolicitudCrearDTO solicitudcrearDTO) {
+        return this.solicitudService.save(solicitudcrearDTO);
     }
 
     @GetMapping("/{id}")
