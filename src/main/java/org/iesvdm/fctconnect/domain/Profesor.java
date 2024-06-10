@@ -31,6 +31,7 @@ public class Profesor extends Usuario{
     private String apellido2;
     private String telefono;
     private String direccion;
+    @NotBlank
     private String departamento;
 
     @JsonIgnore
@@ -38,7 +39,6 @@ public class Profesor extends Usuario{
     private List<ProfesorTutorizaAlumno> profesorTutorizaAlumnos;
 
     @ManyToMany (fetch = FetchType.EAGER)
-    @JsonIgnore
     @JoinTable(
             name = "profesor_imparte_asignatura",
             joinColumns = @JoinColumn(name = "id_profesor", referencedColumnName = "id"),

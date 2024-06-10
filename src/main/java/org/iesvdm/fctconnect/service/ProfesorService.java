@@ -1,6 +1,10 @@
 package org.iesvdm.fctconnect.service;
 
+import org.iesvdm.fctconnect.domain.Empresa;
 import org.iesvdm.fctconnect.domain.Profesor;
+import org.iesvdm.fctconnect.domain.dto.ProfesorDTO;
+import org.iesvdm.fctconnect.domain.enums.EInglesSolicitado;
+import org.iesvdm.fctconnect.domain.enums.EModalidadTrabajo;
 import org.iesvdm.fctconnect.exception.EntityNotFoundException;
 import org.iesvdm.fctconnect.repository.ProfesorRepository;
 import org.springframework.data.domain.Page;
@@ -26,11 +30,24 @@ public class ProfesorService {
         return this.profesorRepository.findAllByActivoIsTrue();
     }
 
-    public List<Profesor> allInactivos() { return this.profesorRepository.findAllByActivoIsFalse();
-    }
 
-    public Page<Profesor> filtradoPorNombreConPaginacion(Optional<String> nombreABuscar, Pageable pageable) {
-        return this.profesorRepository.paginacionPorNombreContenido(nombreABuscar.orElse(""), pageable);
+    public Map<String, Object> buscarProfesorPaginacion(String nombre, Optional<Integer> pagina, Optional<Integer> tamanio) {
+        int page = pagina.orElse(0);
+        int size = tamanio.orElse(6);
+
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Profesor> profesores = this.profesorRepository.findProfesorByNombreCompleto(nombre, pageable);
+       
+        long totalItems = profesores.getTotalElements();
+        long totalPages = profesores.getTotalPages();
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("profesores", profesores.getContent());
+        response.put("currentPage", page);
+        response.put("totalItems", totalItems);
+        response.put("totalPages", totalPages);
+
+        return response;
     }
 
 //    public List<Profesor> profesoresDeUnAlumno (long idAlumno) {
@@ -82,11 +99,12 @@ public class ProfesorService {
                 .orElseThrow(() -> new EntityNotFoundException(id, Profesor.class));
     }
 
-    public Profesor replace(Long id, Profesor profesor) {
+    public Profesor replace(Long id, ProfesorDTO profesorDTO) {
 
         return this.profesorRepository.findById(id)
-                .map(c -> {
-                    profesor.setId(id); // si no se setea el id no lo guarda
+                .map(profesor -> {
+                    profesor.setDireccion(profesorDTO.getDireccion());
+                    profesor.setTelefono(profesorDTO.getTelefono());
                     return this.profesorRepository.save(profesor);
                 })
                 .orElseThrow(() -> new EntityNotFoundException(id, Profesor.class));

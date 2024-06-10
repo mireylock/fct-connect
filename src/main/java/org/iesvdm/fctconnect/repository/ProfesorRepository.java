@@ -19,12 +19,11 @@ public interface ProfesorRepository extends JpaRepository<Profesor, Long> {
 //    public List<Profesor> profesoresDeUnAlumno(@Param("idAlumno") long idAlumno);
 
     List<Profesor> findAllByActivoIsTrue();
+
     List<Profesor> findAllByActivoIsFalse();
 
-    @Query(value="select P from Profesor P where P.nombre like %?1%",
-            countQuery = "select count(*) from Profesor P where P.nombre like %?1%"
-    )
-    public Page<Profesor> paginacionPorNombreContenido(String nombreABuscar, Pageable pageable);
+    @Query(value = "select P from Profesor P where CONCAT(P.nombre, ' ', P.apellido1, ' ', COALESCE(P.apellido2, '')) LIKE CONCAT('%', :nombre, '%')")
+    public Page<Profesor> findProfesorByNombreCompleto(String nombre, Pageable pageable);
 
 
 //    public List<Profesor> findProfesorByNombreContainingIgnoreCaseOrderByNombreAsc(String order);
@@ -34,8 +33,6 @@ public interface ProfesorRepository extends JpaRepository<Profesor, Long> {
 //    public List<Profesor> findProfesorByNombreContainingIgnoreCase(String nombre);
 ////    public List<Profesor> findProfesorByNombreContainingIgnoreCaseAAndApellido1ContainingIgnoreCaseAndApellido2NotContainingIgnoreCaseOrderByNombreAsc(Optional<String> nombreOpt, Optional<String> apellido1Opt, Optional<String> apellido2Opt, Optional<String> orderOpt);
 //    public List<Profesor> findProfesorByNombreContainingIgnoreCaseAAndApellido1ContainingIgnoreCaseAndApellido2NotContainingIgnoreCaseOrderByNombreDesc(Optional<String> nombreOpt, Optional<String> apellido1Opt, Optional<String> apellido2Opt, Optional<String> orderOpt);
-
-
 
 
 }

@@ -34,58 +34,58 @@ public class EmpresaService {
     }
 
 
-    public Map<String, Object> all(int pagina, int tamanio) {
-        Pageable paginado = PageRequest.of(pagina, tamanio, Sort.by("id").ascending());
-        Page<Empresa> pageAll = this.empresaRepository.findAllByActivoIsTrue(paginado);
-
-        Map<String, Object> response = new HashMap<>();
-
-        response.put("empresas", pageAll.getContent());
-        response.put("currentPage", pageAll.getNumber());
-        response.put("totalItems", pageAll.getTotalElements());
-        response.put("totalPages", pageAll.getTotalPages());
-
-        return response;
-    }
-
-    public Map<String, Object> allInactivos(int pagina, int tamanio) {
-        Pageable paginado = PageRequest.of(pagina, tamanio, Sort.by("id").ascending());
-        Page<Empresa> pageAll = this.empresaRepository.findAllByActivoIsFalse(paginado);
-
-        Map<String, Object> response = new HashMap<>();
-
-        response.put("empresas", pageAll.getContent());
-        response.put("currentPage", pageAll.getNumber());
-        response.put("totalItems", pageAll.getTotalElements());
-        response.put("totalPages", pageAll.getTotalPages());
-
-        return response;
-    }
+//    public Map<String, Object> all(int pagina, int tamanio) {
+//        Pageable paginado = PageRequest.of(pagina, tamanio, Sort.by("id").ascending());
+//        Page<Empresa> pageAll = this.empresaRepository.findAllByActivoIsTrue(paginado);
+//
+//        Map<String, Object> response = new HashMap<>();
+//
+//        response.put("empresas", pageAll.getContent());
+//        response.put("currentPage", pageAll.getNumber());
+//        response.put("totalItems", pageAll.getTotalElements());
+//        response.put("totalPages", pageAll.getTotalPages());
+//
+//        return response;
+//    }
+//
+//    public Map<String, Object> allInactivos(int pagina, int tamanio) {
+//        Pageable paginado = PageRequest.of(pagina, tamanio, Sort.by("id").ascending());
+//        Page<Empresa> pageAll = this.empresaRepository.findAllByActivoIsFalse(paginado);
+//
+//        Map<String, Object> response = new HashMap<>();
+//
+//        response.put("empresas", pageAll.getContent());
+//        response.put("currentPage", pageAll.getNumber());
+//        response.put("totalItems", pageAll.getTotalElements());
+//        response.put("totalPages", pageAll.getTotalPages());
+//
+//        return response;
+//    }
 
 
 
     public Map<String, Object> buscarEmpresaPaginacion(String nombre, EInglesSolicitado inglesSolicitado, EModalidadTrabajo modalidadTrabajo, String tecnologia, Optional<Integer> pagina, Optional<Integer> tamanio) {
 
-        List<Empresa> empresas;
+        int page = pagina.orElse(0);
+        int size = tamanio.orElse(6);
 
-        if(tecnologia.isEmpty()) {
-            empresas = empresaRepository.findEmpresasByNombreInglesModalidad(nombre, inglesSolicitado, modalidadTrabajo);
-            log.info("Búsqueda de empresas sin tecnologia");
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Empresa> empresas;
+
+        if (tecnologia.isEmpty()) {
+            empresas = empresaRepository.findEmpresasByNombreInglesModalidad(nombre, inglesSolicitado, modalidadTrabajo, pageable);
+            log.info("Búsqueda de empresas INACTIVAS sin tecnologia");
         } else {
-            empresas = empresaRepository.findEmpresasByNombreInglesModalidadTecnologia(nombre, inglesSolicitado, modalidadTrabajo, tecnologia);
-            log.info("Búsqueda de empresas con tecnologia");
+            empresas = empresaRepository.findEmpresasByNombreInglesModalidadTecnologia(nombre, inglesSolicitado, modalidadTrabajo, tecnologia, pageable);
+            log.info("Búsqueda de empresas INACTIVAS con tecnologia");
         }
 
-        long totalItems = empresas.size();
-        long totalPages = 1;
-        if (tamanio.isPresent() && tamanio.get() != 0) {
-            double paginas = (double) totalItems / tamanio.get();
-            totalPages = (long) Math.ceil(paginas);
-        }
+        long totalItems = empresas.getTotalElements();
+        long totalPages = empresas.getTotalPages();
 
         Map<String, Object> response = new HashMap<>();
-        response.put("empresas", empresas);
-        response.put("currentPage", pagina.orElse(0));
+        response.put("empresas", empresas.getContent());
+        response.put("currentPage", page);
         response.put("totalItems", totalItems);
         response.put("totalPages", totalPages);
 
@@ -94,26 +94,27 @@ public class EmpresaService {
 
     public Map<String, Object> buscarEmpresaInactivasPaginacion(String nombre, EInglesSolicitado inglesSolicitado, EModalidadTrabajo modalidadTrabajo, String tecnologia, Optional<Integer> pagina, Optional<Integer> tamanio) {
 
-        List<Empresa> empresas;
+        int page = pagina.orElse(0);
+        int size = tamanio.orElse(6);
+
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Empresa> empresas;
 
         if(tecnologia.isEmpty()) {
-            empresas = empresaRepository.findEmpresasInactivasByNombreInglesModalidad(nombre, inglesSolicitado, modalidadTrabajo);
+            empresas = empresaRepository.findEmpresasInactivasByNombreInglesModalidad(nombre, inglesSolicitado, modalidadTrabajo, pageable);
             log.info("Búsqueda de empresas INACTIVAS sin tecnologia");
         } else {
-            empresas = empresaRepository.findEmpresasInactivasByNombreInglesModalidadTecnologia(nombre, inglesSolicitado, modalidadTrabajo, tecnologia);
+            empresas = empresaRepository.findEmpresasInactivasByNombreInglesModalidadTecnologia(nombre, inglesSolicitado, modalidadTrabajo, tecnologia, pageable);
             log.info("Búsqueda de empresas INACTIVAS con tecnologia");
         }
 
-        long totalItems = empresas.size();
-        long totalPages = 1;
-        if (tamanio.isPresent() && tamanio.get() != 0) {
-            double paginas = (double) totalItems / tamanio.get();
-            totalPages = (long) Math.ceil(paginas);
-        }
+
+        long totalItems = empresas.getTotalElements();
+        long totalPages = empresas.getTotalPages();
 
         Map<String, Object> response = new HashMap<>();
-        response.put("empresas", empresas);
-        response.put("currentPage", pagina.orElse(0));
+        response.put("empresas", empresas.getContent());
+        response.put("currentPage", page);
         response.put("totalItems", totalItems);
         response.put("totalPages", totalPages);
 

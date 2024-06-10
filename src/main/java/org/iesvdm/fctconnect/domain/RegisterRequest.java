@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.iesvdm.fctconnect.domain.enums.ENivelFormacion;
 
 import java.util.Set;
 
@@ -22,5 +23,7 @@ public class RegisterRequest {
     private String pathFoto;
     private Boolean vehiculoPropio;
     private Boolean carnetConducir;
+    private Formacion formacion;
+    private String departamento;
 }
 

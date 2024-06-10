@@ -4,6 +4,7 @@ import org.iesvdm.fctconnect.domain.Empresa;
 import org.iesvdm.fctconnect.domain.enums.EInglesSolicitado;
 import org.iesvdm.fctconnect.domain.enums.EModalidadTrabajo;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -15,26 +16,30 @@ import java.util.List;
 public interface EmpresaRepository extends JpaRepository<Empresa, Long> {
 
     List<Empresa> findAllByActivoIsTrue();
-    Page<Empresa> findAllByActivoIsTrue(org.springframework.data.domain.Pageable paginado);
-    Page<Empresa> findAllByActivoIsFalse(org.springframework.data.domain.Pageable paginado);
+//    Page<Empresa> findAllByActivoIsTrue(org.springframework.data.domain.Pageable paginado);
+//    Page<Empresa> findAllByActivoIsFalse(org.springframework.data.domain.Pageable paginado);
 
     @Query("SELECT e FROM Empresa e JOIN e.tecnologias t " +
             "WHERE (:nombre IS NULL OR :nombre = '' OR LOWER(e.nombre) LIKE LOWER(CONCAT('%', :nombre, '%'))) " +
             "AND (:inglesSolicitado IS NULL OR e.inglesSolicitado = :inglesSolicitado) " +
             "AND (:modalidadTrabajo IS NULL OR :modalidadTrabajo MEMBER OF e.modalidadesTrabajo) " +
-            "AND (:tecnologia IS NULL OR LOWER(t.nombre) LIKE LOWER(CONCAT('%', :tecnologia, '%')))")
-    List<Empresa> findEmpresasByNombreInglesModalidadTecnologia(@Param("nombre") String nombre,
+            "AND (:tecnologia IS NULL OR LOWER(t.nombre) LIKE LOWER(CONCAT('%', :tecnologia, '%')))" +
+            "AND (e.activo = true)")
+    Page<Empresa> findEmpresasByNombreInglesModalidadTecnologia(@Param("nombre") String nombre,
                                                                 @Param("inglesSolicitado") EInglesSolicitado inglesSolicitado,
                                                                 @Param("modalidadTrabajo") EModalidadTrabajo modalidadTrabajo,
-                                                                @Param("tecnologia") String tecnologia);
+                                                                @Param("tecnologia") String tecnologia,
+                                                                Pageable pageable);
 
     @Query("SELECT e FROM Empresa e " +
             "WHERE (:nombre IS NULL OR :nombre = '' OR LOWER(e.nombre) LIKE LOWER(CONCAT('%', :nombre, '%'))) " +
             "AND (:inglesSolicitado IS NULL OR e.inglesSolicitado = :inglesSolicitado) " +
-            "AND (:modalidadTrabajo IS NULL OR :modalidadTrabajo MEMBER OF e.modalidadesTrabajo)")
-    List<Empresa> findEmpresasByNombreInglesModalidad(@Param("nombre") String nombre,
-                                                                @Param("inglesSolicitado") EInglesSolicitado inglesSolicitado,
-                                                                @Param("modalidadTrabajo") EModalidadTrabajo modalidadTrabajo);
+            "AND (:modalidadTrabajo IS NULL OR :modalidadTrabajo MEMBER OF e.modalidadesTrabajo)"+
+            "AND (e.activo = true)")
+    Page<Empresa> findEmpresasByNombreInglesModalidad(@Param("nombre") String nombre,
+                                                        @Param("inglesSolicitado") EInglesSolicitado inglesSolicitado,
+                                                        @Param("modalidadTrabajo") EModalidadTrabajo modalidadTrabajo,
+                                                      Pageable pageable);
 
     @Query("SELECT e FROM Empresa e JOIN e.tecnologias t " +
             "WHERE (:nombre IS NULL OR :nombre = '' OR LOWER(e.nombre) LIKE LOWER(CONCAT('%', :nombre, '%'))) " +
@@ -42,17 +47,19 @@ public interface EmpresaRepository extends JpaRepository<Empresa, Long> {
             "AND (:modalidadTrabajo IS NULL OR :modalidadTrabajo MEMBER OF e.modalidadesTrabajo) " +
             "AND (:tecnologia IS NULL OR LOWER(t.nombre) LIKE LOWER(CONCAT('%', :tecnologia, '%')))" +
             "AND (e.activo = false)")
-    List<Empresa> findEmpresasInactivasByNombreInglesModalidadTecnologia(@Param("nombre") String nombre,
+    Page<Empresa> findEmpresasInactivasByNombreInglesModalidadTecnologia(@Param("nombre") String nombre,
                                                                 @Param("inglesSolicitado") EInglesSolicitado inglesSolicitado,
                                                                 @Param("modalidadTrabajo") EModalidadTrabajo modalidadTrabajo,
-                                                                @Param("tecnologia") String tecnologia);
+                                                                @Param("tecnologia") String tecnologia,
+                                                                         Pageable pageable);
 
     @Query("SELECT e FROM Empresa e " +
             "WHERE (:nombre IS NULL OR :nombre = '' OR LOWER(e.nombre) LIKE LOWER(CONCAT('%', :nombre, '%'))) " +
             "AND (:inglesSolicitado IS NULL OR e.inglesSolicitado = :inglesSolicitado) " +
             "AND (:modalidadTrabajo IS NULL OR :modalidadTrabajo MEMBER OF e.modalidadesTrabajo)" +
             "AND (e.activo = false)")
-    List<Empresa> findEmpresasInactivasByNombreInglesModalidad(@Param("nombre") String nombre,
+    Page<Empresa> findEmpresasInactivasByNombreInglesModalidad(@Param("nombre") String nombre,
                                                       @Param("inglesSolicitado") EInglesSolicitado inglesSolicitado,
-                                                      @Param("modalidadTrabajo") EModalidadTrabajo modalidadTrabajo);
+                                                      @Param("modalidadTrabajo") EModalidadTrabajo modalidadTrabajo,
+                                                               Pageable pageable);
 }

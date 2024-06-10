@@ -3,6 +3,7 @@ package org.iesvdm.fctconnect.controller;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.iesvdm.fctconnect.domain.*;
+import org.iesvdm.fctconnect.domain.enums.ENivelFormacion;
 import org.iesvdm.fctconnect.repository.*;
 import org.iesvdm.fctconnect.security.TokenUtils;
 import org.iesvdm.fctconnect.service.EmpresaRequestService;
@@ -114,6 +115,7 @@ public class AuthController {
                             .pathFoto(registerRequest.getPathFoto())
                             .vehiculoPropio(registerRequest.getCarnetConducir())
                             .carnetConducir(registerRequest.getVehiculoPropio())
+                            .formacion(registerRequest.getFormacion())
                             .activo(true)
                             .build();
                     alumnoRepository.save(nuevoAlumno);
@@ -139,6 +141,7 @@ public class AuthController {
                             .apellido2(registerRequest.getApellido2())
                             .dni(registerRequest.getDni())
                             .pathFoto(registerRequest.getPathFoto())
+                            .departamento(registerRequest.getDepartamento())
                             .activo(true)
                             .build();
                     profesorRepository.save(nuevoProfesor);

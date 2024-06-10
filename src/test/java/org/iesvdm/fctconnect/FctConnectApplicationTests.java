@@ -79,6 +79,7 @@ class FctConnectApplicationTests {
                 .build();
         this.empresaRepository.save(empresaSinModalidades);
     }
+
     @Test
     void cargaInicialBbdd() {
         Idioma ingles = Idioma.builder()
@@ -182,6 +183,52 @@ class FctConnectApplicationTests {
                 .build();
         this.profesorRepository.save(profe2);
 
+        Profesor profe3 = Profesor.builder()
+                .nombre("Abraham")
+                .apellido1("Ramos")
+                .apellido2("Cózar")
+                .email("abraham@mail.com")
+                .dni("123456fA")
+                .telefono("+34 123456789")
+                .departamento("Departamento de informática")
+                .asignaturas(Set.of(Asignatura.builder()
+                                .id(12)
+                                .nombre("Despliegue de aplicaciones web")
+                                .curso("2º")
+                                .grupo("DAW")
+                                .build(),
+                        Asignatura.builder()
+                                .id(34)
+                                .nombre("Lenguaje de marcas")
+                                .curso("1º")
+                                .grupo("DAW")
+                                .build()))
+                .password(this.encoder.encode("123456"))
+                .asignaturas(new HashSet<>(Set.of(hlc)))
+                .pathFoto("../../../../assets/img/profile.png")
+                .activo(true)
+                .build();
+        this.profesorRepository.save(profe3);
+
+        Profesor profe4 = Profesor.builder()
+                .nombre("Beatriz")
+                .apellido1("García")
+                .email("carlos@mail.com")
+                .dni("453543D")
+                .telefono("+34 123456789")
+                .departamento("Departamento de informática")
+                .asignaturas(Set.of(Asignatura.builder()
+                                .id(20)
+                        .nombre("Entorno cliente")
+                        .curso("2º")
+                        .grupo("DAW")
+                        .build()))
+                .password(this.encoder.encode("123456"))
+                .asignaturas(new HashSet<>(Set.of(hlc)))
+                .pathFoto("../../../../assets/img/profile.png")
+                .activo(true)
+                .build();
+        this.profesorRepository.save(profe4);
 
 
         Formacion DAW = Formacion.builder()
@@ -521,6 +568,102 @@ class FctConnectApplicationTests {
                 .activo(false)
                 .build();
         this.empresaRepository.save(empresa5);
+
+        Empresa empresa6 = Empresa.builder()
+                .nombre("CGI")
+                .email("cgi1@mail.com")
+                .password(this.encoder.encode("123456"))
+                .inglesSolicitado(EInglesSolicitado.NO_NECESARIO)
+                .modalidadesTrabajo(new HashSet<>(Set.of(EModalidadTrabajo.HIBRIDO, EModalidadTrabajo.ONLINE)))
+                .resumen("Empresa consultora")
+                .pathFoto("../../../../assets/img/profile.png")
+                .activo(false)
+                .build();
+        this.empresaRepository.save(empresa6);
+
+        Empresa empresa7 = Empresa.builder()
+                .nombre("CGI")
+                .email("cgi2@mail.com")
+                .password(this.encoder.encode("123456"))
+                .inglesSolicitado(EInglesSolicitado.NO_NECESARIO)
+                .modalidadesTrabajo(new HashSet<>(Set.of(EModalidadTrabajo.HIBRIDO, EModalidadTrabajo.ONLINE)))
+                .resumen("Empresa consultora")
+                .pathFoto("../../../../assets/img/profile.png")
+                .activo(false)
+                .build();
+        this.empresaRepository.save(empresa7);
+
+        Empresa empresa8 = Empresa.builder()
+                .nombre("CGI")
+                .email("cgi3@mail.com")
+                .password(this.encoder.encode("123456"))
+                .inglesSolicitado(EInglesSolicitado.NO_NECESARIO)
+                .modalidadesTrabajo(new HashSet<>(Set.of(EModalidadTrabajo.HIBRIDO, EModalidadTrabajo.ONLINE)))
+                .resumen("Empresa consultora")
+                .pathFoto("../../../../assets/img/profile.png")
+                .activo(false)
+                .build();
+        this.empresaRepository.save(empresa8);
+
+        Empresa empresa9 = Empresa.builder()
+                .nombre("CGI")
+                .email("cgi4@mail.com")
+                .password(this.encoder.encode("123456"))
+                .inglesSolicitado(EInglesSolicitado.NO_NECESARIO)
+                .modalidadesTrabajo(new HashSet<>(Set.of(EModalidadTrabajo.HIBRIDO, EModalidadTrabajo.ONLINE)))
+                .resumen("Empresa consultora")
+                .pathFoto("../../../../assets/img/profile.png")
+                .activo(false)
+                .build();
+        this.empresaRepository.save(empresa9);
+
+        Empresa empresa10 = Empresa.builder()
+                .nombre("CGI")
+                .email("cgi5@mail.com")
+                .password(this.encoder.encode("123456"))
+                .inglesSolicitado(EInglesSolicitado.NO_NECESARIO)
+                .modalidadesTrabajo(new HashSet<>(Set.of(EModalidadTrabajo.HIBRIDO, EModalidadTrabajo.ONLINE)))
+                .resumen("Empresa consultora")
+                .pathFoto("../../../../assets/img/profile.png")
+                .activo(false)
+                .build();
+        this.empresaRepository.save(empresa10);
+
+        Empresa empresa11 = Empresa.builder()
+                .nombre("CGI")
+                .email("cgi6@mail.com")
+                .password(this.encoder.encode("123456"))
+                .inglesSolicitado(EInglesSolicitado.NO_NECESARIO)
+                .modalidadesTrabajo(new HashSet<>(Set.of(EModalidadTrabajo.HIBRIDO, EModalidadTrabajo.ONLINE)))
+                .resumen("Empresa consultora")
+                .pathFoto("../../../../assets/img/profile.png")
+                .activo(false)
+                .build();
+        this.empresaRepository.save(empresa11);
+
+        Empresa empresa12 = Empresa.builder()
+                .nombre("CGI")
+                .email("cgi7@mail.com")
+                .password(this.encoder.encode("123456"))
+                .inglesSolicitado(EInglesSolicitado.NO_NECESARIO)
+                .modalidadesTrabajo(new HashSet<>(Set.of(EModalidadTrabajo.HIBRIDO, EModalidadTrabajo.ONLINE)))
+                .resumen("Empresa consultora")
+                .pathFoto("../../../../assets/img/profile.png")
+                .activo(false)
+                .build();
+        this.empresaRepository.save(empresa12);
+
+        Empresa empresa13 = Empresa.builder()
+                .nombre("Hola")
+                .email("holamepresa@mail.com")
+                .password(this.encoder.encode("123456"))
+                .inglesSolicitado(EInglesSolicitado.NO_NECESARIO)
+                .modalidadesTrabajo(new HashSet<>(Set.of(EModalidadTrabajo.HIBRIDO, EModalidadTrabajo.ONLINE)))
+                .resumen("Empresa consultora")
+                .pathFoto("../../../../assets/img/profile.png")
+                .activo(true)
+                .build();
+        this.empresaRepository.save(empresa13);
 
         //Enviada de Mireya
         Solicitud solAlu1 = Solicitud.builder()

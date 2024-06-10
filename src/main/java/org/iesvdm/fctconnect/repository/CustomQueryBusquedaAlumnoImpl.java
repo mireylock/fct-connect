@@ -24,74 +24,56 @@ public class CustomQueryBusquedaAlumnoImpl implements CustomQueryBusquedaAlumno 
                                                       Optional<Long> idioma,
                                                       Optional<Integer> pagina,
                                                       Optional<Integer> tamanio) {
-        String queryStr = "select A from Alumno A";
-        String countQueryStr = "select count(*) from Alumno A";
+        StringBuilder queryStr = new StringBuilder("select A from Alumno A");
+        StringBuilder countQueryStr = new StringBuilder("select count(A) from Alumno A");
 
-        if ((nombre.isPresent() && !nombre.get().isEmpty() || vehiculoPropio.isPresent())
-                && (idioma.isEmpty())) {
-            queryStr += " where ";
-            countQueryStr += " where ";
-        } else if (idioma.isPresent()) {
-            queryStr += " join A.idiomas.idioma I where ";
-            countQueryStr += " join A.idiomas.idioma I where ";
+        if (idioma.isPresent()) {
+            queryStr.append(" join A.idiomas.idioma I");
+            countQueryStr.append(" join A.idiomas.idioma I");
         }
+
+        queryStr.append(" where A.activo = true");
+        countQueryStr.append(" where A.activo = true");
 
         if (nombre.isPresent() && !nombre.get().isEmpty()) {
-            queryStr += " CONCAT(A.nombre, ' ', A.apellido1, ' ', COALESCE(A.apellido2, '')) LIKE CONCAT('%', :nombre, '%') ";
-            countQueryStr += " CONCAT(A.nombre, ' ', A.apellido1, ' ', COALESCE(A.apellido2, '')) LIKE CONCAT('%', :nombre, '%') ";
-
-            if (vehiculoPropio.isPresent()) {
-                queryStr += " and A.vehiculoPropio=:vehiculoPropio ";
-                countQueryStr += " and A.vehiculoPropio=:vehiculoPropio ";
-            }
-
-            if (idioma.isPresent()) {
-                queryStr += " and I.id = idioma.get() ";
-                countQueryStr += " and I.id = idioma.get() ";
-            }
-        } else {
-            if (vehiculoPropio.isPresent()) {
-                queryStr += " A.vehiculoPropio=:vehiculoPropio ";
-                countQueryStr += " A.vehiculoPropio=:vehiculoPropio ";
-
-                if (idioma.isPresent()) {
-                    queryStr += " and I.id = :idioma ";
-                    countQueryStr += " and I.id = :idioma ";
-                }
-            } else if (idioma.isPresent()) {
-                queryStr += " I.id = :idioma ";
-                countQueryStr += " I.id = :idioma ";
-            }
-
+            queryStr.append(" and CONCAT(A.nombre, ' ', A.apellido1, ' ', COALESCE(A.apellido2, '')) LIKE CONCAT('%', :nombre, '%')");
+            countQueryStr.append(" and CONCAT(A.nombre, ' ', A.apellido1, ' ', COALESCE(A.apellido2, '')) LIKE CONCAT('%', :nombre, '%')");
         }
 
-        log.info("LA QUERY ES: "+queryStr);
+        if (vehiculoPropio.isPresent()) {
+            queryStr.append(" and A.vehiculoPropio = :vehiculoPropio");
+            countQueryStr.append(" and A.vehiculoPropio = :vehiculoPropio");
+        }
 
-        Query query = null;
-        query = em.createQuery(queryStr, Alumno.class);
+        if (idioma.isPresent()) {
+            queryStr.append(" and I.id = :idioma");
+            countQueryStr.append(" and I.id = :idioma");
+        }
+
+        log.info("LA QUERY ES: " + queryStr);
+
+        Query query = em.createQuery(queryStr.toString(), Alumno.class);
+        Query countQuery = em.createQuery(countQueryStr.toString(), Long.class);
 
         if (nombre.isPresent() && !nombre.get().isEmpty()) query.setParameter("nombre", nombre.get());
         if (vehiculoPropio.isPresent()) query.setParameter("vehiculoPropio", vehiculoPropio.get());
         if (idioma.isPresent()) query.setParameter("idioma", idioma.get());
 
-        Query countQuery = null;
-        countQuery = em.createQuery(countQueryStr, Long.class);
         if (nombre.isPresent() && !nombre.get().isEmpty()) countQuery.setParameter("nombre", nombre.get());
         if (vehiculoPropio.isPresent()) countQuery.setParameter("vehiculoPropio", vehiculoPropio.get());
         if (idioma.isPresent()) countQuery.setParameter("idioma", idioma.get());
 
         long totalItems = (Long) countQuery.getSingleResult();
         long totalPages = 1;
-        if (tamanio.isPresent() && tamanio.get()!=0) {
-            double paginas = (double) totalItems /tamanio.get();
+        if (tamanio.isPresent() && tamanio.get() != 0) {
+            double paginas = (double) totalItems / tamanio.get();
             totalPages = (long) Math.ceil(paginas);
         }
 
         query.setFirstResult(pagina.orElse(0) * tamanio.orElse(1));
-        query.setMaxResults(tamanio.orElse(5));
+        query.setMaxResults(tamanio.orElse(6));
 
         List<Alumno> alumnos = query.getResultList();
-
 
         Map<String, Object> response = new HashMap<>();
         response.put("alumnos", alumnos);
@@ -100,79 +82,60 @@ public class CustomQueryBusquedaAlumnoImpl implements CustomQueryBusquedaAlumno 
         response.put("totalPages", totalPages);
 
         return response;
-
     }
 
     @Override
     public Map<String, Object> buscarAlumnoInactivosPaginacion(Optional<String> nombre, Optional<Boolean> vehiculoPropio, Optional<Long> idioma, Optional<Integer> pagina, Optional<Integer> tamanio) {
-        String queryStr = "select A from Alumno A";
-        String countQueryStr = "select count(*) from Alumno A";
+        StringBuilder queryStr = new StringBuilder("select A from Alumno A");
+        StringBuilder countQueryStr = new StringBuilder("select count(A) from Alumno A");
 
-        if ((nombre.isPresent() && !nombre.get().isEmpty() || vehiculoPropio.isPresent())
-                && (idioma.isEmpty())) {
-            queryStr += " where ";
-            countQueryStr += " where ";
-        } else if (idioma.isPresent()) {
-            queryStr += " join A.idiomas.idioma I where ";
-            countQueryStr += " join A.idiomas.idioma I where ";
+        if (idioma.isPresent()) {
+            queryStr.append(" join A.idiomas.idioma I");
+            countQueryStr.append(" join A.idiomas.idioma I");
         }
+
+        queryStr.append(" where A.activo = false");
+        countQueryStr.append(" where A.activo = false");
 
         if (nombre.isPresent() && !nombre.get().isEmpty()) {
-            queryStr += " CONCAT(A.nombre, ' ', A.apellido1, ' ', COALESCE(A.apellido2, '')) LIKE CONCAT('%', :nombre, '%') and A.activo = false ";
-            countQueryStr += " CONCAT(A.nombre, ' ', A.apellido1, ' ', COALESCE(A.apellido2, '')) LIKE CONCAT('%', :nombre, '%') and A.activo = false ";
-
-            if (vehiculoPropio.isPresent()) {
-                queryStr += " and A.vehiculoPropio=:vehiculoPropio and A.activo = false  ";
-                countQueryStr += " and A.vehiculoPropio=:vehiculoPropio and A.activo = false ";
-            }
-
-            if (idioma.isPresent()) {
-                queryStr += " and I.id = idioma.get() and A.activo = false  ";
-                countQueryStr += " and I.id = idioma.get() and A.activo = false  ";
-            }
-        } else {
-            if (vehiculoPropio.isPresent()) {
-                queryStr += " A.vehiculoPropio=:vehiculoPropio and A.activo = false  ";
-                countQueryStr += " A.vehiculoPropio=:vehiculoPropio and A.activo = false  ";
-
-                if (idioma.isPresent()) {
-                    queryStr += " and I.id = :idioma and A.activo = false  ";
-                    countQueryStr += " and I.id = :idioma and A.activo = false ";
-                }
-            } else if (idioma.isPresent()) {
-                queryStr += " I.id = :idioma and A.activo = false ";
-                countQueryStr += " I.id = :idioma and A.activo = false  ";
-            }
-
+            queryStr.append(" and CONCAT(A.nombre, ' ', A.apellido1, ' ', COALESCE(A.apellido2, '')) LIKE CONCAT('%', :nombre, '%')");
+            countQueryStr.append(" and CONCAT(A.nombre, ' ', A.apellido1, ' ', COALESCE(A.apellido2, '')) LIKE CONCAT('%', :nombre, '%')");
         }
 
-        log.info("LA QUERY ES: "+queryStr);
+        if (vehiculoPropio.isPresent()) {
+            queryStr.append(" and A.vehiculoPropio = :vehiculoPropio");
+            countQueryStr.append(" and A.vehiculoPropio = :vehiculoPropio");
+        }
 
-        Query query = null;
-        query = em.createQuery(queryStr, Alumno.class);
+        if (idioma.isPresent()) {
+            queryStr.append(" and I.id = :idioma");
+            countQueryStr.append(" and I.id = :idioma");
+        }
+
+        log.info("LA QUERY ES: " + queryStr);
+
+        Query query = em.createQuery(queryStr.toString(), Alumno.class);
+        Query countQuery = em.createQuery(countQueryStr.toString(), Long.class);
 
         if (nombre.isPresent() && !nombre.get().isEmpty()) query.setParameter("nombre", nombre.get());
         if (vehiculoPropio.isPresent()) query.setParameter("vehiculoPropio", vehiculoPropio.get());
         if (idioma.isPresent()) query.setParameter("idioma", idioma.get());
 
-        Query countQuery = null;
-        countQuery = em.createQuery(countQueryStr, Long.class);
         if (nombre.isPresent() && !nombre.get().isEmpty()) countQuery.setParameter("nombre", nombre.get());
         if (vehiculoPropio.isPresent()) countQuery.setParameter("vehiculoPropio", vehiculoPropio.get());
         if (idioma.isPresent()) countQuery.setParameter("idioma", idioma.get());
 
         long totalItems = (Long) countQuery.getSingleResult();
         long totalPages = 1;
-        if (tamanio.isPresent() && tamanio.get()!=0) {
-            double paginas = (double) totalItems /tamanio.get();
+        if (tamanio.isPresent() && tamanio.get() != 0) {
+            double paginas = (double) totalItems / tamanio.get();
             totalPages = (long) Math.ceil(paginas);
         }
 
         query.setFirstResult(pagina.orElse(0) * tamanio.orElse(1));
-        query.setMaxResults(tamanio.orElse(5));
+        query.setMaxResults(tamanio.orElse(6));
 
         List<Alumno> alumnos = query.getResultList();
-
 
         Map<String, Object> response = new HashMap<>();
         response.put("alumnos", alumnos);

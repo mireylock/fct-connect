@@ -80,6 +80,7 @@ public class Alumno extends Usuario{
     @JoinColumn(name="id_formacion")
     private Formacion formacion;
 
+
     @Builder
     public Alumno(long id, @NotBlank @Email String email, @NotBlank @Size(min = 6) String password, @NotBlank String nombre, String pathFoto, boolean activo, String dni, String apellido1, String apellido2, String telefono, String direccion, String pathCV, String pathExpediente, Boolean carnetConducir, Boolean vehiculoPropio, List<Solicitud> solicitudes, List<ProfesorTutorizaAlumno> profesorTutorizaAlumnos, List<AlumnoHablaIdioma> idiomas, Formacion formacion) {
         super(id, email, password, nombre, pathFoto, activo);

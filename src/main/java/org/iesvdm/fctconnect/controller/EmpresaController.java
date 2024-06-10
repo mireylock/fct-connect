@@ -26,23 +26,23 @@ public class EmpresaController {
 
 
     @GetMapping(value = {"", "/"}, params = {"!nombre", "!modalidadTrabajo", "!inglesSolicitado", "!tecnologia", "!pagina", "!tamanio"})
-    public List<Empresa> all() {
-        log.info("Accediendo a todas las empresas");
+    public List<Empresa> allActivas() {
+        log.info("Accediendo a todas las empresas activas");
         return this.empresaService.allActivos();
     }
 
 
-    @GetMapping(value = {"", "/"}, params = {"!nombre", "!modalidadTrabajo", "!inglesSolicitado", "!tecnologia"})
-    public Map<String, Object> all(int pagina, int tamanio) {
-        log.info("Accediendo a empresas con paginacion");
-        return this.empresaService.all(pagina, tamanio);
-    }
-
-    @GetMapping(value = { "/inactivas"}, params = {"!nombre", "!modalidadTrabajo", "!inglesSolicitado", "!tecnologia"})
-    public Map<String, Object> allInactivas(int pagina, int tamanio) {
-        log.info("Accediendo a empresas INACTIVAS con paginacion");
-        return this.empresaService.allInactivos(pagina, tamanio);
-    }
+//    @GetMapping(value = {"", "/"}, params = {"!nombre", "!modalidadTrabajo", "!inglesSolicitado", "!tecnologia"})
+//    public Map<String, Object> all(int pagina, int tamanio) {
+//        log.info("Accediendo a empresas con paginacion");
+//        return this.empresaService.all(pagina, tamanio);
+//    }
+//
+//    @GetMapping(value = { "/inactivas"}, params = {"!nombre", "!modalidadTrabajo", "!inglesSolicitado", "!tecnologia"})
+//    public Map<String, Object> allInactivas(int pagina, int tamanio) {
+//        log.info("Accediendo a empresas INACTIVAS con paginacion");
+//        return this.empresaService.allInactivos(pagina, tamanio);
+//    }
 
     @GetMapping(value = {"", "/"})
     public Map<String, Object> buscarEmpresaPaginacion (String nombre,

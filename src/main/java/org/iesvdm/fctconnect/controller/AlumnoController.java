@@ -23,23 +23,23 @@ public class AlumnoController {
     }
 
     @GetMapping(value = {"", "/"}, params = {"!pagina", "!tamanio", "!nombre", "!vehiculoPropio", "!idioma"})
-    public List<Alumno> all() {
+    public List<Alumno> allActivos() {
         log.info("Accediendo a todos los alumnos");
-        return this.alumnoService.all();
+        return this.alumnoService.allActivos();
     }
 
 
-    @GetMapping(value = {"", "/"}, params = {"!nombre", "!vehiculoPropio", "!idioma"})
-    public Map<String, Object> all(int pagina, int tamanio) {
-        log.info("Accediendo a alumnos con paginacion");
-        return this.alumnoService.all(pagina, tamanio);
-    }
-
-    @GetMapping(value = {"/inactivos"}, params = {"!nombre", "!vehiculoPropio", "!idioma"})
-    public Map<String, Object> allInactivos(int pagina, int tamanio) {
-        log.info("Accediendo a alumnos INACTIVOS con paginacion");
-        return this.alumnoService.allInactivos(pagina, tamanio);
-    }
+//    @GetMapping(value = {"", "/"}, params = {"!nombre", "!vehiculoPropio", "!idioma"})
+//    public Map<String, Object> all(int pagina, int tamanio) {
+//        log.info("Accediendo a alumnos con paginacion");
+//        return this.alumnoService.all(pagina, tamanio);
+//    }
+//
+//    @GetMapping(value = {"/inactivos"}, params = {"!nombre", "!vehiculoPropio", "!idioma"})
+//    public Map<String, Object> allInactivos(int pagina, int tamanio) {
+//        log.info("Accediendo a alumnos INACTIVOS con paginacion");
+//        return this.alumnoService.allInactivos(pagina, tamanio);
+//    }
 
     @GetMapping(value = {"", "/"})
     public Map<String, Object> buscarAlumnosPaginacion(Optional<String> nombre,
