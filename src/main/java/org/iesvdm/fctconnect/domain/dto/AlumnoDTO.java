@@ -14,5 +14,7 @@ public class AlumnoDTO {
     private String direccion;
     private Boolean carnetConducir;
     private Boolean vehiculoPropio;
+    private String pathCV;
+    private String pathExpediente;
 
 }
