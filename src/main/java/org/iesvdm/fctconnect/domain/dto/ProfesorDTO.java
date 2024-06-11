@@ -13,4 +13,5 @@ import lombok.NoArgsConstructor;
 public class ProfesorDTO {
     private String telefono;
     private String direccion;
+    private String pathFoto;
 }

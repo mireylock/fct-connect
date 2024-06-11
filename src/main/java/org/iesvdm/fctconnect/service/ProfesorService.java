@@ -124,6 +124,7 @@ public class ProfesorService {
                 .map(profesor -> {
                     profesor.setDireccion(profesorDTO.getDireccion());
                     profesor.setTelefono(profesorDTO.getTelefono());
+                    profesor.setPathFoto(profesorDTO.getPathFoto());
                     return this.profesorRepository.save(profesor);
                 })
                 .orElseThrow(() -> new EntityNotFoundException(id, Profesor.class));

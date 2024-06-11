@@ -139,6 +139,7 @@ public class EmpresaService {
                             .map(EModalidadTrabajo::valueOf).collect(Collectors.toSet()));
                     empresa.setResumen(empresaDTO.getResumen());
                     empresa.setPathSitioWeb(empresaDTO.getPathSitioWeb());
+                    empresa.setPathFoto(empresaDTO.getPathFoto());
 
                     return this.empresaRepository.save(empresa);
                 })

@@ -16,5 +16,6 @@ public class EmpresaDTO {
     private Set<String> modalidadesTrabajo;
     private String resumen;
     private String pathSitioWeb;
+    private String pathFoto;
 
 }
