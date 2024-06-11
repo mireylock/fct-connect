@@ -17,4 +17,8 @@ public class FormacionService {
     public List<Formacion> getAll() {
        return this.formacionRepository.findAll();
     }
+
+    public Formacion save(Formacion formacion) {
+        return this.formacionRepository.save(formacion);
+    }
 }

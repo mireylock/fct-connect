@@ -23,15 +23,9 @@ public class IdiomaController {
         this.idiomaService = idiomaService;
     }
 
-
-    @GetMapping(value = {"", "/"})
-    public List<Idioma> all() {
-        log.info("Accediendo a todos los idiomas");
-        return this.idiomaService.all();
-    }
-
+    // IDIOMAS DEL ALUMNO
     @PostMapping({"", "/"})
-    public AlumnoHablaIdioma newIdioma(@RequestBody AlumnoHablaIdiomaDTO alumnoHablaIdiomaDTO) {
+    public AlumnoHablaIdioma newALumnoIdioma(@RequestBody AlumnoHablaIdiomaDTO alumnoHablaIdiomaDTO) {
         return idiomaService.saveAlumnoHablaIdioma(alumnoHablaIdiomaDTO);
     }
 
@@ -40,17 +34,24 @@ public class IdiomaController {
         idiomaService.deleteAlumnoHablaIdioma(id);
     }
 
-//    @PostMapping({"", "/"})
-//    public Idioma newIdioma(@RequestBody Idioma idioma) {
-//        return this.idiomaService.save(idioma);
-//    }
+    // IDIOMAS
+    @GetMapping(value = {"", "/"})
+    public List<Idioma> all() {
+        log.info("Accediendo a todos los idiomas");
+        return this.idiomaService.all();
+    }
 
-    @GetMapping("/{id}")
+    @PostMapping({"/idioma"})
+    public Idioma newIdioma(@RequestBody Idioma idioma) {
+        return this.idiomaService.save(idioma);
+    }
+
+    @GetMapping("/idioma/{id}")
     public Idioma one(@PathVariable("id") Long id) {
         return this.idiomaService.one(id);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("idioma/{id}")
     public Idioma replaceIdioma(@PathVariable("id") Long id, @RequestBody Idioma idioma) {
         return this.idiomaService.replace(id, idioma);
     }
@@ -58,7 +59,7 @@ public class IdiomaController {
 
     @ResponseBody
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/idioma/{id}")
     public void deleteIdioma(@PathVariable("id") Long id) {
         this.idiomaService.delete(id);
     }
