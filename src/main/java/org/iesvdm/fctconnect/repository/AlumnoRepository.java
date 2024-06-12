@@ -11,6 +11,4 @@ import java.util.List;
 @Repository
 public interface AlumnoRepository extends JpaRepository<Alumno, Long> {
     List<Alumno> findAllByActivoIsTrue();
-//    Page<Alumno> findAllByActivoIsTrue(org.springframework.data.domain.Pageable paginado);
-//    Page<Alumno> findAllByActivoIsFalse(Pageable paginado);
 }

@@ -1,6 +1,7 @@
 package org.iesvdm.fctconnect.service;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.extern.slf4j.Slf4j;
 import org.iesvdm.fctconnect.domain.Usuario;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -10,6 +11,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Objects;
 
+@Slf4j
 public class UserDetailsImpl implements UserDetails {
     private static final long serialVersionUID = 1L;
 

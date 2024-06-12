@@ -69,46 +69,6 @@ public class ProfesorService {
         return response;
     }
 
-//    public List<Profesor> profesoresDeUnAlumno (long idAlumno) {
-//        return this.profesorRepository.profesoresDeUnAlumno(idAlumno);
-//    }
-
-
-
-//    public List<Profesor> all(Optional<String> buscarOpt, Optional<String> ordenarOpt) {
-//        if (buscarOpt.isPresent() && ordenarOpt.isPresent()) {
-//            if (ordenarOpt.get().equals("asc")) {
-//                return this.profesorRepository.findProfesorByNombreContainingIgnoreCaseOrderByNombreAsc(buscarOpt.get());
-//            } else {
-//                return this.profesorRepository.findProfesorByNombreContainingIgnoreCaseOrderByNombreDesc(buscarOpt.get());
-//            }
-//        } else if (!buscarOpt.isPresent() && ordenarOpt.isPresent()) {
-//            if (ordenarOpt.get().equals("asc")) {
-//                return this.profesorRepository.findAllByOrderByNombreAsc();
-//            } else {
-//                return this.profesorRepository.findAllByOrderByNombreDesc();
-//            }
-//        } else if (buscarOpt.isPresent() && !ordenarOpt.isPresent()) {
-//            return this.profesorRepository.findProfesorByNombreContainingIgnoreCase(buscarOpt.get());
-//        } else {
-//            return this.profesorRepository.findAll();
-//        }
-//    }
-//
-//    public Map<String, Object> all(int pagina, int tamanio) {
-//        Pageable paginado = PageRequest.of(pagina, tamanio, Sort.by("id").ascending());
-//        Page<Profesor> pageAll = this.profesorRepository.findAll(paginado);
-//
-//        Map<String, Object> response = new HashMap<>();
-//
-//        response.put("profesores", pageAll.getContent());
-//        response.put("currentPage", pageAll.getNumber());
-//        response.put("totalItems", pageAll.getTotalElements());
-//        response.put("totalPages", pageAll.getTotalPages());
-//
-//        return response;
-//    }
-
     public Profesor save(Profesor profesor) {
         return this.profesorRepository.save(profesor);
     }

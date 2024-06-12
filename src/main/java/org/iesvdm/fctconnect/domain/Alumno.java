@@ -69,12 +69,6 @@ public class Alumno extends Usuario{
                 .collect(Collectors.toList());
     }
 
-//    @ManyToMany (fetch = FetchType.EAGER)
-//    @JoinTable(
-//            name = "alumno_habla_idioma",
-//            joinColumns = @JoinColumn(name = "id_alumno", referencedColumnName = "id"),
-//            inverseJoinColumns = @JoinColumn(name = "id_idioma", referencedColumnName = "id_idioma"))
-//    private Set<Idioma> idiomas = new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name="id_formacion")

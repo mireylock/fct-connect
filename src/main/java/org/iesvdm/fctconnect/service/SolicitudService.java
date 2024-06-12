@@ -47,25 +47,6 @@ public class SolicitudService {
         return this.solicitudRepository.findByEstadoAndTipoAndEmpresa_Id(EEstadoSolicitud.valueOf(estado), ETipoSolicitud.valueOf(tipo), id);
     }
 
-//    public List<Solicitud> all(Optional<String> buscarOpt, Optional<String> ordenarOpt) {
-//        if (buscarOpt.isPresent() && ordenarOpt.isPresent()) {
-//            if (ordenarOpt.get().equals("asc")) {
-//                return this.solicitudRepository.findSolicitudByNombreContainingIgnoreCaseOrderByNombreAsc(buscarOpt.get());
-//            } else {
-//                return this.solicitudRepository.findSolicitudByNombreContainingIgnoreCaseOrderByNombreDesc(buscarOpt.get());
-//            }
-//        } else if (!buscarOpt.isPresent() && ordenarOpt.isPresent()) {
-//            if (ordenarOpt.get().equals("asc")) {
-//                return this.solicitudRepository.findAllByOrderByNombreAsc();
-//            } else {
-//                return this.solicitudRepository.findAllByOrderByNombreDesc();
-//            }
-//        } else if (buscarOpt.isPresent() && !ordenarOpt.isPresent()) {
-//            return this.solicitudRepository.findSolicitudByNombreContainingIgnoreCase(buscarOpt.get());
-//        } else {
-//            return this.solicitudRepository.findAll();
-//        }
-//    }
 
     public Map<String, Object> all(int pagina, int tamanio) {
         Pageable paginado = PageRequest.of(pagina, tamanio, Sort.by("id").ascending());

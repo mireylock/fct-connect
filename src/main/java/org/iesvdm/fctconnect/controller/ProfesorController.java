@@ -50,17 +50,6 @@ public class ProfesorController {
     }
 
 
-//    @GetMapping(value = "/alu/{idAlumno}")
-//    public List<Profesor> profesorDeUnAlumno (@PathVariable("idAlumno") Long idAlumno) {
-//        log.info("Accediendo al profesor del alumno con id "+idAlumno);
-//        return this.profesorService.profesoresDeUnAlumno(idAlumno);
-//    }
-
-    @PostMapping({"", "/"})
-    public Profesor newProfesor(@RequestBody Profesor profesor) {
-        return this.profesorService.save(profesor);
-    }
-
     @GetMapping("/{id}")
     public Profesor one(@PathVariable("id") Long id) {
         return this.profesorService.one(id);
@@ -71,11 +60,4 @@ public class ProfesorController {
         return this.profesorService.replace(id, profesorDTO);
     }
 
-
-    @ResponseBody
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping("/{id}")
-    public void deleteProfesor(@PathVariable("id") Long id) {
-        this.profesorService.delete(id);
-    }
 }

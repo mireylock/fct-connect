@@ -28,19 +28,6 @@ public class AlumnoController {
         return this.alumnoService.allActivos();
     }
 
-
-//    @GetMapping(value = {"", "/"}, params = {"!nombre", "!vehiculoPropio", "!idioma"})
-//    public Map<String, Object> all(int pagina, int tamanio) {
-//        log.info("Accediendo a alumnos con paginacion");
-//        return this.alumnoService.all(pagina, tamanio);
-//    }
-//
-//    @GetMapping(value = {"/inactivos"}, params = {"!nombre", "!vehiculoPropio", "!idioma"})
-//    public Map<String, Object> allInactivos(int pagina, int tamanio) {
-//        log.info("Accediendo a alumnos INACTIVOS con paginacion");
-//        return this.alumnoService.allInactivos(pagina, tamanio);
-//    }
-
     @GetMapping(value = {"", "/"})
     public Map<String, Object> buscarAlumnosPaginacion(Optional<String> nombre,
                                                        Optional<Boolean> vehiculoPropio,
@@ -71,8 +58,6 @@ public class AlumnoController {
     public Alumno replaceAlumno(@PathVariable("id") Long id, @RequestBody AlumnoDTO alumnoDTO) {
         return this.alumnoService.replaceAlumno(id, alumnoDTO);
     }
-
-
 
 }
 

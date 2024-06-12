@@ -39,13 +39,6 @@ public class Empresa extends Usuario{
     @OneToMany(mappedBy = "empresa")
     private Set<Tecnologia> tecnologias;
 
-//    @ManyToMany (fetch = FetchType.EAGER)
-//    @JoinTable(
-//            name = "empresa_tecnologia",
-//            joinColumns = @JoinColumn(name = "id_empresa", referencedColumnName = "id"),
-//            inverseJoinColumns = @JoinColumn(name = "id_tecnologia", referencedColumnName = "id_tecnologia"))
-//    private Set<Tecnologia> tecnologias = new HashSet<>();
-
     @OneToMany(mappedBy = "empresa")
     @JsonIgnore
     private Set<Ubicacion> ubicaciones;

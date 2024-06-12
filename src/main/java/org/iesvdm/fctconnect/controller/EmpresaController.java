@@ -32,18 +32,6 @@ public class EmpresaController {
     }
 
 
-//    @GetMapping(value = {"", "/"}, params = {"!nombre", "!modalidadTrabajo", "!inglesSolicitado", "!tecnologia"})
-//    public Map<String, Object> all(int pagina, int tamanio) {
-//        log.info("Accediendo a empresas con paginacion");
-//        return this.empresaService.all(pagina, tamanio);
-//    }
-//
-//    @GetMapping(value = { "/inactivas"}, params = {"!nombre", "!modalidadTrabajo", "!inglesSolicitado", "!tecnologia"})
-//    public Map<String, Object> allInactivas(int pagina, int tamanio) {
-//        log.info("Accediendo a empresas INACTIVAS con paginacion");
-//        return this.empresaService.allInactivos(pagina, tamanio);
-//    }
-
     @GetMapping(value = {"", "/"})
     public Map<String, Object> buscarEmpresaPaginacion (String nombre,
                                                         EModalidadTrabajo modalidadTrabajo,
@@ -66,11 +54,6 @@ public class EmpresaController {
         return this.empresaService.buscarEmpresaInactivasPaginacion(nombre, inglesSolicitado, modalidadTrabajo, tecnologia, pagina, tamanio);
     }
 
-    @PostMapping({"", "/"})
-    public Empresa newEmpresa(@RequestBody Empresa empresa) {
-        return this.empresaService.save(empresa);
-    }
-
     @GetMapping("/{id}")
     public Empresa one(@PathVariable("id") Long id) {
         return this.empresaService.one(id);
@@ -81,11 +64,4 @@ public class EmpresaController {
         return this.empresaService.replace(id, empresaDTO);
     }
 
-
-    @ResponseBody
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping("/{id}")
-    public void deleteEmpresa(@PathVariable("id") Long id) {
-        this.empresaService.delete(id);
-    }
 }

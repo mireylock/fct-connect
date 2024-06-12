@@ -32,11 +32,5 @@ public class Tecnologia {
     @JoinColumn(name="id_empresa")
     private Empresa empresa;
 
-//    @ManyToMany(mappedBy = "tecnologias", fetch = FetchType.EAGER,  cascade = {
-//            CascadeType.PERSIST,
-//            CascadeType.MERGE})
-//    @JsonIgnore
-//    private Set<Empresa> empresas = new HashSet<>();
-
 
 }

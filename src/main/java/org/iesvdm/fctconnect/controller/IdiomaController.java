@@ -51,7 +51,7 @@ public class IdiomaController {
         return this.idiomaService.one(id);
     }
 
-    @PutMapping("idioma/{id}")
+    @PutMapping("/idioma/{id}")
     public Idioma replaceIdioma(@PathVariable("id") Long id, @RequestBody Idioma idioma) {
         return this.idiomaService.replace(id, idioma);
     }

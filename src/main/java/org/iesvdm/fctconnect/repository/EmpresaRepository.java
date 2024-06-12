@@ -16,8 +16,6 @@ import java.util.List;
 public interface EmpresaRepository extends JpaRepository<Empresa, Long> {
 
     List<Empresa> findAllByActivoIsTrue();
-//    Page<Empresa> findAllByActivoIsTrue(org.springframework.data.domain.Pageable paginado);
-//    Page<Empresa> findAllByActivoIsFalse(org.springframework.data.domain.Pageable paginado);
 
     @Query("SELECT e FROM Empresa e JOIN e.tecnologias t " +
             "WHERE (:nombre IS NULL OR :nombre = '' OR LOWER(e.nombre) LIKE LOWER(CONCAT('%', :nombre, '%'))) " +
