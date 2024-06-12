@@ -69,7 +69,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
                     authorizationManagerRequestMatcherRegistry
                             .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                            .anyRequest().authenticated();
+                            .anyRequest().permitAll();
                 });
 
         http.authenticationProvider(authenticationProvider());

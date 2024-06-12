@@ -755,7 +755,7 @@ class FctConnectApplicationTests {
 
         Solicitud solEmp3 = Solicitud.builder()
                 .alumno(alumno1)
-                .empresa(empresa1)
+                .empresa(empresa3)
                 .tipo(ETipoSolicitud.EMPRESA_A_ALUMNO)
                 .descripcion("Buenos días Mireya, nos interesaría conocerte más")
                 .estado(EEstadoSolicitud.ENVIADA)
@@ -767,7 +767,7 @@ class FctConnectApplicationTests {
         ProfesorTutorizaAlumno tutoria1 = ProfesorTutorizaAlumno.builder()
                 .profesor(profe1)
                 .alumno(alumno1)
-                .tipoTutoria("Practicas")
+                .tipoTutoria("Prácticas")
                 .build();
         this.profesorTutorizaAlumnoRepository.save(tutoria1);
 
