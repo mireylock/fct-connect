@@ -767,7 +767,7 @@ class FctConnectApplicationTests {
         ProfesorTutorizaAlumno tutoria1 = ProfesorTutorizaAlumno.builder()
                 .profesor(profe1)
                 .alumno(alumno1)
-                .tipoTutoria("Practicas")
+                .tipoTutoria("Prácticas")
                 .build();
         this.profesorTutorizaAlumnoRepository.save(tutoria1);
 
