@@ -15,11 +15,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Entity
-@Table(name="profesor",
-        uniqueConstraints = {
-        @UniqueConstraint(columnNames = "mail"),
-        @UniqueConstraint(columnNames = "dni")
-})
 @Data
 @NoArgsConstructor
 @DiscriminatorValue(value="profesor")
