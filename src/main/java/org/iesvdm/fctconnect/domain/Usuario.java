@@ -15,7 +15,7 @@ import lombok.*;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Table(name="usuario",
         uniqueConstraints = {
-                @UniqueConstraint(columnNames = "mail"),
+                @UniqueConstraint(columnNames = "email"),
                 @UniqueConstraint(columnNames = "dni")
         }
 )
