@@ -755,7 +755,7 @@ class FctConnectApplicationTests {
 
         Solicitud solEmp3 = Solicitud.builder()
                 .alumno(alumno1)
-                .empresa(empresa1)
+                .empresa(empresa3)
                 .tipo(ETipoSolicitud.EMPRESA_A_ALUMNO)
                 .descripcion("Buenos días Mireya, nos interesaría conocerte más")
                 .estado(EEstadoSolicitud.ENVIADA)
