@@ -69,7 +69,6 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
                     authorizationManagerRequestMatcherRegistry
                             .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                            .requestMatchers("/v1/api/**").permitAll()
                             .anyRequest().authenticated();
                 });
 
