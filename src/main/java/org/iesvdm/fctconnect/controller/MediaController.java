@@ -20,7 +20,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "https://fctconnect.vercel.app/")
 @RequestMapping("v1/api/media")
 @AllArgsConstructor
 public class MediaController {

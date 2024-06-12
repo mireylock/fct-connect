@@ -22,7 +22,7 @@ import java.util.*;
 
 @Slf4j
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "https://fctconnect.vercel.app/")
 @RequestMapping("/v1/api/auth")
 public class AuthController {
     private final AuthenticationManager authenticationManager;
