@@ -21,6 +21,6 @@ public interface ProfesorTutorizaAlumnoRepository extends JpaRepository<Profesor
 
 
     @Query("SELECT p.alumno FROM ProfesorTutorizaAlumno p WHERE p.profesor.id = :profesorId AND " +
-            "CONCAT(p.alumno.nombre, ' ', p.alumno.apellido1, ' ', COALESCE(p.alumno.apellido2, '')) LIKE %:nombre%")
+            "LOWER(CONCAT(p.alumno.nombre, ' ', p.alumno.apellido1, ' ', COALESCE(p.alumno.apellido2, ''))) LIKE LOWER(CONCAT('%', :nombre, '%'))")
     Page<Alumno> findAlumnoTutoriaByNombreCompleto(@Param("profesorId") Long profesorId, @Param("nombre") String nombre, Pageable pageable);
 }
