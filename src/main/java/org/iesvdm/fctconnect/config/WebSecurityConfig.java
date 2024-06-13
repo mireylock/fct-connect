@@ -69,8 +69,8 @@ public class WebSecurityConfig {
                 .exceptionHandling(httpSecurityExceptionHandlingConfigurer -> httpSecurityExceptionHandlingConfigurer.authenticationEntryPoint(unauthorizedHandler) )
                 .sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> authorizationManagerRequestMatcherRegistry
-                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-//                        .requestMatchers("/v1/api/**").permitAll()
+                        .requestMatchers(HttpMethod.OPTIONS, "/*").permitAll()
+                        .requestMatchers("/v1/api/**").permitAll()
 //                        .requestMatchers("/v1/api/auth/register").hasAnyAuthority("administrador")
 //                        .requestMatchers("/v1/api/auth/request-empresa").hasAnyAuthority("administrador")
 //                        .requestMatchers("/v1/api/administradores/**").hasAnyAuthority("administrador")
