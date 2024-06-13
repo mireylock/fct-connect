@@ -70,7 +70,7 @@ public class WebSecurityConfig {
                 .sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> authorizationManagerRequestMatcherRegistry
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                                .anyRequest().permitAll()
+                                .anyRequest().authenticated()
 //                        .requestMatchers("/v1/api/**").permitAll()
 //                        .requestMatchers("/v1/api/auth/register").hasAnyAuthority("administrador")
 //                        .requestMatchers("/v1/api/auth/request-empresa").hasAnyAuthority("administrador")
