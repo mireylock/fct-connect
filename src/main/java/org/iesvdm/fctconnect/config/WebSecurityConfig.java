@@ -22,14 +22,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import java.util.Arrays;
 
 @Slf4j
 @Configuration
@@ -75,34 +68,36 @@ public class WebSecurityConfig {
                 .sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> authorizationManagerRequestMatcherRegistry
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                        .requestMatchers("/v1/api/**").permitAll()
-                        .requestMatchers("/v1/api/auth/register").hasAnyAuthority("administrador")
-                        .requestMatchers("/v1/api/auth/request-empresa").hasAnyAuthority("administrador")
-                        .requestMatchers("/v1/api/administradores/**").hasAnyAuthority("administrador")
-                        .requestMatchers("/v1/api/alumnos/**").hasAnyAuthority("administrador", "empresa", "profesor", "alumno")
-                        .requestMatchers("/v1/api/alumnos/inactivos").hasAnyAuthority("administrador")
-                        .requestMatchers(HttpMethod.PUT, "/v1/api/alumnos/**").hasAnyAuthority("administrador", "alumno", "profesor")
-                        .requestMatchers("/v1/api/empresas/**").hasAnyAuthority("administrador", "alumno", "profesor")
-                        .requestMatchers("/v1/api/empresas/inactivas").hasAnyAuthority("administrador")
-                        .requestMatchers(HttpMethod.PUT, "/v1/api/empresas/**").hasAnyAuthority("empresa")
-                        .requestMatchers("/v1/api/formaciones/**").hasAnyAuthority("administrador")
-                        .requestMatchers("/v1/api/idiomas/idioma").hasAnyAuthority("administrador")
-                        .requestMatchers(HttpMethod.PUT, "/v1/api/idiomas/**").hasAnyAuthority("alumno")
-                        .requestMatchers(HttpMethod.DELETE, "/v1/api/idiomas/aluIdioma/**").hasAnyAuthority("alumno")
-                        .requestMatchers(HttpMethod.PUT, "/v1/api/mail/**").hasAnyAuthority("administrador")
-                        .requestMatchers(HttpMethod.PUT, "/v1/api/media/**").hasAnyAuthority("alumno", "administrador", "profesor", "empresa")
-                        .requestMatchers("/v1/api/profesores/inactivos").hasAnyAuthority("administrador")
-                        .requestMatchers("/v1/api/profesores/**").hasAnyAuthority("administrador", "alumno", "empresa")
-                        .requestMatchers(HttpMethod.PUT, "/v1/api/profesores/**").hasAnyAuthority("profesor")
-                        .requestMatchers(HttpMethod.POST, "/v1/api/tutorias/**").hasAnyAuthority("administrador")
-                        .requestMatchers(HttpMethod.DELETE, "/v1/api/tutorias/**").hasAnyAuthority("administrador")
-                        .requestMatchers(HttpMethod.GET, "/v1/api/tutorias/**").hasAnyAuthority("administrador", "profesor", "alumno", "empresa")
-                        .requestMatchers(HttpMethod.POST, "/v1/api/solicitudes/**").hasAnyAuthority("alumno", "empresa")
-                        .requestMatchers(HttpMethod.POST, "/v1/api/solicitudes/alu").hasAnyAuthority("alumno")
-                        .requestMatchers(HttpMethod.POST, "/v1/api/solicitudes/emp").hasAnyAuthority("empresa")
-                        .requestMatchers(HttpMethod.POST, "/v1/api/tecnologias/**").hasAnyAuthority("empresa")
-                        .requestMatchers(HttpMethod.POST, "/v1/api/users/**").hasAnyAuthority("administrador")
-                        .anyRequest().authenticated());
+                                .anyRequest().permitAll()
+//                        .requestMatchers("/v1/api/**").permitAll()
+//                        .requestMatchers("/v1/api/auth/register").hasAnyAuthority("administrador")
+//                        .requestMatchers("/v1/api/auth/request-empresa").hasAnyAuthority("administrador")
+//                        .requestMatchers("/v1/api/administradores/**").hasAnyAuthority("administrador")
+//                        .requestMatchers("/v1/api/alumnos/**").hasAnyAuthority("administrador", "empresa", "profesor", "alumno")
+//                        .requestMatchers("/v1/api/alumnos/inactivos").hasAnyAuthority("administrador")
+//                        .requestMatchers(HttpMethod.PUT, "/v1/api/alumnos/**").hasAnyAuthority("administrador", "alumno", "profesor")
+//                        .requestMatchers("/v1/api/empresas/**").hasAnyAuthority("administrador", "alumno", "profesor")
+//                        .requestMatchers("/v1/api/empresas/inactivas").hasAnyAuthority("administrador")
+//                        .requestMatchers(HttpMethod.PUT, "/v1/api/empresas/**").hasAnyAuthority("empresa")
+//                        .requestMatchers("/v1/api/formaciones/**").hasAnyAuthority("administrador")
+//                        .requestMatchers("/v1/api/idiomas/idioma").hasAnyAuthority("administrador")
+//                        .requestMatchers(HttpMethod.PUT, "/v1/api/idiomas/**").hasAnyAuthority("alumno")
+//                        .requestMatchers(HttpMethod.DELETE, "/v1/api/idiomas/aluIdioma/**").hasAnyAuthority("alumno")
+//                        .requestMatchers(HttpMethod.PUT, "/v1/api/mail/**").hasAnyAuthority("administrador")
+//                        .requestMatchers(HttpMethod.PUT, "/v1/api/media/**").hasAnyAuthority("alumno", "administrador", "profesor", "empresa")
+//                        .requestMatchers("/v1/api/profesores/inactivos").hasAnyAuthority("administrador")
+//                        .requestMatchers("/v1/api/profesores/**").hasAnyAuthority("administrador", "alumno", "empresa")
+//                        .requestMatchers(HttpMethod.PUT, "/v1/api/profesores/**").hasAnyAuthority("profesor")
+//                        .requestMatchers(HttpMethod.POST, "/v1/api/tutorias/**").hasAnyAuthority("administrador")
+//                        .requestMatchers(HttpMethod.DELETE, "/v1/api/tutorias/**").hasAnyAuthority("administrador")
+//                        .requestMatchers(HttpMethod.GET, "/v1/api/tutorias/**").hasAnyAuthority("administrador", "profesor", "alumno", "empresa")
+//                        .requestMatchers(HttpMethod.POST, "/v1/api/solicitudes/**").hasAnyAuthority("alumno", "empresa")
+//                        .requestMatchers(HttpMethod.POST, "/v1/api/solicitudes/alu").hasAnyAuthority("alumno")
+//                        .requestMatchers(HttpMethod.POST, "/v1/api/solicitudes/emp").hasAnyAuthority("empresa")
+//                        .requestMatchers(HttpMethod.POST, "/v1/api/tecnologias/**").hasAnyAuthority("empresa")
+//                        .requestMatchers(HttpMethod.POST, "/v1/api/users/**").hasAnyAuthority("administrador")
+//                        .anyRequest().authenticated()
+                        );
         http.authenticationProvider(authenticationProvider());
         http.addFilterBefore(authenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
