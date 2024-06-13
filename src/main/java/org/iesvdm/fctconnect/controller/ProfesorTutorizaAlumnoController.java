@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @Slf4j
 @RestController
-@CrossOrigin(origins = "https://fctconnect.vercel.app")
+@CrossOrigin("*")
 @RequestMapping("/v1/api/tutorias")
 public class ProfesorTutorizaAlumnoController {
 

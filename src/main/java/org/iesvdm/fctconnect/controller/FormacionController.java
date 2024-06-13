@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "https://fctconnect.vercel.app")
+@CrossOrigin("*")
 @RequestMapping("/v1/api/formaciones")
 public class FormacionController {
     private final FormacionService formacionService;
