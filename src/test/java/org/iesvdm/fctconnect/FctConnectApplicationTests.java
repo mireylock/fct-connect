@@ -306,35 +306,6 @@ class FctConnectApplicationTests {
                 .build();
         this.alumnoRepository.save(alumno1);
 
-        Alumno alumno2 = Alumno.builder()
-                .nombre("Juan")
-                .apellido1("García")
-                .email("juan@g.educaand.es")
-                .dni("123456789J")
-                .telefono("+34 123456789")
-                .password(this.encoder.encode("123456"))
-                .carnetConducir(Boolean.TRUE)
-                .vehiculoPropio(Boolean.TRUE)
-                .formacion(DAM)
-                .pathFoto("../../../../assets/img/profile.png")
-                .activo(true)
-                .build();
-        this.alumnoRepository.save(alumno2);
-
-        Alumno alumno3 = Alumno.builder()
-                .nombre("Ramiro")
-                .apellido1("Ramírez")
-                .email("ramiro@g.educaand.es")
-                .dni("123456789K")
-                .telefono("+34 123456789")
-                .password(this.encoder.encode("123456"))
-                .carnetConducir(Boolean.FALSE)
-                .vehiculoPropio(Boolean.FALSE)
-                .formacion(SMR)
-                .pathFoto("../../../../assets/img/profile.png")
-                .activo(true)
-                .build();
-        this.alumnoRepository.save(alumno3);
 
         Alumno alumno4 = Alumno.builder()
                 .nombre("Michelle")
@@ -398,6 +369,21 @@ class FctConnectApplicationTests {
                 .build();
         this.alumnoRepository.save(alumno7);
 
+        Alumno alumno2 = Alumno.builder()
+                .nombre("Juan")
+                .apellido1("García")
+                .email("juan@g.educaand.es")
+                .dni("123456789J")
+                .telefono("+34 123456789")
+                .password(this.encoder.encode("123456"))
+                .carnetConducir(Boolean.TRUE)
+                .vehiculoPropio(Boolean.TRUE)
+                .formacion(DAM)
+                .pathFoto("../../../../assets/img/profile.png")
+                .activo(true)
+                .build();
+        this.alumnoRepository.save(alumno2);
+
         Alumno alumno8 = Alumno.builder()
                 .nombre("Juan")
                 .apellido1("Moreno")
@@ -428,10 +414,25 @@ class FctConnectApplicationTests {
                 .build();
         this.alumnoRepository.save(alumno9);
 
+        Alumno alumno3 = Alumno.builder()
+                .nombre("Ramiro")
+                .apellido1("Ramírez")
+                .email("ramiro@g.educaand.es")
+                .dni("123456789K")
+                .telefono("+34 123456789")
+                .password(this.encoder.encode("123456"))
+                .carnetConducir(Boolean.FALSE)
+                .vehiculoPropio(Boolean.FALSE)
+                .formacion(SMR)
+                .pathFoto("../../../../assets/img/profile.png")
+                .activo(true)
+                .build();
+        this.alumnoRepository.save(alumno3);
+
         Alumno alumno10 = Alumno.builder()
                 .nombre("Santiago")
-                .apellido1("Blanco")
-                .apellido2("Gutiérrez")
+                .apellido1("Moreno")
+                .apellido2("Casillas")
                 .email("santi@g.educaand.es")
                 .dni("123456789Q")
                 .telefono("+34 123456789")
@@ -440,7 +441,7 @@ class FctConnectApplicationTests {
                 .vehiculoPropio(Boolean.TRUE)
                 .formacion(SMR)
                 .pathFoto("../../../../assets/img/profile.png")
-                .activo(false)
+                .activo(true)
                 .build();
         this.alumnoRepository.save(alumno10);
 
@@ -454,7 +455,7 @@ class FctConnectApplicationTests {
                 .password(this.encoder.encode("123456"))
                 .carnetConducir(Boolean.TRUE)
                 .vehiculoPropio(Boolean.FALSE)
-                .formacion(DAM)
+                .formacion(SMR)
                 .pathFoto("../../../../assets/img/profile.png")
                 .activo(false)
                 .build();
@@ -470,7 +471,7 @@ class FctConnectApplicationTests {
                 .password(this.encoder.encode("123456"))
                 .carnetConducir(Boolean.FALSE)
                 .vehiculoPropio(Boolean.FALSE)
-                .formacion(DAW)
+                .formacion(DAM)
                 .pathFoto("../../../../assets/img/profile.png")
                 .activo(false)
                 .build();
@@ -486,38 +487,38 @@ class FctConnectApplicationTests {
                 .password(this.encoder.encode("123456"))
                 .carnetConducir(Boolean.TRUE)
                 .vehiculoPropio(Boolean.FALSE)
-                .formacion(DAM)
+                .formacion(DAW)
                 .pathFoto("../../../../assets/img/profile.png")
                 .activo(false)
                 .build();
         this.alumnoRepository.save(alumno13);
 
         Alumno alumno14 = Alumno.builder()
-                .nombre("Ksenija")
-                .apellido1("Romane")
-                .email("Ksenia@g.educaand.es")
+                .nombre("Xenia")
+                .apellido1("Enamor")
+                .email("contraks@g.educaand.es")
                 .dni("123456789T")
                 .telefono("+41 123456789")
                 .password(this.encoder.encode("123456"))
                 .carnetConducir(Boolean.FALSE)
                 .vehiculoPropio(Boolean.FALSE)
-                .formacion(DAW)
+                .formacion(DAM)
                 .pathFoto("../../../../assets/img/profile.png")
                 .activo(true)
                 .build();
         this.alumnoRepository.save(alumno14);
 
         Alumno alumno15 = Alumno.builder()
-                .nombre("Víctor")
+                .nombre("Julia")
                 .apellido1("Bolsó")
                 .apellido2("Flyman")
-                .email("vic@g.educaand.es")
+                .email("julia@g.educaand.es")
                 .dni("123456789U")
                 .telefono("+34 123456789")
                 .password(this.encoder.encode("123456"))
                 .carnetConducir(Boolean.FALSE)
                 .vehiculoPropio(Boolean.FALSE)
-                .formacion(DAM)
+                .formacion(SMR)
                 .pathFoto("../../../../assets/img/profile.png")
                 .activo(true)
                 .build();
@@ -555,43 +556,51 @@ class FctConnectApplicationTests {
                 .build();
         this.alumnoRepository.save(alumno17);
 
-        AlumnoHablaIdioma vicIngles = AlumnoHablaIdioma.builder()
-                .idioma(ingles)
-                .alumno(alumno15)
-                .nivel(ENivelIdioma.AVANZADO)
+        Alumno alumno18 = Alumno.builder()
+                .nombre("Tor")
+                .apellido1("Nilden")
+                .email("tor@g.educaand.es")
+                .dni("223456789A")
+                .telefono("+34 123456789")
+                .password(this.encoder.encode("123456"))
+                .carnetConducir(Boolean.TRUE)
+                .vehiculoPropio(Boolean.TRUE)
+                .formacion(SMR)
+                .pathFoto("../../../../assets/img/profile.png")
+                .activo(true)
                 .build();
-        this.alumnoHablaIdiomaRepository.save(vicIngles);
+        this.alumnoRepository.save(alumno18);
 
-        AlumnoHablaIdioma vicHolandes = AlumnoHablaIdioma.builder()
+        AlumnoHablaIdioma torNoruego = AlumnoHablaIdioma.builder()
+                .idioma(noruego)
+                .alumno(alumno18)
+                .nivel(ENivelIdioma.NATIVO)
+                .descripcion("Segunda lengua nativa porque mi madre es holandesa")
+                .build();
+        this.alumnoHablaIdiomaRepository.save(torNoruego);
+
+        AlumnoHablaIdioma juliaHolandes = AlumnoHablaIdioma.builder()
                 .idioma(holandes)
                 .alumno(alumno15)
                 .nivel(ENivelIdioma.NATIVO)
                 .descripcion("Segunda lengua nativa porque mi madre es holandesa")
                 .build();
-        this.alumnoHablaIdiomaRepository.save(vicHolandes);
+        this.alumnoHablaIdiomaRepository.save(juliaHolandes);
 
-        AlumnoHablaIdioma kseniaIngles = AlumnoHablaIdioma.builder()
-                .idioma(ingles)
-                .alumno(alumno14)
-                .nivel(ENivelIdioma.AVANZADO)
-                .descripcion("6 años de experiencia trabajando en inglés con mis compañeros de laboratorio")
-                .build();
-        this.alumnoHablaIdiomaRepository.save(kseniaIngles);
-
-        AlumnoHablaIdioma kseniaAleman = AlumnoHablaIdioma.builder()
+        AlumnoHablaIdioma xeniaAleman = AlumnoHablaIdioma.builder()
                 .idioma(aleman)
                 .alumno(alumno14)
                 .nivel(ENivelIdioma.AVANZADO)
                 .descripcion("6 años trabajando en la parte alemana de Suiza y hablando inglés en la vida cotidiana")
                 .build();
-        this.alumnoHablaIdiomaRepository.save(kseniaAleman);
+        this.alumnoHablaIdiomaRepository.save(xeniaAleman);
 
-        AlumnoHablaIdioma kseniaRuso = AlumnoHablaIdioma.builder()
+        AlumnoHablaIdioma xeniaRuso = AlumnoHablaIdioma.builder()
                 .idioma(ruso)
                 .alumno(alumno14)
                 .nivel(ENivelIdioma.NATIVO)
                 .build();
-        this.alumnoHablaIdiomaRepository.save(kseniaRuso);
+        this.alumnoHablaIdiomaRepository.save(xeniaRuso);
 
         AlumnoHablaIdioma mattiChino = AlumnoHablaIdioma.builder()
                 .idioma(chino)
@@ -622,6 +631,28 @@ class FctConnectApplicationTests {
                 .nivel(ENivelIdioma.MEDIO)
                 .build();
         this.alumnoHablaIdiomaRepository.save(mattiIngles);
+
+        AlumnoHablaIdioma hectorIgnles   = AlumnoHablaIdioma.builder()
+                .idioma(ingles)
+                .alumno(alumno5)
+                .nivel(ENivelIdioma.AVANZADO)
+                .descripcion("1 año de experiencia trabajando en un hotel en Reino Unido")
+                .build();
+        this.alumnoHablaIdiomaRepository.save(hectorIgnles  );
+
+        AlumnoHablaIdioma guilleIngles = AlumnoHablaIdioma.builder()
+                .idioma(ingles)
+                .alumno(alumno6)
+                .nivel(ENivelIdioma.AVANZADO)
+                .build();
+        this.alumnoHablaIdiomaRepository.save(guilleIngles);
+
+        AlumnoHablaIdioma michiIngles = AlumnoHablaIdioma.builder()
+                .idioma(ingles)
+                .alumno(alumno4)
+                .nivel(ENivelIdioma.MEDIO)
+                .build();
+        this.alumnoHablaIdiomaRepository.save(michiIngles);
 
 
         //////////      EMPRESAS     ///////////////
@@ -727,9 +758,69 @@ class FctConnectApplicationTests {
                 .modalidadesTrabajo(new HashSet<>(Set.of(EModalidadTrabajo.HIBRIDO, EModalidadTrabajo.ONLINE)))
                 .resumen("Empresa consultora")
                 .pathFoto("../../../../assets/img/profile.png")
-                .activo(false)
+                .activo(true)
                 .build();
         this.empresaRepository.save(empresa5);
+
+        Empresa empresa6 = Empresa.builder()
+                .nombre("ViewNext")
+                .email("viewnext@mail.com")
+                .password(this.encoder.encode("123456"))
+                .inglesSolicitado(EInglesSolicitado.IMPORTANTE)
+                .modalidadesTrabajo(new HashSet<>(Set.of(EModalidadTrabajo.PRESENCIAL)))
+                .resumen("Empresa consultora")
+                .pathFoto("../../../../assets/img/profile.png")
+                .activo(true)
+                .build();
+        this.empresaRepository.save(empresa6);
+
+        Empresa empresa7 = Empresa.builder()
+                .nombre("Ebury")
+                .email("ebury@mail.com")
+                .password(this.encoder.encode("123456"))
+                .inglesSolicitado(EInglesSolicitado.IMPRESCINDIBLE)
+                .modalidadesTrabajo(new HashSet<>(Set.of(EModalidadTrabajo.PRESENCIAL, EModalidadTrabajo.HIBRIDO)))
+                .resumen("Empresa consultora internacional")
+                .pathFoto("../../../../assets/img/profile.png")
+                .activo(true)
+                .build();
+        this.empresaRepository.save(empresa7);
+
+        Empresa empresa8 = Empresa.builder()
+                .nombre("Dekra")
+                .email("dekra@mail.com")
+                .password(this.encoder.encode("123456"))
+                .inglesSolicitado(EInglesSolicitado.NO_NECESARIO)
+                .modalidadesTrabajo(new HashSet<>(Set.of(EModalidadTrabajo.PRESENCIAL, EModalidadTrabajo.ONLINE)))
+                .resumen("Empresa consultora")
+                .pathFoto("../../../../assets/img/profile.png")
+                .activo(false)
+                .build();
+        this.empresaRepository.save(empresa8);
+
+        Empresa empresa9 = Empresa.builder()
+                .nombre("Bartolomé Consultora")
+                .email("bart@mail.com")
+                .password(this.encoder.encode("123456"))
+                .inglesSolicitado(EInglesSolicitado.NO_NECESARIO)
+                .modalidadesTrabajo(new HashSet<>(Set.of(EModalidadTrabajo.PRESENCIAL)))
+                .resumen("Empresa consultora de Fuengirola")
+                .pathFoto("../../../../assets/img/profile.png")
+                .activo(true)
+                .build();
+        this.empresaRepository.save(empresa9);
+
+        Empresa empresa10 = Empresa.builder()
+                .nombre("My site works")
+                .email("siteworks@mail.com")
+                .password(this.encoder.encode("123456"))
+                .inglesSolicitado(EInglesSolicitado.NO_NECESARIO)
+                .modalidadesTrabajo(new HashSet<>(Set.of(EModalidadTrabajo.PRESENCIAL, EModalidadTrabajo.ONLINE, EModalidadTrabajo.HIBRIDO)))
+                .resumen("Empresa consultora de Torremolinos")
+                .pathFoto("../../../../assets/img/profile.png")
+                .activo(true)
+                .build();
+        this.empresaRepository.save(empresa10);
 
 
         //////////      SOLICITUDES     ///////////////

@@ -36,8 +36,8 @@ public class CustomQueryBusquedaAlumnoImpl implements CustomQueryBusquedaAlumno 
         countQueryStr.append(" where A.activo = true");
 
         if (nombre.isPresent() && !nombre.get().isEmpty()) {
-            queryStr.append(" and CONCAT(A.nombre, ' ', A.apellido1, ' ', COALESCE(A.apellido2, '')) LIKE CONCAT('%', :nombre, '%')");
-            countQueryStr.append(" and CONCAT(A.nombre, ' ', A.apellido1, ' ', COALESCE(A.apellido2, '')) LIKE CONCAT('%', :nombre, '%')");
+            queryStr.append(" and LOWER(CONCAT(A.nombre, ' ', A.apellido1, ' ', COALESCE(A.apellido2, ''))) LIKE LOWER(CONCAT('%', :nombre, '%'))");
+            countQueryStr.append(" and LOWER(CONCAT(A.nombre, ' ', A.apellido1, ' ', COALESCE(A.apellido2, ''))) LIKE LOWER(CONCAT('%', :nombre, '%'))");
         }
 
         if (vehiculoPropio.isPresent()) {
