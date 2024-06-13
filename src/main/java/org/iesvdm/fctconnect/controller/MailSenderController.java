@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "https://fctconnect.vercel.app")
 @RequestMapping("/v1/api/mail")
 public class MailSenderController {
     @Autowired

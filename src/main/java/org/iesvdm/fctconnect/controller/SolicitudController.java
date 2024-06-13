@@ -12,7 +12,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "https://fctconnect.vercel.app")
 @RequestMapping("/v1/api/solicitudes")
 public class SolicitudController {
     private final SolicitudService solicitudService;

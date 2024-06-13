@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "https://fctconnect.vercel.app")
 @RequestMapping("/v1/api/tecnologias")
 public class TecnologiaController {
     private final TecnologiaService tecnologiaService;

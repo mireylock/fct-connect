@@ -11,7 +11,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "https://fctconnect.vercel.app")
 @RequestMapping("/v1/api/administradores")
 public class AdministradorController {
     private final AdministradorService administradorService;
