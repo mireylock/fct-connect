@@ -12,7 +12,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@CrossOrigin("*")
+@CrossOrigin(origins = "*")
 @RequestMapping("/v1/api/solicitudes")
 public class SolicitudController {
     private final SolicitudService solicitudService;

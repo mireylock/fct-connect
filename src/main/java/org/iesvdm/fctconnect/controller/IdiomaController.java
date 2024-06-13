@@ -14,7 +14,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@CrossOrigin("*")
+@CrossOrigin(origins = "*")
 @RequestMapping("/v1/api/idiomas")
 public class IdiomaController {
     private final IdiomaService idiomaService;

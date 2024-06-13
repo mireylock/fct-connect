@@ -22,7 +22,7 @@ import java.util.*;
 
 @Slf4j
 @RestController
-@CrossOrigin("*")
+@CrossOrigin(origins = "*")
 @RequestMapping("/v1/api/auth")
 public class AuthController {
     private final AuthenticationManager authenticationManager;

@@ -7,7 +7,7 @@ import org.iesvdm.fctconnect.service.UsuarioService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin("*")
+@CrossOrigin(origins = "*")
 @RequestMapping("/v1/api/users")
 public class UsuarioController {
 

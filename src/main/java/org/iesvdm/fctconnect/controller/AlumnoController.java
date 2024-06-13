@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @Slf4j
 @RestController
-@CrossOrigin("*")
+@CrossOrigin(origins = "*")
 @RequestMapping("/v1/api/alumnos")
 public class AlumnoController {
     private final AlumnoService alumnoService;
