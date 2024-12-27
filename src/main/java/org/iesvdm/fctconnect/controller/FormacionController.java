@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "https://fctconnect.vercel.app")
+// @CrossOrigin(origins = "https://fctconnect.vercel.app")
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/v1/api/formaciones")
 public class FormacionController {
     private final FormacionService formacionService;
@@ -16,12 +17,12 @@ public class FormacionController {
         this.formacionService = formacionService;
     }
 
-    @GetMapping(value = {"", "/"})
+    @GetMapping(value = { "", "/" })
     public List<Formacion> getAll() {
         return this.formacionService.getAll();
     }
 
-    @PostMapping(value = {"", "/"})
+    @PostMapping(value = { "", "/" })
     public Formacion post(@RequestBody Formacion formacion) {
         return this.formacionService.save(formacion);
     }

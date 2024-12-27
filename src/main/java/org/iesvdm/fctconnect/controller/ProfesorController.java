@@ -18,7 +18,8 @@ import java.util.Optional;
 
 @Slf4j
 @RestController
-@CrossOrigin(origins = "https://fctconnect.vercel.app")
+// @CrossOrigin(origins = "https://fctconnect.vercel.app")
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/v1/api/profesores")
 public class ProfesorController {
     private final ProfesorService profesorService;
@@ -27,28 +28,27 @@ public class ProfesorController {
         this.profesorService = profesorService;
     }
 
-    @GetMapping(value = {"", "/"}, params = {"!nombre"})
+    @GetMapping(value = { "", "/" }, params = { "!nombre" })
     public List<Profesor> allActivos() {
         log.info("Accediendo a todos los profesores activos");
         return this.profesorService.allActivos();
     }
 
-    @GetMapping(value = {"", "/"})
+    @GetMapping(value = { "", "/" })
     public Map<String, Object> buscarProfesorPaginacion(String nombre,
-                                                        Optional<Integer> pagina,
-                                                        Optional<Integer> tamanio) {
+            Optional<Integer> pagina,
+            Optional<Integer> tamanio) {
         log.info("Accediendo a profesores con filtros");
         return this.profesorService.buscarProfesorPaginacion(nombre, pagina, tamanio);
     }
 
-    @GetMapping(value = { "/inactivos"})
+    @GetMapping(value = { "/inactivos" })
     public Map<String, Object> buscarProfesorInactivosPaginacion(String nombre,
-                                                        Optional<Integer> pagina,
-                                                        Optional<Integer> tamanio) {
+            Optional<Integer> pagina,
+            Optional<Integer> tamanio) {
         log.info("Accediendo a profesores INACTIVOS con filtros");
         return this.profesorService.buscarProfesorInactivoPaginacion(nombre, pagina, tamanio);
     }
-
 
     @GetMapping("/{id}")
     public Profesor one(@PathVariable("id") Long id) {

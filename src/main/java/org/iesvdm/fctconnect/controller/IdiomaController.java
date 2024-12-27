@@ -14,7 +14,8 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@CrossOrigin(origins = "https://fctconnect.vercel.app")
+// @CrossOrigin(origins = "https://fctconnect.vercel.app")
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/v1/api/idiomas")
 public class IdiomaController {
     private final IdiomaService idiomaService;
@@ -24,24 +25,24 @@ public class IdiomaController {
     }
 
     // IDIOMAS DEL ALUMNO
-    @PostMapping({"", "/"})
+    @PostMapping({ "", "/" })
     public AlumnoHablaIdioma newALumnoIdioma(@RequestBody AlumnoHablaIdiomaDTO alumnoHablaIdiomaDTO) {
         return idiomaService.saveAlumnoHablaIdioma(alumnoHablaIdiomaDTO);
     }
 
-    @DeleteMapping({"/aluIdioma/{id}"})
-    public void deleteAlumnoHablaIdioma (@PathVariable ("id") Long id){
+    @DeleteMapping({ "/aluIdioma/{id}" })
+    public void deleteAlumnoHablaIdioma(@PathVariable("id") Long id) {
         idiomaService.deleteAlumnoHablaIdioma(id);
     }
 
     // IDIOMAS
-    @GetMapping(value = {"", "/"})
+    @GetMapping(value = { "", "/" })
     public List<Idioma> all() {
         log.info("Accediendo a todos los idiomas");
         return this.idiomaService.all();
     }
 
-    @PostMapping({"/idioma"})
+    @PostMapping({ "/idioma" })
     public Idioma newIdioma(@RequestBody Idioma idioma) {
         return this.idiomaService.save(idioma);
     }
@@ -55,7 +56,6 @@ public class IdiomaController {
     public Idioma replaceIdioma(@PathVariable("id") Long id, @RequestBody Idioma idioma) {
         return this.idiomaService.replace(id, idioma);
     }
-
 
     @ResponseBody
     @ResponseStatus(HttpStatus.NO_CONTENT)

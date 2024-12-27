@@ -15,7 +15,8 @@ import java.util.Optional;
 
 @Slf4j
 @RestController
-@CrossOrigin(origins = "https://fctconnect.vercel.app")
+// @CrossOrigin(origins = "https://fctconnect.vercel.app")
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/v1/api/empresas")
 public class EmpresaController {
     private final EmpresaService empresaService;
@@ -24,34 +25,35 @@ public class EmpresaController {
         this.empresaService = empresaService;
     }
 
-
-    @GetMapping(value = {"", "/"}, params = {"!nombre", "!modalidadTrabajo", "!inglesSolicitado", "!tecnologia", "!pagina", "!tamanio"})
+    @GetMapping(value = { "", "/" }, params = { "!nombre", "!modalidadTrabajo", "!inglesSolicitado", "!tecnologia",
+            "!pagina", "!tamanio" })
     public List<Empresa> allActivas() {
         log.info("Accediendo a todas las empresas activas");
         return this.empresaService.allActivos();
     }
 
-
-    @GetMapping(value = {"", "/"})
-    public Map<String, Object> buscarEmpresaPaginacion (String nombre,
-                                                        EModalidadTrabajo modalidadTrabajo,
-                                                        EInglesSolicitado inglesSolicitado,
-                                                        String tecnologia,
-                                                        Optional<Integer> pagina,
-                                                        Optional<Integer> tamanio) {
+    @GetMapping(value = { "", "/" })
+    public Map<String, Object> buscarEmpresaPaginacion(String nombre,
+            EModalidadTrabajo modalidadTrabajo,
+            EInglesSolicitado inglesSolicitado,
+            String tecnologia,
+            Optional<Integer> pagina,
+            Optional<Integer> tamanio) {
         log.info("Accediendo a empresas con filtros");
-        return this.empresaService.buscarEmpresaPaginacion(nombre, inglesSolicitado, modalidadTrabajo, tecnologia, pagina, tamanio);
+        return this.empresaService.buscarEmpresaPaginacion(nombre, inglesSolicitado, modalidadTrabajo, tecnologia,
+                pagina, tamanio);
     }
 
-    @GetMapping(value = {"/inactivas"})
-    public Map<String, Object> buscarEmpresaInactivasPaginacion (String nombre,
-                                                        EModalidadTrabajo modalidadTrabajo,
-                                                        EInglesSolicitado inglesSolicitado,
-                                                        String tecnologia,
-                                                        Optional<Integer> pagina,
-                                                        Optional<Integer> tamanio) {
+    @GetMapping(value = { "/inactivas" })
+    public Map<String, Object> buscarEmpresaInactivasPaginacion(String nombre,
+            EModalidadTrabajo modalidadTrabajo,
+            EInglesSolicitado inglesSolicitado,
+            String tecnologia,
+            Optional<Integer> pagina,
+            Optional<Integer> tamanio) {
         log.info("Accediendo a empresas INACTIVAS con filtros");
-        return this.empresaService.buscarEmpresaInactivasPaginacion(nombre, inglesSolicitado, modalidadTrabajo, tecnologia, pagina, tamanio);
+        return this.empresaService.buscarEmpresaInactivasPaginacion(nombre, inglesSolicitado, modalidadTrabajo,
+                tecnologia, pagina, tamanio);
     }
 
     @GetMapping("/{id}")

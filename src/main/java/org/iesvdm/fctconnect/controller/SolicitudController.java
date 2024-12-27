@@ -12,7 +12,8 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@CrossOrigin(origins = "https://fctconnect.vercel.app")
+// @CrossOrigin(origins = "https://fctconnect.vercel.app")
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/v1/api/solicitudes")
 public class SolicitudController {
     private final SolicitudService solicitudService;
@@ -21,12 +22,12 @@ public class SolicitudController {
         this.solicitudService = solicitudService;
     }
 
-    @GetMapping(value = { "/alu"})
+    @GetMapping(value = { "/alu" })
     public List<Solicitud> allSolicitudesAlumno(String estado, String tipo, long id) {
         return this.solicitudService.allAlumno(estado, tipo, id);
     }
 
-    @GetMapping(value = { "/emp"})
+    @GetMapping(value = { "/emp" })
     public List<Solicitud> allSolicitudesEmpresa(String estado, String tipo, long id) {
         return this.solicitudService.allEmpresa(estado, tipo, id);
     }
@@ -36,8 +37,7 @@ public class SolicitudController {
         return this.solicitudService.replace(id, solicitudEstadoDTO);
     }
 
-
-    @PostMapping({"", "/"})
+    @PostMapping({ "", "/" })
     public Solicitud newSolicitud(@RequestBody SolicitudCrearDTO solicitudcrearDTO) {
         return this.solicitudService.save(solicitudcrearDTO);
     }
@@ -46,8 +46,6 @@ public class SolicitudController {
     public Solicitud one(@PathVariable("id") Long id) {
         return this.solicitudService.one(id);
     }
-
-
 
     @ResponseBody
     @ResponseStatus(HttpStatus.NO_CONTENT)

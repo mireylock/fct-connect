@@ -13,7 +13,8 @@ import java.util.Optional;
 
 @Slf4j
 @RestController
-@CrossOrigin(origins = "https://fctconnect.vercel.app")
+// @CrossOrigin(origins = "https://fctconnect.vercel.app")
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/v1/api/alumnos")
 public class AlumnoController {
     private final AlumnoService alumnoService;
@@ -22,28 +23,28 @@ public class AlumnoController {
         this.alumnoService = alumnoService;
     }
 
-    @GetMapping(value = {"", "/"}, params = {"!pagina", "!tamanio", "!nombre", "!vehiculoPropio", "!idioma"})
+    @GetMapping(value = { "", "/" }, params = { "!pagina", "!tamanio", "!nombre", "!vehiculoPropio", "!idioma" })
     public List<Alumno> allActivos() {
         log.info("Accediendo a todos los alumnos");
         return this.alumnoService.allActivos();
     }
 
-    @GetMapping(value = {"", "/"})
+    @GetMapping(value = { "", "/" })
     public Map<String, Object> buscarAlumnosPaginacion(Optional<String> nombre,
-                                                       Optional<Boolean> vehiculoPropio,
-                                                       Optional<Long> idioma,
-                                                       Optional<Integer> pagina,
-                                                       Optional<Integer> tamanio) {
+            Optional<Boolean> vehiculoPropio,
+            Optional<Long> idioma,
+            Optional<Integer> pagina,
+            Optional<Integer> tamanio) {
         log.info("Accediendo a alumnos con filtros");
         return this.alumnoService.buscarAlumnoPaginacion(nombre, vehiculoPropio, idioma, pagina, tamanio);
     }
 
-    @GetMapping(value = {"/inactivos"})
+    @GetMapping(value = { "/inactivos" })
     public Map<String, Object> buscarAlumnosInactivosPaginacion(Optional<String> nombre,
-                                                       Optional<Boolean> vehiculoPropio,
-                                                       Optional<Long> idioma,
-                                                       Optional<Integer> pagina,
-                                                       Optional<Integer> tamanio) {
+            Optional<Boolean> vehiculoPropio,
+            Optional<Long> idioma,
+            Optional<Integer> pagina,
+            Optional<Integer> tamanio) {
         log.info("Accediendo a alumnos INACTIVOS con filtros");
         return this.alumnoService.buscarAlumnoInactivoPaginacion(nombre, vehiculoPropio, idioma, pagina, tamanio);
     }
@@ -53,13 +54,9 @@ public class AlumnoController {
         return this.alumnoService.one(id);
     }
 
-
     @PutMapping("/{id}")
     public Alumno replaceAlumno(@PathVariable("id") Long id, @RequestBody AlumnoDTO alumnoDTO) {
         return this.alumnoService.replaceAlumno(id, alumnoDTO);
     }
 
 }
-
-
-

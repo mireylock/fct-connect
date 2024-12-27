@@ -22,7 +22,8 @@ import java.util.*;
 
 @Slf4j
 @RestController
-@CrossOrigin(origins = "https://fctconnect.vercel.app")
+// @CrossOrigin(origins = "https://fctconnect.vercel.app")
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/v1/api/auth")
 public class AuthController {
     private final AuthenticationManager authenticationManager;
@@ -36,7 +37,11 @@ public class AuthController {
     private final EmpresaRequestRepository empresaRequestRepository;
     private final EmpresaRequestService empresaRequestService;
 
-    public AuthController(AuthenticationManager authenticationManager, UsuarioRepository userRepository, PasswordEncoder encoder, TokenUtils tokenUtils, AdministradorRepository administradorRepository, AlumnoRepository alumnoRepository, EmpresaRepository empresaRepository, ProfesorRepository profesorRepository, EmpresaRequestRepository empresaRequestRepository, EmpresaRequestService empresaRequestService) {
+    public AuthController(AuthenticationManager authenticationManager, UsuarioRepository userRepository,
+            PasswordEncoder encoder, TokenUtils tokenUtils, AdministradorRepository administradorRepository,
+            AlumnoRepository alumnoRepository, EmpresaRepository empresaRepository,
+            ProfesorRepository profesorRepository, EmpresaRequestRepository empresaRequestRepository,
+            EmpresaRequestService empresaRequestService) {
         this.authenticationManager = authenticationManager;
         this.userRepository = userRepository;
         this.encoder = encoder;
@@ -49,7 +54,7 @@ public class AuthController {
         this.empresaRequestService = empresaRequestService;
     }
 
-    @PostMapping(value = {"/login-alumno", "/login-empresa", "/login-profesor"})
+    @PostMapping(value = { "/login-alumno", "/login-empresa", "/login-profesor" })
     public ResponseEntity<Map<String, Object>> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
         try {
             Authentication authentication = authenticationManager.authenticate(
@@ -78,7 +83,7 @@ public class AuthController {
         }
     }
 
-    @PostMapping(value = {"/register"})
+    @PostMapping(value = { "/register" })
     public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterRequest registerRequest) {
         if (userRepository.existsByEmail(registerRequest.getEmail())) {
             log.info("Email ya en uso");
@@ -156,7 +161,6 @@ public class AuthController {
     public List<EmpresaRequest> all() {
         return this.empresaRequestService.all();
     }
-
 
     @PostMapping("/request-empresa")
     public ResponseEntity<?> registerEmpresaRequest(@Valid @RequestBody RegisterRequestEmpresa registerRequestEmpresa) {

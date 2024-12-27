@@ -15,7 +15,8 @@ import java.util.Optional;
 
 @Slf4j
 @RestController
-@CrossOrigin(origins = "https://fctconnect.vercel.app")
+// @CrossOrigin(origins = "https://fctconnect.vercel.app")
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/v1/api/tutorias")
 public class ProfesorTutorizaAlumnoController {
 
@@ -31,18 +32,18 @@ public class ProfesorTutorizaAlumnoController {
         return this.profesorTutorizaAlumnoService.allFromProfesor(idProfesor);
     }
 
-    @GetMapping(value = {"/search/{idProfesor}"})
+    @GetMapping(value = { "/search/{idProfesor}" })
     public Map<String, Object> buscarAlumnosTutoriaPaginacion(@PathVariable Long idProfesor,
-                                                              String nombre,
-                                                        Optional<Integer> pagina,
-                                                        Optional<Integer> tamanio) {
+            String nombre,
+            Optional<Integer> pagina,
+            Optional<Integer> tamanio) {
         log.info("Accediendo a tutorias con filtros");
         return this.profesorTutorizaAlumnoService.buscarAlumnosTutoriaPaginacion(idProfesor, nombre, pagina, tamanio);
     }
 
-
-    @PostMapping({"", "/"})
-    public ProfesorTutorizaAlumno newProfesorTutorizaAlumno(@RequestBody ProfesorTutorizaAlumnoDTO profesorTutorizaAlumnoDTO) {
+    @PostMapping({ "", "/" })
+    public ProfesorTutorizaAlumno newProfesorTutorizaAlumno(
+            @RequestBody ProfesorTutorizaAlumnoDTO profesorTutorizaAlumnoDTO) {
         return this.profesorTutorizaAlumnoService.save(profesorTutorizaAlumnoDTO);
     }
 
